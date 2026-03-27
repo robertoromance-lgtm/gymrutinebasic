@@ -293,6 +293,23 @@ p{margin:0 0 6px;color:var(--text-secondary);}
 </div>
 
 </div> <!-- cierre de .app -->
+<!-- MI RUTINA SEMANAL -->
+<section id="mi-rutina-semanal" style="margin-top:20px;">
+  <h2 style="margin-bottom:10px;">Mi rutina semanal</h2>
+
+  <div class="routine-buttons">
+    <button class="btn btn-neutral btn-full" data-dia="lunes">Lunes</button>
+    <button class="btn btn-neutral btn-full" data-dia="martes">Martes</button>
+    <button class="btn btn-neutral btn-full" data-dia="miercoles">Miércoles</button>
+    <button class="btn btn-neutral btn-full" data-dia="jueves">Jueves</button>
+    <button class="btn btn-neutral btn-full" data-dia="viernes">Viernes</button>
+    <button class="btn btn-neutral btn-full" data-dia="sabado">Sábado</button>
+    <button class="btn btn-neutral btn-full" data-dia="domingo">Domingo</button>
+  </div>
+
+  <div id="rutinaDiaContenido" style="margin-top:15px;"></div>
+</section>
+
 
 <!-- MODAL EJERCICIO -->
 <div class="modal-backdrop" id="exerciseModal">
@@ -580,6 +597,112 @@ function initFilterChips(){
     });
   });
 }
+// --- MI RUTINA SEMANAL ---
+
+const rutinaSemanal = {
+  lunes: [
+    { nombre: "Prensa de pierna", maquina: "prensa" },
+    { nombre: "Extensión de cuádriceps", maquina: "extension" },
+    { nombre: "Femoral sentado", maquina: "femoral" },
+    { nombre: "Gemelos", maquina: "gemelos" },
+    { nombre: "Abdominal máquina", maquina: "abdominal" },
+    { nombre: "Cardio 10-20 min", maquina: null }
+  ],
+
+  martes: [
+    { nombre: "Jalón al pecho", maquina: "jalon" },
+    { nombre: "Remo sentado", maquina: "remo" },
+    { nombre: "Curl de bíceps", maquina: "biceps" },
+    { nombre: "Elevaciones laterales", maquina: "deltoides" },
+    { nombre: "Cardio 10-20 min", maquina: null }
+  ],
+
+  miercoles: [
+    { nombre: "Press de pecho", maquina: "pecho" },
+    { nombre: "Aperturas", maquina: "aperturas" },
+    { nombre: "Press de hombros", maquina: "hombros" },
+    { nombre: "Press de tríceps", maquina: "triceps" },
+    { nombre: "Abdominal máquina", maquina: "abdominal" }
+  ],
+
+  jueves: [
+    { nombre: "Día de descanso", maquina: null }
+  ],
+
+  viernes: [
+    { nombre: "Prensa de pierna", maquina: "prensa" },
+    { nombre: "Extensión de cuádriceps", maquina: "extension" },
+    { nombre: "Femoral sentado", maquina: "femoral" },
+    { nombre: "Gemelos", maquina: "gemelos" },
+    { nombre: "Abdominal máquina", maquina: "abdominal" },
+    { nombre: "Cardio 10-20 min", maquina: null }
+  ],
+
+  sabado: [
+    { nombre: "Press de pecho", maquina: "pecho" },
+    { nombre: "Jalón al pecho", maquina: "jalon" },
+    { nombre: "Press de hombros", maquina: "hombros" },
+    { nombre: "Press de tríceps", maquina: "triceps" },
+    { nombre: "Curl de bíceps", maquina: "biceps" },
+    { nombre: "Abdominal máquina", maquina: "abdominal" },
+    { nombre: "Cardio suave", maquina: null }
+  ],
+
+  domingo: [
+    { nombre: "Día libre", maquina: null }
+  ]
+};
+
+
+// Renderizado de la rutina del día seleccionado
+function renderRutinaDia(dia) {
+  const cont = document.getElementById("rutinaDiaContenido");
+  const ejercicios = rutinaSemanal[dia];
+
+  if (!ejercicios) {
+    cont.innerHTML = "<p>No hay rutina definida para este día.</p>";
+    return;
+  }
+
+  let html = `<h3 style="margin-bottom:10px;text-transform:capitalize;">${dia}</h3>`;
+
+  ejercicios.forEach(ej => {
+    if (ej.maquina) {
+      html += `
+        <div class="exercise-card" style="padding:10px;border:1px solid #ccc;border-radius:8px;margin-bottom:10px;">
+          <strong>${ej.nombre}</strong><br>
+          <button class="btn btn-neutral" onclick="openExerciseFromRutina('${ej.maquina}')">Ver ejercicio</button>
+        </div>
+      `;
+    } else {
+      html += `
+        <div class="exercise-card" style="padding:10px;border:1px solid #ccc;border-radius:8px;margin-bottom:10px;background:#f7f7f7;">
+          <strong>${ej.nombre}</strong>
+        </div>
+      `;
+    }
+  });
+
+  cont.innerHTML = html;
+}
+
+
+// Conexión con tu modal actual
+function openExerciseFromRutina(maquinaID) {
+  const btn = document.querySelector(`[data-machine="${maquinaID}"]`);
+  if (btn) btn.click();
+}
+
+
+// Activación de botones
+document.querySelectorAll("#mi-rutina-semanal .routine-buttons button")
+  .forEach(btn => {
+    btn.addEventListener("click", () => {
+      const dia = btn.getAttribute("data-dia");
+      renderRutinaDia(dia);
+    });
+  });
+
 </script>
 </body>
 </html>
