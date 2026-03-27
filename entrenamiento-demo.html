@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Demo guía de entrenamiento</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+:root{
+  --bg-top:#FAFAFA;
+  --bg-bottom:#F2F2F2;
+  --card-radius:12px;
+  --shadow-soft:0 4px 12px rgba(0,0,0,0.12);
+  --text-main:#333;
+  --text-secondary:#666;
+  --accent-pecho:#E53935;
+  --accent-espalda:#1E88E5;
+  --accent-piernas:#43A047;
+  --accent-neutral:#424242;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:linear-gradient(to bottom,var(--bg-top),var(--bg-bottom));
+  color:var(--text-main);
+}
+.app{
+  max-width:960px;
+  margin:0 auto;
+  padding:16px;
+}
+h1,h2,h3{margin:0 0 10px;font-weight:600;}
+h1{text-align:center;margin-top:12px;margin-bottom:18px;}
+p{margin:0 0 6px;color:var(--text-secondary);}
+
+/* Tarjetas */
+.card{
+  background:#fff;
+  border-radius:var(--card-radius);
+  box-shadow:var(--shadow-soft);
+  padding:16px;
+  margin-bottom:18px;
+}
+
+/* Botones */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:44px;
+  padding:0 18px;
+  border-radius:var(--card-radius);
+  border:none;
+  cursor:pointer;
+  color:#fff;
+  font-size:14px;
+  font-weight:500;
+  box-shadow:var(--shadow-soft);
+  transition:0.15s ease;
+}
+.btn:active{
+  transform:translateY(2px);
+  box-shadow:0 2px 6px rgba(0,0,0,0.18);
+}
+.btn-full{width:100%;}
+.btn-neutral{background:var(--accent-neutral);}
+.btn-pecho{background:var(--accent-pecho);}
+.btn-espalda{background:var(--accent-espalda);}
+.btn-piernas{background:var(--accent-piernas);}
+
+/* Nivel */
+.levels{display:flex;flex-direction:column;gap:10px;}
+.level-card{
+  border-left:4px solid transparent;
+  padding:10px;
+  cursor:pointer;
+  border-radius:var(--card-radius);
+  transition:0.15s;
+}
+.level-card:hover{background:#f5f5f5;}
+.level-card.selected{border-color:var(--accent-neutral);}
+
+/* Mapa muscular */
+.muscle-map{
+  width:100%;
+  border-radius:var(--card-radius);
+  box-shadow:var(--shadow-soft);
+  border:1px solid #ddd;
+}
+
+/* Menú muscular */
+.muscle-menu{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+.muscle-btn{
+  padding:10px;
+  border-radius:var(--card-radius);
+  color:#fff;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:var(--shadow-soft);
+  font-size:14px;
+}
+
+/* Máquinas */
+.machines-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+@media(min-width:720px){
+  .machines-grid{grid-template-columns:1fr 1fr;}
+}
+.machine-image{
+  width:100%;
+  height:130px;
+  border-radius:var(--card-radius);
+  background:linear-gradient(135deg,#EEEEEE,#D6D6D6);
+  margin-bottom:8px;
+}
+
+/* Modal ejercicio */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+.modal-backdrop.active{display:flex;}
+.modal{
+  background:#fff;
+  border-radius:var(--card-radius);
+  box-shadow:var(--shadow-soft);
+  max-width:720px;
+  width:94%;
+  max-height:90vh;
+  overflow-y:auto;
+  padding:16px;
+}
+.modal-header{margin-bottom:10px;}
+.modal-title{font-size:18px;margin-bottom:4px;}
+.modal-sub{font-size:13px;color:var(--text-secondary);}
+.modal-media{
+  width:100%;
+  border-radius:var(--card-radius);
+  overflow:hidden;
+  margin-bottom:12px;
+}
+.modal-media iframe,
+.modal-media img{
+  width:100%;
+  height:220px;
+  border:0;
+  display:block;
+}
+
+/* Progreso + registro */
+.session-row{
+  background:#f5f5f5;
+  border-radius:var(--card-radius);
+  padding:10px;
+  margin-bottom:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+.session-main{font-size:13px;}
+.session-main strong{color:var(--text-main);}
+.session-edit{
+  color:var(--accent-espalda);
+  font-size:12px;
+  cursor:pointer;
+}
+.kg-input-row{
+  margin-top:6px;
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.kg-input-row input{
+  width:80px;
+  padding:4px 6px;
+  border-radius:var(--card-radius);
+  border:1px solid #ccc;
+  text-align:center;
+  font-size:13px;
+}
+
+/* Historial */
+.chips{margin-bottom:8px;}
+.chip{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:999px;
+  background:#eee;
+  font-size:12px;
+  cursor:pointer;
+  margin-right:6px;
+}
+.chip.active{
+  background:var(--accent-espalda);
+  color:#fff;
+}
+.history-row{
+  font-size:13px;
+  padding:6px 0;
+  border-bottom:1px solid #eee;
+}
+.history-row span.label{color:var(--text-secondary);font-size:12px;}
+</style>
+</head>
+
+<body>
+<div class="app">
+<h1>Guía de entrenamiento · Demo real</h1>
+
+<!-- NIVEL -->
+<div class="card">
+  <h2>Selecciona tu nivel</h2>
+  <div class="levels">
+    <div class="level-card" data-level="principiante">
+      <strong>Principiante</strong><br>
+      <span style="font-size:13px;color:var(--text-secondary);">Técnica, control y seguridad.</span>
+    </div>
+    <div class="level-card" data-level="intermedio">
+      <strong>Intermedio</strong><br>
+      <span style="font-size:13px;color:var(--text-secondary);">Progresión y carga moderada-alta.</span>
+    </div>
+    <div class="level-card" data-level="avanzado">
+      <strong>Avanzado</strong><br>
+      <span style="font-size:13px;color:var(--text-secondary);">Volumen alto e intensidad elevada.</span>
+    </div>
+  </div>
+  <p style="margin-top:8px;font-size:13px;">Nivel actual: <strong id="nivelActual">No seleccionado</strong></p>
+</div>
+
+<!-- MAPA MUSCULAR -->
+<div class="card">
+  <h2>Mapa muscular</h2>
+
+  <img class="muscle-map" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgl3EvbJGHYasfa2dklSAhCBQd35Kan-KziEtDjlKst5_PMdc6TsCsFxTDBrDj84rmdC8HP6gizFQvoXYmtuUriKpCZ7a1ttZQ-YfyHGoh_g22__0c1Jx2zkpX98JbzVL1kTEIWHK-Jx8XyUNNFpEjQt6CUlm5w-YEjykuuoq3yQETyCMG1_lzc9_2wvkA/s1600/Gemini_Generated_Image_tfuyldtfuyldtfuy.png" alt="Mapa muscular">
+
+  <div class="muscle-menu">
+    <div class="muscle-btn" style="background:var(--accent-pecho);" data-group="pecho">Pecho</div>
+    <div class="muscle-btn" style="background:var(--accent-espalda);" data-group="espalda">Espalda</div>
+    <div class="muscle-btn" style="background:var(--accent-piernas);" data-group="piernas">Piernas</div>
+    <div class="muscle-btn" style="background:var(--accent-neutral);" data-group="hombros">Hombros</div>
+  </div>
+
+  <p style="margin-top:8px;font-size:13px;">Grupo seleccionado: <strong id="grupoActual">Pecho</strong></p>
+</div>
+
+<!-- MÁQUINAS -->
+<div class="card">
+  <h2>Máquinas recomendadas</h2>
+  <p style="font-size:13px;">Ejemplo real con mezcla de <strong>vídeo + imagen</strong> en la pantalla de ejercicio.</p>
+
+  <div class="machines-grid" id="machinesGrid">
+    <!-- Se rellena por JS -->
+  </div>
+</div>
+
+<!-- PROGRESO + REGISTRO -->
+<div class="card">
+  <h2>Progreso semanal (demo)</h2>
+  <p style="font-size:13px;margin-bottom:8px;">Registra manualmente los kilos. Se guardan en tu navegador.</p>
+
+  <div id="sessionsContainer">
+    <!-- Sesiones generadas por JS -->
+  </div>
+</div>
+
+<!-- HISTORIAL -->
+<div class="card">
+  <h2>Historial reciente (demo)</h2>
+
+  <div class="chips">
+    <span class="chip active" data-filter="todos">Todos</span>
+    <span class="chip" data-filter="pecho">Pecho</span>
+    <span class="chip" data-filter="espalda">Espalda</span>
+  </div>
+
+  <div id="historyContainer">
+    <!-- Historial generado por JS -->
+  </div>
+</div>
+
+</div> <!-- cierre de .app -->
+
+<!-- MODAL EJERCICIO -->
+<div class="modal-backdrop" id="exerciseModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Ejercicio</div>
+      <div class="modal-sub" id="modalSubtitle">Grupo muscular</div>
+    </div>
+    
+
+    <div class="modal-media" id="modalMedia"></div>
+
+    <div style="font-size:13px;margin-bottom:10px;" id="modalDescription"></div>
+
+    <div style="font-size:13px;margin-bottom:10px;">
+      <strong>Pasos básicos:</strong>
+      <ul id="modalSteps" style="margin:4px 0 0 18px;padding:0;font-size:13px;"></ul>
+    </div>
+
+    <button class="btn btn-neutral btn-full" onclick="closeExerciseModal()">Cerrar</button>
+  </div>
+</div>
+<script>
+// --- Datos de ejemplo (demo real) ---
+const machinesByGroup = {
+  pecho: [
+    {
+      id:'press_maquina',
+      nombre:'Press banca en máquina',
+      grupo:'Pecho · Tríceps · Deltoides anterior',
+      tipo:'video',
+      media:'https://www.youtube.com/embed/2xS4qZzZxw4',
+      descripcion:'Ejercicio guiado ideal para aprender la trayectoria y trabajar el pectoral de forma segura.',
+      pasos:[
+        'Ajusta el asiento para que las manos queden a la altura del pecho.',
+        'Apoya la espalda en el respaldo y los pies firmes en el suelo.',
+        'Empuja la carga extendiendo los brazos sin bloquear los codos.',
+        'Controla la vuelta manteniendo tensión en el pectoral.'
+      ]
+    },
+    {
+      id:'aperturas_maquina',
+      nombre:'Aperturas en máquina',
+      grupo:'Pecho · Deltoides anterior',
+      tipo:'imagen',
+      media:'https://via.placeholder.com/640x360?text=Aperturas+en+maquina',
+      descripcion:'Mayor aislamiento del pectoral, perfecta para sentir el estiramiento y la contracción.',
+      pasos:[
+        'Siéntate con la espalda apoyada y los pies firmes.',
+        'Sujeta las empuñaduras con los codos ligeramente flexionados.',
+        'Cierra los brazos al frente, juntando las manos sin chocar.',
+        'Vuelve lentamente a la posición inicial controlando el peso.'
+      ]
+    }
+  ],
+  espalda: [
+    {
+      id:'jalon_pecho',
+      nombre:'Jalón al pecho en polea',
+      grupo:'Espalda · Bíceps',
+      tipo:'video',
+      media:'https://www.youtube.com/embed/CAwf7n6Luuc',
+      descripcion:'Ejercicio básico para trabajar dorsales con trayectoria guiada.',
+      pasos:[
+        'Sujeta la barra con agarre algo más ancho que los hombros.',
+        'Lleva la barra hacia la parte alta del pecho.',
+        'Mantén el pecho abierto y no balancees el cuerpo.',
+        'Controla la subida sin soltar de golpe.'
+      ]
+    }
+  ],
+  piernas: [],
+  hombros: []
+};
+
+// Sesiones demo para progreso
+const demoSessions = [
+  { id:'press_maquina', nombre:'Press banca en máquina', grupo:'pecho', kgKey:'kg_press_maquina', defaultKg:40 },
+  { id:'aperturas_maquina', nombre:'Aperturas en máquina', grupo:'pecho', kgKey:'kg_aperturas_maquina', defaultKg:20 },
+  { id:'jalon_pecho', nombre:'Jalón al pecho', grupo:'espalda', kgKey:'kg_jalon_pecho', defaultKg:45 }
+];
+
+// Historial demo
+let historyData = [
+  { id:'h1', ejercicio:'Press banca en máquina', grupo:'pecho', kg:40, fecha:'2026-03-20' },
+  { id:'h2', ejercicio:'Aperturas en máquina', grupo:'pecho', kg:20, fecha:'2026-03-19' },
+  { id:'h3', ejercicio:'Jalón al pecho', grupo:'espalda', kg:45, fecha:'2026-03-18' }
+];
+
+// --- Estado ---
+let currentGroup = 'pecho';
+
+// --- Utilidades localStorage ---
+function getKg(key, def){
+  const v = localStorage.getItem(key);
+  return v !== null ? Number(v) : def;
+}
+function setKg(key, val){
+  localStorage.setItem(key, String(val));
+}
+
+// --- Inicialización ---
+document.addEventListener('DOMContentLoaded', () => {
+  initLevelSelector();
+  initMuscleMenu();
+  renderMachines();
+  renderSessions();
+  renderHistory();
+  initFilterChips();
+});
+
+// --- Nivel ---
+function initLevelSelector(){
+  const cards = document.querySelectorAll('.level-card');
+  const nivelSpan = document.getElementById('nivelActual');
+  const saved = localStorage.getItem('nivel_entrenamiento');
+  if(saved){
+    nivelSpan.textContent = saved.charAt(0).toUpperCase()+saved.slice(1);
+    cards.forEach(c=>{
+      if(c.dataset.level === saved) c.classList.add('selected');
+    });
+  }
+  cards.forEach(card=>{
+    card.addEventListener('click', ()=>{
+      cards.forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+      const lvl = card.dataset.level;
+      localStorage.setItem('nivel_entrenamiento', lvl);
+      nivelSpan.textContent = lvl.charAt(0).toUpperCase()+lvl.slice(1);
+    });
+  });
+}
+
+// --- Mapa muscular / grupo ---
+function initMuscleMenu(){
+  const btns = document.querySelectorAll('.muscle-btn');
+  const label = document.getElementById('grupoActual');
+  btns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      currentGroup = btn.dataset.group;
+      label.textContent = currentGroup.charAt(0).toUpperCase()+currentGroup.slice(1);
+      renderMachines();
+    });
+  });
+}
+
+// --- Máquinas ---
+function renderMachines(){
+  const grid = document.getElementById('machinesGrid');
+  grid.innerHTML = '';
+  const list = machinesByGroup[currentGroup] || [];
+  if(list.length === 0){
+    grid.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Todavía no hay máquinas configuradas para este grupo en la demo.</p>';
+    return;
+  }
+  list.forEach(m=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="machine-image"></div>
+      <h3 style="margin-bottom:4px;">${m.nombre}</h3>
+      <p style="font-size:12px;margin-bottom:6px;color:var(--text-secondary);">${m.grupo}</p>
+      <p style="font-size:13px;margin-bottom:8px;">${m.descripcion}</p>
+      <button class="btn btn-pecho btn-full" data-open-ex="${m.id}">Ver ejercicio</button>
+    `;
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('[data-open-ex]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-open-ex');
+      openExerciseModalById(id);
+    });
+  });
+}
+
+// --- Modal ejercicio ---
+function openExerciseModalById(id){
+  const all = Object.values(machinesByGroup).flat();
+  const ex = all.find(e=>e.id===id);
+  if(!ex) return;
+  const modal = document.getElementById('exerciseModal');
+  document.getElementById('modalTitle').textContent = ex.nombre;
+  document.getElementById('modalSubtitle').textContent = ex.grupo;
+  const media = document.getElementById('modalMedia');
+  media.innerHTML = '';
+  if(ex.tipo === 'video'){
+    const iframe = document.createElement('iframe');
+    iframe.src = ex.media;
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    media.appendChild(iframe);
+  }else{
+    const img = document.createElement('img');
+    img.src = ex.media;
+    img.alt = ex.nombre;
+    media.appendChild(img);
+  }
+  document.getElementById('modalDescription').textContent = ex.descripcion;
+  const stepsUl = document.getElementById('modalSteps');
+  stepsUl.innerHTML = '';
+  ex.pasos.forEach(p=>{
+    const li = document.createElement('li');
+    li.textContent = p;
+    stepsUl.appendChild(li);
+  });
+  modal.classList.add('active');
+}
+function closeExerciseModal(){
+  document.getElementById('exerciseModal').classList.remove('active');
+}
+
+// --- Progreso / sesiones ---
+function renderSessions(){
+  const container = document.getElementById('sessionsContainer');
+  container.innerHTML = '';
+  demoSessions.forEach(s=>{
+    const kg = getKg(s.kgKey, s.defaultKg);
+    const row = document.createElement('div');
+    row.className = 'session-row';
+    row.innerHTML = `
+      <div class="session-main">
+        <strong>${s.nombre}</strong><br>
+        <span>Última sesión: <span id="${s.kgKey}_label">${kg}</span> kg</span><br>
+        <span class="session-edit" data-edit="${s.kgKey}">Editar kilos</span>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+
+  container.querySelectorAll('[data-edit]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const key = el.getAttribute('data-edit');
+      const label = document.getElementById(key+'_label');
+      const actual = getKg(key, 0);
+      const nuevo = prompt('Introduce los kilos:', actual);
+      if(nuevo !== null && nuevo !== '' && !isNaN(Number(nuevo))){
+        const val = Number(nuevo);
+        setKg(key, val);
+        label.textContent = val;
+        const ses = demoSessions.find(s=>s.kgKey===key);
+        if(ses){
+          historyData.unshift({
+            id:'h'+Date.now(),
+            ejercicio:ses.nombre,
+            grupo:ses.grupo,
+            kg:val,
+            fecha:new Date().toISOString().slice(0,10)
+          });
+          renderHistory();
+        }
+      }
+    });
+  });
+}
+
+// --- Historial ---
+function renderHistory(filter='todos'){
+  const cont = document.getElementById('historyContainer');
+  cont.innerHTML = '';
+  const data = historyData.filter(h=>filter==='todos' ? true : h.grupo===filter);
+  if(data.length===0){
+    cont.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Sin registros para este filtro.</p>';
+    return;
+  }
+  data.slice(0,10).forEach(h=>{
+    const row = document.createElement('div');
+    row.className = 'history-row';
+    row.innerHTML = `
+      <div><strong>${h.ejercicio}</strong> — ${h.kg} kg</div>
+      <div><span class="label">${h.fecha}</span></div>
+    `;
+    cont.appendChild(row);
+  });
+}
+
+function initFilterChips(){
+  const chips = document.querySelectorAll('.chip');
+  chips.forEach(ch=>{
+    ch.addEventListener('click', ()=>{
+      chips.forEach(c=>c.classList.remove('active'));
+      ch.classList.add('active');
+      const f = ch.dataset.filter;
+      renderHistory(f);
+    });
+  });
+}
+</script>
+</body>
+</html>
