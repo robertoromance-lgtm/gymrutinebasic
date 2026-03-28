@@ -362,7 +362,7 @@ const machinesByGroup = {
     'Empuja las empuñaduras hacia adelante sin bloquear los codos.',
     'Controla la vuelta manteniendo tensión en el pectoral.'
   ]
-}
+},
 
     {
       id:'press_maquina',
@@ -534,40 +534,96 @@ function renderMachines(){
 // --- Modal ejercicio ---
 function openExerciseModalById(id){
   const all = Object.values(machinesByGroup).flat();
-  const ex = all.find(e=>e.id===id);
+  const ex = all.find(e => e.id === id);
   if(!ex) return;
-  const modal = document.getElementById('exerciseModal');
-  document.getElementById('modalTitle').textContent = ex.nombre;
-  document.getElementById('modalSubtitle').textContent = ex.grupo;
-  const media = document.getElementById('modalMedia');
-  media.innerHTML = '';
-  if(ex.tipo === 'video'){
-    const iframe = document.createElement('iframe');
-    iframe.src = ex.media;
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-    iframe.allowFullscreen = true;
-    media.appendChild(iframe);
-  }else{
-    const img = document.createElement('img');
-    img.src = ex.media;
-    img.alt = ex.nombre;
-    media.appendChild(img);
-  }
-  document.getElementById('modalDescription').textContent = ex.descripcion;
-  const stepsUl = document.getElementById('modalSteps');
-  stepsUl.innerHTML = '';
-  ex.pasos.forEach(p=>{
-    const li = document.createElement('li');
-    li.textContent = p;
-    stepsUl.appendChild(li);
-  });
-  cargarVariantes(ex.id);
 
+  const modal = document.getElementById('exerciseModal');
+  if(!modal) return;
+
+  const titleEl = document.getElementById('modalTitle');
+  const subtitleEl = document.getElementById('modalSubtitle');
+  const descEl = document.getElementById('modalDescription');
+  const mediaEl = document.getElementById('modalMedia');
+  const stepsUl = document.getElementById('modalSteps');
+
+  if(titleEl) titleEl.textContent = ex.nombre || '';
+  if(subtitleEl) subtitleEl.textContent = ex.grupo || '';
+  if(descEl) descEl.textContent = ex.descripcion || '';
+  if(mediaEl) mediaEl.innerHTML = '';
+
+  // Cargar pasos de forma segura
+  if(stepsUl){
+    stepsUl.innerHTML = '';
+    (ex.pasos || []).forEach(p => {
+      const li = document.createElement('li');
+      li.textContent = p;
+      stepsUl.appendChild(li);
+    });
+  }
+
+  // Función interna para mostrar media (video / panel / foto)
+  function mostrarMediaTipo(exercise, tipo){
+    const target = document.getElementById('modalMedia');
+    if(!target) return;
+    target.innerHTML = '';
+
+    if(tipo === 'video' && exercise.tipo === 'video' && exercise.media){
+      const iframe = document.createElement('iframe');
+      iframe.src = exercise.media;
+      iframe.width = '100%';
+      iframe.height = '360';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      target.appendChild(iframe);
+      return;
+    }
+
+    if(tipo === 'panel' && exercise.imagenAlternativa){
+      const img = document.createElement('img');
+      img.src = exercise.imagenAlternativa;
+      img.alt = (exercise.nombre || '') + ' - panel';
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+      target.appendChild(img);
+      return;
+    }
+
+    if(tipo === 'foto' && exercise.imagenMaquina){
+      const img = document.createElement('img');
+      img.src = exercise.imagenMaquina;
+      img.alt = (exercise.nombre || '') + ' - foto';
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+      target.appendChild(img);
+      return;
+    }
+
+    target.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">No hay ese tipo de media disponible.</p>';
+  }
+
+  // Asignar listeners solo si existen los botones (evita errores si no están en el DOM)
+  const btnVideo = document.getElementById('btnVerVideo');
+  if(btnVideo) btnVideo.onclick = () => mostrarMediaTipo(ex, 'video');
+
+  const btnPanel = document.getElementById('btnVerPanel');
+  if(btnPanel) btnPanel.onclick = () => mostrarMediaTipo(ex, 'panel');
+
+  const btnFoto = document.getElementById('btnVerFoto');
+  if(btnFoto) btnFoto.onclick = () => mostrarMediaTipo(ex, 'foto');
+
+  // Cargar variantes si existe la función (comprobación segura)
+  if(typeof cargarVariantes === 'function'){
+    try { cargarVariantes(ex.id); } catch(e) { console.warn('cargarVariantes falló', e); }
+  }
+
+  // Mostrar por defecto: vídeo si es video, si no panel
+  mostrarMediaTipo(ex, ex.tipo === 'video' ? 'video' : 'panel');
+
+  // Abrir modal
   modal.classList.add('active');
 }
-function closeExerciseModal(){
-  document.getElementById('exerciseModal').classList.remove('active');
-}
+
 
 // --- Progreso / sesiones ---
 function renderSessions(){
