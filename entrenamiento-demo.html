@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Guía de entrenamiento · Demo corregida</title>
+<meta charset="UTF-8" />
+<title>Demo guía de entrenamiento</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <style>
 :root{
@@ -19,110 +19,284 @@
   --accent-neutral:#424242;
 }
 *{box-sizing:border-box;}
-body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;color:var(--text-main);background:linear-gradient(to bottom,var(--bg-top),var(--bg-bottom));}
-.app{max-width:960px;margin:0 auto;padding:16px;}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:linear-gradient(to bottom,var(--bg-top),var(--bg-bottom));
+  color:var(--text-main);
+}
+.app{
+  max-width:960px;
+  margin:0 auto;
+  padding:16px;
+}
 h1,h2,h3{margin:0 0 10px;font-weight:600;}
 h1{text-align:center;margin-top:12px;margin-bottom:18px;}
 p{margin:0 0 6px;color:var(--text-secondary);}
 
-/* Cards & layout */
-.card{background:#fff;border-radius:var(--card-radius);box-shadow:var(--shadow-soft);padding:16px;margin-bottom:18px;}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border-radius:var(--card-radius);border:none;cursor:pointer;color:#fff;font-size:14px;font-weight:500;box-shadow:var(--shadow-soft);transition:0.15s ease;}
-.btn:active{transform:translateY(2px);box-shadow:0 2px 6px rgba(0,0,0,0.18);}
+/* Tarjetas */
+.card{
+  background:#fff;
+  border-radius:var(--card-radius);
+  box-shadow:var(--shadow-soft);
+  padding:16px;
+  margin-bottom:18px;
+}
+
+/* Botones */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:44px;
+  padding:0 18px;
+  border-radius:var(--card-radius);
+  border:none;
+  cursor:pointer;
+  color:#fff;
+  font-size:14px;
+  font-weight:500;
+  box-shadow:var(--shadow-soft);
+  transition:0.15s ease;
+}
+.btn:active{
+  transform:translateY(2px);
+  box-shadow:0 2px 6px rgba(0,0,0,0.18);
+}
 .btn-full{width:100%;}
 .btn-neutral{background:var(--accent-neutral);}
 .btn-pecho{background:var(--accent-pecho);}
 .btn-espalda{background:var(--accent-espalda);}
 .btn-piernas{background:var(--accent-piernas);}
 
-/* Level selector */
+/* Nivel */
 .levels{display:flex;flex-direction:column;gap:10px;}
-.level-card{border-left:4px solid transparent;padding:10px;cursor:pointer;border-radius:var(--card-radius);transition:0.15s;}
+.level-card{
+  border-left:4px solid transparent;
+  padding:10px;
+  cursor:pointer;
+  border-radius:var(--card-radius);
+  transition:0.15s;
+}
 .level-card:hover{background:#f5f5f5;}
 .level-card.selected{border-color:var(--accent-neutral);}
 
-/* Muscle menu */
-.muscle-map{width:100%;border-radius:var(--card-radius);box-shadow:var(--shadow-soft);border:1px solid #ddd;}
-.muscle-menu{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
-.muscle-btn{padding:10px;border-radius:var(--card-radius);color:#fff;text-align:center;cursor:pointer;box-shadow:var(--shadow-soft);font-size:14px;}
+/* Mapa muscular */
+.muscle-map{
+  width:100%;
+  border-radius:var(--card-radius);
+  box-shadow:var(--shadow-soft);
+  border:1px solid #ddd;
+}
 
-/* Machines grid */
-.machines-grid{display:grid;grid-template-columns:1fr;gap:14px;}
-@media(min-width:720px){.machines-grid{grid-template-columns:1fr 1fr;}}
-.machine-image{width:100%;height:130px;border-radius:var(--card-radius);background:linear-gradient(135deg,#EEEEEE,#D6D6D6);margin-bottom:8px;}
+/* Menú muscular */
+.muscle-menu{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+.muscle-btn{
+  padding:10px;
+  border-radius:var(--card-radius);
+  color:#fff;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:var(--shadow-soft);
+  font-size:14px;
+}
 
-/* Modal (single, cleaned) */
-#exerciseModal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:10000;}
-#exerciseModal.active{display:flex;}
-#exerciseModal .backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.55);}
-#exerciseModal .modal{position:relative;z-index:10001;width:95%;max-width:980px;background:#fff;border-radius:10px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,0.25);max-height:90vh;overflow:auto;font-family:inherit;}
-#exerciseModal .modal-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;}
-#exerciseModal .modal-title{font-size:18px;font-weight:700;}
-#exerciseModal .modal-sub{font-size:13px;color:#666;margin-top:4px;}
-#exerciseModal .modal-media{width:100%;margin-bottom:12px;}
-#exerciseModal .modal-media iframe,#exerciseModal .modal-media img{width:100%;height:220px;border:0;display:block;border-radius:8px;object-fit:cover;}
-#exerciseModal .modal-body{display:flex;gap:16px;flex-wrap:wrap;}
-#exerciseModal .modal-left{flex:1 1 420px;min-width:260px;}
-#exerciseModal .modal-right{flex:1 1 300px;min-width:220px;}
-#exerciseModal .btn{padding:8px 10px;border-radius:6px;border:1px solid #ccc;background:#f7f7f7;cursor:pointer;color:#222;}
-#exerciseModal .btn-group{display:flex;gap:8px;margin:8px 0;flex-wrap:wrap;}
-#exerciseModal #modalClose{display:inline-block;margin-top:12px;width:100%;text-align:center;background:#f0f0f0;color:#222;border-radius:8px;padding:10px;border:1px solid #ddd;}
-.variante-btn{padding:6px 8px;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer;}
-.variante-btn.activo{background:var(--accent-espalda);color:#fff;border-color:transparent;}
+/* Máquinas */
+.machines-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+@media(min-width:720px){
+  .machines-grid{grid-template-columns:1fr 1fr;}
+}
+.machine-image{
+  width:100%;
+  height:130px;
+  border-radius:var(--card-radius);
+  background:linear-gradient(135deg,#EEEEEE,#D6D6D6);
+  margin-bottom:8px;
+}
+
+/* Modal ejercicio */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+.modal-backdrop.active{display:flex;}
+.modal{
+  background:#fff;
+  border-radius:var(--card-radius);
+  box-shadow:var(--shadow-soft);
+  max-width:720px;
+  width:94%;
+  max-height:90vh;
+  overflow-y:auto;
+  padding:16px;
+}
+.modal-header{margin-bottom:10px;}
+.modal-title{font-size:18px;margin-bottom:4px;}
+.modal-sub{font-size:13px;color:var(--text-secondary);}
+.modal-media{
+  width:100%;
+  border-radius:var(--card-radius);
+  overflow:hidden;
+  margin-bottom:12px;
+}
+.modal-media iframe,
+.modal-media img{
+  width:100%;
+  height:220px;
+  border:0;
+  display:block;
+}
+
+/* Progreso + registro */
+.session-row{
+  background:#f5f5f5;
+  border-radius:var(--card-radius);
+  padding:10px;
+  margin-bottom:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+.session-main{font-size:13px;}
+.session-main strong{color:var(--text-main);}
+.session-edit{
+  color:var(--accent-espalda);
+  font-size:12px;
+  cursor:pointer;
+}
+.kg-input-row{
+  margin-top:6px;
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.kg-input-row input{
+  width:80px;
+  padding:4px 6px;
+  border-radius:var(--card-radius);
+  border:1px solid #ccc;
+  text-align:center;
+  font-size:13px;
+}
+
+/* Historial */
+.chips{margin-bottom:8px;}
+.chip{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:999px;
+  background:#eee;
+  font-size:12px;
+  cursor:pointer;
+  margin-right:6px;
+}
+.chip.active{
+  background:var(--accent-espalda);
+  color:#fff;
+}
+.history-row{
+  font-size:13px;
+  padding:6px 0;
+  border-bottom:1px solid #eee;
+}
+.history-row span.label{color:var(--text-secondary);font-size:12px;}
 </style>
 </head>
+
 <body>
-
 <div class="app">
-  <h1>Guía de entrenamiento · Demo corregida</h1>
+<h1>Guía de entrenamiento · Demo real</h1>
 
-  <div class="card">
-    <h2>Selecciona tu nivel</h2>
-    <div class="levels">
-      <div class="level-card" data-level="principiante"><strong>Principiante</strong><br><span style="font-size:13px;color:var(--text-secondary);">Técnica, control y seguridad.</span></div>
-      <div class="level-card" data-level="intermedio"><strong>Intermedio</strong><br><span style="font-size:13px;color:var(--text-secondary);">Progresión y carga moderada-alta.</span></div>
-      <div class="level-card" data-level="avanzado"><strong>Avanzado</strong><br><span style="font-size:13px;color:var(--text-secondary);">Volumen alto e intensidad elevada.</span></div>
+<!-- NIVEL -->
+<div class="card">
+  <h2>Selecciona tu nivel</h2>
+  <div class="levels">
+    <div class="level-card" data-level="principiante">
+      <strong>Principiante</strong><br>
+      <span style="font-size:13px;color:var(--text-secondary);">Técnica, control y seguridad.</span>
     </div>
-    <p style="margin-top:8px;font-size:13px;">Nivel actual: <strong id="nivelActual">No seleccionado</strong></p>
-  </div>
-
-  <div class="card">
-    <h2>Mapa muscular</h2>
-    <img class="muscle-map" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgl3EvbJGHYasfa2dklSAhCBQd35Kan-KziEtDjlKst5_PMdc6TsCsFxTDBrDj84rmdC8HP6gizFQvoXYmtuUriKpCZ7a1ttZQ-YfyHGoh_g22__0c1Jx2zkpX98JbzVL1kTEIWHK-Jx8XyUNNFpEjQt6CUlm5w-YEjykuuoq3yQETyCMG1_lzc9_2wvkA/s1600/Gemini_Generated_Image_tfuyldtfuyldtfuy.png" alt="Mapa muscular">
-    <div class="muscle-menu">
-      <div class="muscle-btn" style="background:var(--accent-pecho);" data-group="pecho">Pecho</div>
-      <div class="muscle-btn" style="background:var(--accent-espalda);" data-group="espalda">Espalda</div>
-      <div class="muscle-btn" style="background:var(--accent-piernas);" data-group="piernas">Piernas</div>
-      <div class="muscle-btn" style="background:var(--accent-neutral);" data-group="hombros">Hombros</div>
+    <div class="level-card" data-level="intermedio">
+      <strong>Intermedio</strong><br>
+      <span style="font-size:13px;color:var(--text-secondary);">Progresión y carga moderada-alta.</span>
     </div>
-    <p style="margin-top:8px;font-size:13px;">Grupo seleccionado: <strong id="grupoActual">Pecho</strong></p>
-  </div>
-
-  <div class="card">
-    <h2>Máquinas recomendadas</h2>
-    <p style="font-size:13px;">Ejemplo real con mezcla de <strong>vídeo + imagen</strong> en la pantalla de ejercicio.</p>
-    <div class="machines-grid" id="machinesGrid"></div>
-  </div>
-
-  <div class="card">
-    <h2>Progreso semanal (demo)</h2>
-    <p style="font-size:13px;margin-bottom:8px;">Registra manualmente los kilos. Se guardan en tu navegador.</p>
-    <div id="sessionsContainer"></div>
-  </div>
-
-  <div class="card">
-    <h2>Historial reciente (demo)</h2>
-    <div class="chips">
-      <span class="chip active" data-filter="todos">Todos</span>
-      <span class="chip" data-filter="pecho">Pecho</span>
-      <span class="chip" data-filter="espalda">Espalda</span>
+    <div class="level-card" data-level="avanzado">
+      <strong>Avanzado</strong><br>
+      <span style="font-size:13px;color:var(--text-secondary);">Volumen alto e intensidad elevada.</span>
     </div>
-    <div id="historyContainer"></div>
+  </div>
+  <p style="margin-top:8px;font-size:13px;">Nivel actual: <strong id="nivelActual">No seleccionado</strong></p>
+</div>
+
+<!-- MAPA MUSCULAR -->
+<div class="card">
+  <h2>Mapa muscular</h2>
+
+  <img class="muscle-map" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgl3EvbJGHYasfa2dklSAhCBQd35Kan-KziEtDjlKst5_PMdc6TsCsFxTDBrDj84rmdC8HP6gizFQvoXYmtuUriKpCZ7a1ttZQ-YfyHGoh_g22__0c1Jx2zkpX98JbzVL1kTEIWHK-Jx8XyUNNFpEjQt6CUlm5w-YEjykuuoq3yQETyCMG1_lzc9_2wvkA/s1600/Gemini_Generated_Image_tfuyldtfuyldtfuy.png" alt="Mapa muscular">
+
+  <div class="muscle-menu">
+    <div class="muscle-btn" style="background:var(--accent-pecho);" data-group="pecho">Pecho</div>
+    <div class="muscle-btn" style="background:var(--accent-espalda);" data-group="espalda">Espalda</div>
+    <div class="muscle-btn" style="background:var(--accent-piernas);" data-group="piernas">Piernas</div>
+    <div class="muscle-btn" style="background:var(--accent-neutral);" data-group="hombros">Hombros</div>
+  </div>
+
+  <p style="margin-top:8px;font-size:13px;">Grupo seleccionado: <strong id="grupoActual">Pecho</strong></p>
+</div>
+
+<!-- MÁQUINAS -->
+<div class="card">
+  <h2>Máquinas recomendadas</h2>
+  <p style="font-size:13px;">Ejemplo real con mezcla de <strong>vídeo + imagen</strong> en la pantalla de ejercicio.</p>
+
+  <div class="machines-grid" id="machinesGrid">
+    <!-- Se rellena por JS -->
   </div>
 </div>
 
+<!-- PROGRESO + REGISTRO -->
+<div class="card">
+  <h2>Progreso semanal (demo)</h2>
+  <p style="font-size:13px;margin-bottom:8px;">Registra manualmente los kilos. Se guardan en tu navegador.</p>
+
+  <div id="sessionsContainer">
+    <!-- Sesiones generadas por JS -->
+  </div>
+</div>
+
+<!-- HISTORIAL -->
+<div class="card">
+  <h2>Historial reciente (demo)</h2>
+
+  <div class="chips">
+    <span class="chip active" data-filter="todos">Todos</span>
+    <span class="chip" data-filter="pecho">Pecho</span>
+    <span class="chip" data-filter="espalda">Espalda</span>
+  </div>
+
+  <div id="historyContainer">
+    <!-- Historial generado por JS -->
+  </div>
+</div>
+
+</div> <!-- cierre de .app -->
+<!-- MI RUTINA SEMANAL -->
 <section id="mi-rutina-semanal" style="margin:20px 0;">
   <h2 style="margin-bottom:12px;">Mi rutina semanal</h2>
+
   <div class="routine-buttons" style="display:flex;flex-direction:column;gap:8px;">
     <button class="btn btn-neutral btn-full" data-dia="lunes">Lunes</button>
     <button class="btn btn-neutral btn-full" data-dia="martes">Martes</button>
@@ -132,334 +306,891 @@ p{margin:0 0 6px;color:var(--text-secondary);}
     <button class="btn btn-neutral btn-full" data-dia="sabado">Sábado</button>
     <button class="btn btn-neutral btn-full" data-dia="domingo">Domingo</button>
   </div>
+
   <div id="rutinaDiaContenido" style="margin-top:20px;"></div>
 </section>
 
-<!-- SINGLE CLEAN MODAL -->
-<div id="exerciseModal" aria-hidden="true" role="dialog" aria-modal="true">
-  <div class="backdrop" data-role="backdrop"></div>
-  <div class="modal" role="document" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+
+<!-- MODAL EJERCICIO -->
+<div class="modal-backdrop" id="exerciseModal">
+  <div class="modal">
     <div class="modal-header">
-      <div>
-        <div id="modalTitle" class="modal-title">Ejercicio</div>
-        <div id="modalSubtitle" class="modal-sub">Grupo muscular</div>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <button id="modalBtnMinimize" class="btn" title="Minimizar">—</button>
-      </div>
+      <div class="modal-title" id="modalTitle">Ejercicio</div>
+      <div class="modal-sub" id="modalSubtitle">Grupo muscular</div>
     </div>
+    
 
-    <div class="modal-media" id="modalMedia" aria-live="polite"></div>
+    <div class="modal-media" id="modalMedia"></div>
 
-    <div id="modalDescription" style="font-size:13px;margin:10px 0 12px;color:#333;"></div>
+    <div style="font-size:13px;margin-bottom:10px;" id="modalDescription"></div>
 
-    <div class="modal-body">
-      <div class="modal-left">
-        <div style="font-size:13px;margin-bottom:10px;">
-          <strong>Pasos básicos:</strong>
-          <ul id="modalSteps"></ul>
-        </div>
-
-        <div id="variantesContainer" style="margin-top:6px; display:none;">
-          <h4>Variantes de agarre</h4>
-          <div id="variantesButtons" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
-          <div id="variantesContenido" style="margin-top:12px;">
-            <img id="variantesImagen" src="" alt="" style="width:100%;border-radius:10px;margin-bottom:10px;">
-            <p id="variantesDescripcion" style="font-size:15px;line-height:1.4;color:#444;"></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-right">
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div class="btn-group" aria-hidden="false">
-            <button id="btnVerVideo" class="btn" type="button">Ver vídeo</button>
-            <button id="btnVerPanel" class="btn" type="button">Ver máquina</button>
-            <button id="btnVerFoto" class="btn" type="button">Ver foto</button>
-          </div>
-
-          <div id="modalSciatica" style="font-weight:600;color:#666;"></div>
-          <div id="modalVariantDescription" style="color:#666;font-size:13px;"></div>
-        </div>
-      </div>
+    <div style="font-size:13px;margin-bottom:10px;">
+      <strong>Pasos básicos:</strong>
+      <ul id="modalSteps" style="margin:4px 0 0 18px;padding:0;font-size:13px;"></ul>
     </div>
+<!-- VARIANTES DE AGARRE -->
+<div id="variantesContainer" style="margin-top:20px; display:none;">
+  <h3 style="margin-bottom:10px;">Variantes de agarre</h3>
 
-    <button id="modalClose" class="btn btn-neutral btn-full" style="margin-top:12px;">Cerrar</button>
+  <div id="variantesButtons" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+
+  <div id="variantesContenido" style="margin-top:15px;">
+    <img id="variantesImagen" src="" style="width:100%;border-radius:10px;margin-bottom:10px;">
+    <p id="variantesDescripcion" style="font-size:15px;line-height:1.4;"></p>
   </div>
 </div>
 
-<!-- Inline visual hints -->
+<!-- BOTÓN CERRAR DENTRO DEL MODAL CORRECTO -->
+<button id="modalClose" class="btn btn-neutral btn-full">Cerrar</button>
 <script>
-/* Demo data (kept from original, cleaned) */
-const machinesByGroup = {
-pecho: [
-{
-id: 'press_pecho_convergente',
-nombre: 'Press de Pecho en Máquina',
-grupo: 'Pecho · Tríceps · Deltoides anterior',
-tipo: 'video',
-media: 'https://www.youtube.com/embed/2xS4qZzZxw4',
-imagenAlternativa: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxDckgQrC3unWq3L4I7kyDPJbPt3j_vD6Yz9crPHg2lF4u7qZXXTrRYM4dd67E7V2p4sn7vykJdJFSmTxGOdo4ifx0MJoZwBK0ZdsDLUNJDSsCyTfnnxI1tR08id8DRPJ0xeZCWl3w06jARjPq-0Hi1bud_h9z-v3WnmXkkgU95bHcKfoNCCMIDiP0b0A/s16000/Copilot_20260328_115234.png',
-imagenMaquina: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjAIaumEZ0JXwc-Z7KzDaDGgeGaeVtSid0L_eGMSVR_02Igpy7IysMAotxmntKcVdlS3wt9f_F2jiLzKvhTpLP7HJ_dlWS5kyF1N-IEwRigOkWHRKjhfGXmI5fVn7FYmdwiDbCqF8kVLIczaJYMNlHmUJlM4XOaBNJzmCXGUrogPguOKLnJJfLCygIXqU/s16000/OIP-4126119451.jpg',
-descripcion: 'Máquina guiada para trabajar el pectoral con seguridad y estabilidad. Ideal para progresión de carga.',
-pasos: ['Ajusta el asiento para que las manos queden a la altura del pecho.','Apoya la espalda completamente en el respaldo.','Empuja las empuñaduras hacia adelante sin bloquear los codos.','Controla la vuelta manteniendo tensión en el pectoral.']
-},
-{
-id: 'press_maquina',
-nombre: 'Press banca en máquina',
-grupo: 'Pecho · Tríceps · Deltoides anterior',
-tipo: 'video',
-media: 'https://www.youtube.com/embed/2xS4qZzZxw4',
-descripcion: 'Ejercicio guiado ideal para aprender la trayectoria y trabajar el pectoral de forma segura.',
-pasos: ['Ajusta el asiento para que las manos queden a la altura del pecho.','Apoya la espalda en el respaldo y los pies firmes en el suelo.','Empuja la carga extendiendo los brazos sin bloquear los codos.','Controla la vuelta manteniendo tensión en el pectoral.']
-},
-{
-id: 'aperturas_maquina',
-nombre: 'Aperturas en máquina',
-grupo: 'Pecho · Deltoides anterior',
-tipo: 'imagen',
-media: 'https://via.placeholder.com/640x360?text=Aperturas+en+maquina',
-descripcion: 'Mayor aislamiento del pectoral, perfecta para sentir el estiramiento y la contracción.',
-pasos: ['Siéntate con la espalda apoyada y los pies firmes.','Sujeta las empuñaduras con los codos ligeramente flexionados.','Cierra los brazos al frente, juntando las manos sin chocar.','Vuelve lentamente a la posición inicial controlando el peso.']
-}
-],
-espalda: [
-{
-id: 'jalon_pecho',
-nombre: 'Jalón al pecho en polea',
-grupo: 'Espalda · Bíceps',
-tipo: 'video',
-media: 'https://www.youtube.com/embed/8p3GxZJX8mE',
-descripcion: 'Ejercicio básico para trabajar dorsales con trayectoria guiada.',
-pasos: ['Sujeta la barra con agarre algo más ancho que los hombros.','Lleva la barra hacia la parte alta del pecho.','Mantén el pecho abierto y no balancees el cuerpo.','Controla la subida sin soltar de golpe.']
-},
-{
-id: 'polea_alta',
-nombre: 'Polea Alta (Lat Pulldown)',
-grupo: 'Espalda · Bíceps · Dorsal ancho',
-tipo: 'video',
-media: 'https://www.youtube.com/embed/V8xZ4Cw1QnE',
-imagenAlternativa: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguCUgbnRHRRHF7R1CStvWRKUKmOCDVqM1nyo3iOTyjncyTufD2HskwI0Uf2muPvjI6R61RxS-4Ux7MgMXBNzv9-N0VeiNtPJbMe9zbIyVunmGRcHSXCQZoie3ttlxnjmPvGENHg7aUvkZ2njvbQT_EC5byvR3k2qI9aLEPW1cci8gREieJDXM5RS-Q/s16000/panel_polea_alta_scanner.png',
-imagenMaquina: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyMIkJxVR4crgdNqxkGF_-ZK6IRIDjk70BwXUlG7f2dbXNT0aqqonXw5Z008BT-e7DXJxCXV95bFyq6a8o7fIGoICZlrn5EtxmSVGvebkBhsWcG0EMrugmt-hOLeZhn_lmnu70S4nuE4gmsrXUduoBFWPfOGyUMvVyrU6K_-lh9F7CRls5FDdQ3PEfads/s16000/OIP-1001571545.jpg',
-descripcion: 'Ejercicio guiado para trabajar el dorsal ancho y la anchura de la espalda. Ajusta el agarre según objetivo.',
-pasos: ['Ajusta el asiento y la almohadilla para que las rodillas queden sujetas.','Sujeta la barra con control y baja la carga hacia la parte alta del pecho.','Mantén el tronco estable; evita balanceos y tirones bruscos.','Controla la subida y respira de forma regular.']
-}
-],
-piernas: [],
-hombros: []
-};
-
-const demoSessions = [
-{ id:'press_maquina', nombre:'Press banca en máquina', grupo:'pecho', kgKey:'kg_press_maquina', defaultKg:40 },
-{ id:'aperturas_maquina', nombre:'Aperturas en máquina', grupo:'pecho', kgKey:'kg_aperturas_maquina', defaultKg:20 },
-{ id:'jalon_pecho', nombre:'Jalón al pecho', grupo:'espalda', kgKey:'kg_jalon_pecho', defaultKg:45 }
-];
-
-let historyData = [
-{ id:'h1', ejercicio:'Press banca en máquina', grupo:'pecho', kg:40, fecha:'2026-03-20' },
-{ id:'h2', ejercicio:'Aperturas en máquina', grupo:'pecho', kg:20, fecha:'2026-03-19' },
-{ id:'h3', ejercicio:'Jalón al pecho', grupo:'espalda', kg:45, fecha:'2026-03-18' }
-];
-
-const variantesAgarre = {
-jalon_pecho: {
-ancho: { nombre: "Agarre ancho (prono)", imagen: "img/jalon_ancho.jpg", descripcion: "Mayor activación del dorsal alto y redondo mayor. Codos abiertos, menos bíceps." },
-triangulo: { nombre: "Agarre triángulo (neutro)", imagen: "img/jalon_triangulo.jpg", descripcion: "Más dorsal medio e inferior. Más fuerza total y recorrido más largo." },
-supino: { nombre: "Agarre supino (invertido)", imagen: "img/jalon_supino.jpg", descripcion: "Más bíceps y dorsal inferior. Ideal para progresar en dominadas." }
-},
-polea_alta: {
-ancho: { nombre: "Agarre ancho (prono)", imagen: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguCUgbnRHRRHF7R1CStvWRKUKmOCDVqM1nyo3iOTyjncyTufD2HskwI0Uf2muPvjI6R61RxS-4Ux7MgMXBNzv9-N0VeiNtPJbMe9zbIyVunmGRcHSXCQZoie3ttlxnjmPvGENHg7aUvkZ2njvbQT_EC5byvR3k2qI9aLEPW1cci8gREieJDXM5RS-Q/s16000/panel_polea_alta_scanner.png", descripcion: "Mayor activación del dorsal ancho; codos hacia fuera, recorrido amplio." },
-triangulo: { nombre: "Agarre en triángulo (neutro)", imagen: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyMIkJxVR4crgdNqxkGF_-ZK6IRIDjk70BwXUlG7f2dbXNT0aqqonXw5Z008BT-e7DXJxCXV95bFyq6a8o7fIGoICZlrn5EtxmSVGvebkBhsWcG0EMrugmt-hOLeZhn_lmnu70S4nuE4gmsrXUduoBFWPfOGyUMvVyrU6K_-lh9F7CRls5FDdQ3PEfads/s16000/OIP-1001571545.jpg", descripcion: "Agarre neutro/triángulo: más recorrido y mayor implicación del dorsal medio e inferior." }
-}
-};
-
-/* Utilities localStorage */
-function getKg(key, def){ const v = localStorage.getItem(key); return v !== null ? Number(v) : def; }
-function setKg(key, val){ localStorage.setItem(key, String(val)); }
-
-/* Rendering & initialization */
-document.addEventListener('DOMContentLoaded', () => {
-initLevelSelector();
-initMuscleMenu();
-renderMachines();
-renderSessions();
-renderHistory();
-initFilterChips();
-attachModalHandlers();
-});
-
-/* Level selector */
-function initLevelSelector(){
-const cards = document.querySelectorAll('.level-card');
-const nivelSpan = document.getElementById('nivelActual');
-const saved = localStorage.getItem('nivel_entrenamiento');
-if(saved){ nivelSpan.textContent = saved.charAt(0).toUpperCase()+saved.slice(1); cards.forEach(c=>{ if(c.dataset.level === saved) c.classList.add('selected'); }); }
-cards.forEach(card=>{ card.addEventListener('click', ()=>{ cards.forEach(c=>c.classList.remove('selected')); card.classList.add('selected'); const lvl = card.dataset.level; localStorage.setItem('nivel_entrenamiento', lvl); nivelSpan.textContent = lvl.charAt(0).toUpperCase()+lvl.slice(1); }); });
-}
-
-/* Muscle menu */
-let currentGroup = 'pecho';
-function initMuscleMenu(){
-const btns = document.querySelectorAll('.muscle-btn');
-const label = document.getElementById('grupoActual');
-btns.forEach(btn=>{ btn.addEventListener('click', ()=>{ currentGroup = btn.dataset.group; label.textContent = currentGroup.charAt(0).toUpperCase()+currentGroup.slice(1); renderMachines(); }); });
-}
-
-/* Machines rendering */
-function renderMachines(){
-const grid = document.getElementById('machinesGrid');
-grid.innerHTML = '';
-const list = machinesByGroup[currentGroup] || [];
-if(list.length === 0){ grid.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Todavía no hay máquinas configuradas para este grupo en la demo.</p>'; return; }
-list.forEach(m=>{
-const card = document.createElement('div');
-card.className = 'card';
-card.innerHTML = <div class="machine-image"></div><h3 style="margin-bottom:4px;">${m.nombre}</h3><p style="font-size:12px;margin-bottom:6px;color:var(--text-secondary);">${m.grupo}</p><p style="font-size:13px;margin-bottom:8px;">${m.descripcion}</p><button class="btn btn-pecho btn-full" data-open-ex="${m.id}">Ver ejercicio</button>;
-grid.appendChild(card);
-});
-grid.querySelectorAll('[data-open-ex]').forEach(btn=>{ btn.addEventListener('click', ()=>{ const id = btn.getAttribute('data-open-ex'); openExerciseModalById(id); }); });
-}
-
-/* Modal logic (single, robust) */
-function findExerciseById(id){ if(!id) return null; return Object.values(machinesByGroup).flat().find(e => e && e.id === id) || null; }
-
-function mostrarMaquinaEnModal(ex){
-const mediaEl = document.getElementById('modalMedia'); if(!mediaEl) return; mediaEl.innerHTML = '';
-if(ex.imagenAlternativa){ const imgPanel = document.createElement('img'); imgPanel.src = ex.imagenAlternativa; imgPanel.alt = ex.nombre + ' - panel'; mediaEl.appendChild(imgPanel); }
-if(ex.imagenMaquina){ const imgMaquina = document.createElement('img'); imgMaquina.src = ex.imagenMaquina; imgMaquina.alt = ex.nombre + ' - máquina'; imgMaquina.style.marginTop = '8px'; mediaEl.appendChild(imgMaquina); }
-const descCont = document.getElementById('modalVariantDescription'); if(descCont) descCont.textContent = '';
-const variantesCont = document.getElementById('modalVariantes'); if(variantesCont) variantesCont.querySelectorAll('.variante-btn').forEach(b => b.classList.remove('activo'));
-}
-
-function mostrarMediaTipo(exercise, tipo){
-const target = document.getElementById('modalMedia'); if(!target) return; target.innerHTML = '';
-if(tipo === 'video' && exercise.tipo === 'video' && exercise.media){
-const iframe = document.createElement('iframe'); iframe.src = exercise.media; iframe.width = '100%'; iframe.height = '360'; iframe.frameBorder = '0'; iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'; iframe.allowFullscreen = true; target.appendChild(iframe); return;
-}
-if(tipo === 'panel' && exercise.imagenAlternativa){ const img = document.createElement('img'); img.src = exercise.imagenAlternativa; img.alt = exercise.nombre + ' - panel'; target.appendChild(img); return; }
-if(tipo === 'foto' && exercise.imagenMaquina){ const img = document.createElement('img'); img.src = exercise.imagenMaquina; img.alt = exercise.nombre + ' - foto'; target.appendChild(img); return; }
-target.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">No hay ese tipo de media disponible.</p>';
-}
-
-function cargarVariantesEnModal(exerciseId){
-const cont = document.getElementById('modalVariantes'); const descCont = document.getElementById('modalVariantDescription'); const img = document.getElementById('variantesImagen');
-if(!cont) return; cont.innerHTML = ''; if(descCont) descCont.textContent = ''; if(img) img.src = '';
-const variantes = variantesAgarre[exerciseId];
-if(!variantes){ document.getElementById('variantesContainer').style.display = 'none'; return; }
-document.getElementById('variantesContainer').style.display = 'block';
-Object.keys(variantes).forEach(key => {
-const v = variantes[key];
-const btn = document.createElement('button');
-btn.className = 'variante-btn';
-btn.textContent = v.nombre;
-btn.addEventListener('click', () => {
-if(img) img.src = v.imagen || '';
-if(descCont) descCont.textContent = v.descripcion || '';
-cont.querySelectorAll('.variante-btn').forEach(b=>b.classList.remove('activo'));
-btn.classList.add('activo');
-});
-cont.appendChild(btn);
-});
-}
-
-/* Open modal and populate */
-function openExerciseModalById(id){
-const ex = findExerciseById(id); if(!ex) return;
-const modal = document.getElementById('exerciseModal'); if(!modal) return;
-document.getElementById('modalTitle').textContent = ex.nombre || '';
-document.getElementById('modalSubtitle').textContent = ex.grupo || '';
-document.getElementById('modalDescription').textContent = ex.descripcion || '';
-const stepsUl = document.getElementById('modalSteps'); if(stepsUl){ stepsUl.innerHTML = ''; (ex.pasos || []).forEach(p=>{ const li = document.createElement('li'); li.textContent = p; stepsUl.appendChild(li); }); }
-// set data attributes for quick access by view buttons
-const mediaEl = document.getElementById('modalMedia'); if(mediaEl){ mediaEl.setAttribute('data-media-url', ex.media || ''); mediaEl.setAttribute('data-image-url', ex.imagenMaquina || ''); mediaEl.setAttribute('data-panel-html', ex.imagenAlternativa || ''); }
-// cargar variantes
-cargarVariantesInModalSafe(ex.id);
-// mostrar por defecto
-mostrarMediaTipo(ex, ex.tipo === 'video' ? 'video' : 'panel');
-// abrir
-modal.classList.add('active'); modal.style.display = 'flex'; modal.setAttribute('aria-hidden','false');
-}
-
-/* Safe wrapper for cargarVariantes (keeps compatibility) /
-function cargarVariantesInModalSafe(id){
-try{ cargarVariantesInModal(id); }catch(e){ / fallback to older cargarVariantes / try{ cargarVariantes(id); }catch(e2){ / no variantes available / } }
-}
-/ Backwards-compatible function name used earlier in the file */
-function cargarVariantesInModal(maquinaID){
-// use the modular cargarVariantesInModal implementation above (same as cargarVariantesEnModal)
-cargarVariantesEnModal(maquinaID);
-}
-
-/* Modal close (single, exposed names for compatibility) */
 function cerrarModal(){
-const modal = document.getElementById('exerciseModal'); if(!modal) return;
-modal.classList.remove('active'); modal.style.display = 'none'; modal.setAttribute('aria-hidden','true');
-const media = document.getElementById('modalMedia'); if(media) media.innerHTML = '';
-const variantesCont = document.getElementById('modalVariantes'); if(variantesCont) variantesCont.querySelectorAll('.variante-btn').forEach(b => b.classList.remove('activo'));
-const variantDesc = document.getElementById('modalVariantDescription'); if(variantDesc) variantDesc.textContent = '';
-}
-window.cerrarModal = cerrarModal;
-window.closeExerciseModal = cerrarModal; // compatibility alias
+  const modal = document.getElementById("exerciseModal");
+  if(!modal) return;
 
-/* Attach modal handlers (backdrop, close button, ESC, view buttons) */
-function attachModalHandlers(){
-const modal = document.getElementById('exerciseModal'); if(!modal) return;
-const btnClose = document.getElementById('modalClose'); if(btnClose) btnClose.addEventListener('click', (e)=>{ e.stopPropagation(); cerrarModal(); });
-const btnMin = document.getElementById('modalBtnMinimize'); if(btnMin) btnMin.addEventListener('click', cerrarModal);
-const backdrop = modal.querySelector('.backdrop'); if(backdrop) backdrop.addEventListener('click', ()=>cerrarModal());
-document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('active')) cerrarModal(); });
+  modal.style.display = "none";
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden", "true");
 
-// view buttons
-const btnVideo = document.getElementById('btnVerVideo'); if(btnVideo) btnVideo.addEventListener('click', ()=>{ const mediaEl = document.getElementById('modalMedia'); const url = mediaEl && mediaEl.getAttribute('data-media-url'); if(url) mostrarMediaTipo({tipo:'video', media:url}, 'video'); else mediaEl.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Vídeo no disponible.</p>'; });
-const btnPanel = document.getElementById('btnVerPanel'); if(btnPanel) btnPanel.addEventListener('click', ()=>{ const mediaEl = document.getElementById('modalMedia'); const url = mediaEl && mediaEl.getAttribute('data-panel-html'); if(url) mostrarMediaTipo({imagenAlternativa:url}, 'panel'); else mediaEl.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Panel no disponible.</p>'; });
-const btnFoto = document.getElementById('btnVerFoto'); if(btnFoto) btnFoto.addEventListener('click', ()=>{ const mediaEl = document.getElementById('modalMedia'); const url = mediaEl && mediaEl.getAttribute('data-image-url'); if(url) mostrarMediaTipo({imagenMaquina:url}, 'foto'); else mediaEl.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Foto no disponible.</p>'; });
-
-// defensive: ensure close button is clickable even if overlay exists
-setInterval(()=>{ const btn = document.getElementById('modalClose'); if(!btn) return; const rect = btn.getBoundingClientRect(); if(rect.width && rect.height){ const el = document.elementFromPoint(rect.left + rect.width/2, rect.top + rect.height/2); if(el && el !== btn && !btn.contains(el)){ btn.style.pointerEvents = 'auto'; btn.style.zIndex = 10002; } else { btn.style.pointerEvents = ''; btn.style.zIndex = ''; } } }, 600);
+  const media = document.getElementById("modalMedia");
+  if(media) media.innerHTML = "";
 }
 
-/* Sessions & history rendering */
+document.getElementById("modalClose").addEventListener("click", cerrarModal);
+</script>
+
+<script>
+// --- Datos de ejemplo (demo real) ---
+const machinesByGroup = {
+  pecho: [
+    {
+      id: 'press_pecho_convergente',
+      nombre: 'Press de Pecho en Máquina',
+      grupo: 'Pecho · Tríceps · Deltoides anterior',
+      tipo: 'video',
+      media: 'https://www.youtube.com/embed/2xS4qZzZxw4',
+      imagenAlternativa: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxDckgQrC3unWq3L4I7kyDPJbPt3j_vD6Yz9crPHg2lF4u7qZXXTrRYM4dd67E7V2p4sn7vykJdJFSmTxGOdo4ifx0MJoZwBK0ZdsDLUNJDSsCyTfnnxI1tR08id8DRPJ0xeZCWl3w06jARjPq-0Hi1bud_h9z-v3WnmXkkgU95bHcKfoNCCMIDiP0b0A/s16000/Copilot_20260328_115234.png',
+      imagenMaquina: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjAIaumEZ0JXwc-Z7KzDaDGgeGaeVtSid0L_eGMSVR_02Igpy7IysMAotxmntKcVdlS3wt9f_F2jiLzKvhTpLP7HJ_dlWS5kyF1N-IEwRigOkWHRKjhfGXmI5fVn7FYmdwiDbCqF8kVLIczaJYMNlHmUJlM4XOaBNJzmCXGUrogPguOKLnJJfLCygIXqU/s16000/OIP-4126119451.jpg',
+      descripcion: 'Máquina guiada para trabajar el pectoral con seguridad y estabilidad. Ideal para progresión de carga.',
+      pasos: [
+        'Ajusta el asiento para que las manos queden a la altura del pecho.',
+        'Apoya la espalda completamente en el respaldo.',
+        'Empuja las empuñaduras hacia adelante sin bloquear los codos.',
+        'Controla la vuelta manteniendo tensión en el pectoral.'
+      ]
+    },
+    {
+      id: 'press_maquina',
+      nombre: 'Press banca en máquina',
+      grupo: 'Pecho · Tríceps · Deltoides anterior',
+      tipo: 'video',
+      media: 'https://www.youtube.com/embed/2xS4qZzZxw4',
+      descripcion: 'Ejercicio guiado ideal para aprender la trayectoria y trabajar el pectoral de forma segura.',
+      pasos: [
+        'Ajusta el asiento para que las manos queden a la altura del pecho.',
+        'Apoya la espalda en el respaldo y los pies firmes en el suelo.',
+        'Empuja la carga extendiendo los brazos sin bloquear los codos.',
+        'Controla la vuelta manteniendo tensión en el pectoral.'
+      ]
+    },
+    {
+      id: 'aperturas_maquina',
+      nombre: 'Aperturas en máquina',
+      grupo: 'Pecho · Deltoides anterior',
+      tipo: 'imagen',
+      media: 'https://via.placeholder.com/640x360?text=Aperturas+en+maquina',
+      descripcion: 'Mayor aislamiento del pectoral, perfecta para sentir el estiramiento y la contracción.',
+      pasos: [
+        'Siéntate con la espalda apoyada y los pies firmes.',
+        'Sujeta las empuñaduras con los codos ligeramente flexionados.',
+        'Cierra los brazos al frente, juntando las manos sin chocar.',
+        'Vuelve lentamente a la posición inicial controlando el peso.'
+      ]
+    }
+  ],
+
+  espalda: [
+    {
+      id: 'jalon_pecho',
+      nombre: 'Jalón al pecho en polea',
+      grupo: 'Espalda · Bíceps',
+      tipo: 'video',
+      media: 'https://www.youtube.com/embed/8p3GxZJX8mE',
+      descripcion: 'Ejercicio básico para trabajar dorsales con trayectoria guiada.',
+      pasos: [
+        'Sujeta la barra con agarre algo más ancho que los hombros.',
+        'Lleva la barra hacia la parte alta del pecho.',
+        'Mantén el pecho abierto y no balancees el cuerpo.',
+        'Controla la subida sin soltar de golpe.'
+      ]
+    },
+    {
+      id: 'polea_alta',
+      nombre: 'Polea Alta (Lat Pulldown)',
+      grupo: 'Espalda · Bíceps · Dorsal ancho',
+      tipo: 'video',
+      media: 'https://www.youtube.com/embed/V8xZ4Cw1QnE',
+      imagenAlternativa: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguCUgbnRHRRHF7R1CStvWRKUKmOCDVqM1nyo3iOTyjncyTufD2HskwI0Uf2muPvjI6R61RxS-4Ux7MgMXBNzv9-N0VeiNtPJbMe9zbIyVunmGRcHSXCQZoie3ttlxnjmPvGENHg7aUvkZ2njvbQT_EC5byvR3kK2x2qI9aLEPW1cci8gREieJDXM5RS-Q/s16000/panel_polea_alta_scanner.png',
+      imagenMaquina: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyMIkJxVR4crgdNqxkGF_-ZK6IRIDjk70BwXUlG7f2dbXNT0aqqonXw5Z008BT-e7DXJxCXV95bFyq6a8o7fIGoICZlrn5EtxmSVGvebkBhsWcG0EMrugmt-hOLeZhn_lmnu70S4nuE4gmsrXUduoBFWPfOGyUMvVyrU6K_-lh9F7CRls5FDdQ3PEfads/s16000/OIP-1001571545.jpg',
+      descripcion: 'Ejercicio guiado para trabajar el dorsal ancho y la anchura de la espalda. Ajusta el agarre según objetivo: anchura (más dorsal lateral) o agarre neutro/triángulo (más dorsal medio e inferior).',
+      pasos: [
+        'Ajusta el asiento y la almohadilla para que las rodillas queden sujetas.',
+        'Sujeta la barra con control y baja la carga hacia la parte alta del pecho.',
+        'Mantén el tronco estable; evita balanceos y tirones bruscos.',
+        'Controla la subida y respira de forma regular.'
+      ]
+    }
+  ],
+
+  piernas: [],
+
+  hombros: []
+};
+
+// Sesiones demo para progreso
+
+
+
+// Sesiones demo para progreso
+const demoSessions = [
+  { id:'press_maquina', nombre:'Press banca en máquina', grupo:'pecho', kgKey:'kg_press_maquina', defaultKg:40 },
+  { id:'aperturas_maquina', nombre:'Aperturas en máquina', grupo:'pecho', kgKey:'kg_aperturas_maquina', defaultKg:20 },
+  { id:'jalon_pecho', nombre:'Jalón al pecho', grupo:'espalda', kgKey:'kg_jalon_pecho', defaultKg:45 }
+];
+
+// Historial demo
+let historyData = [
+  { id:'h1', ejercicio:'Press banca en máquina', grupo:'pecho', kg:40, fecha:'2026-03-20' },
+  { id:'h2', ejercicio:'Aperturas en máquina', grupo:'pecho', kg:20, fecha:'2026-03-19' },
+  { id:'h3', ejercicio:'Jalón al pecho', grupo:'espalda', kg:45, fecha:'2026-03-18' }
+];
+
+// --- Estado ---
+let currentGroup = 'pecho';
+
+// --- Utilidades localStorage ---
+function getKg(key, def){
+  const v = localStorage.getItem(key);
+  return v !== null ? Number(v) : def;
+}
+function setKg(key, val){
+  localStorage.setItem(key, String(val));
+}
+
+// --- Inicialización ---
+document.addEventListener('DOMContentLoaded', () => {
+  initLevelSelector();
+  initMuscleMenu();
+  renderMachines();
+  renderSessions();
+  renderHistory();
+  initFilterChips();
+});
+
+// --- Nivel ---
+function initLevelSelector(){
+  const cards = document.querySelectorAll('.level-card');
+  const nivelSpan = document.getElementById('nivelActual');
+  const saved = localStorage.getItem('nivel_entrenamiento');
+  if(saved){
+    nivelSpan.textContent = saved.charAt(0).toUpperCase()+saved.slice(1);
+    cards.forEach(c=>{
+      if(c.dataset.level === saved) c.classList.add('selected');
+    });
+  }
+  cards.forEach(card=>{
+    card.addEventListener('click', ()=>{
+      cards.forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+      const lvl = card.dataset.level;
+      localStorage.setItem('nivel_entrenamiento', lvl);
+      nivelSpan.textContent = lvl.charAt(0).toUpperCase()+lvl.slice(1);
+    });
+  });
+}
+
+// --- Mapa muscular / grupo ---
+function initMuscleMenu(){
+  const btns = document.querySelectorAll('.muscle-btn');
+  const label = document.getElementById('grupoActual');
+  btns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      currentGroup = btn.dataset.group;
+      label.textContent = currentGroup.charAt(0).toUpperCase()+currentGroup.slice(1);
+      renderMachines();
+    });
+  });
+}
+
+// --- Máquinas ---
+function renderMachines(){
+  const grid = document.getElementById('machinesGrid');
+  grid.innerHTML = '';
+  const list = machinesByGroup[currentGroup] || [];
+  if(list.length === 0){
+    grid.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Todavía no hay máquinas configuradas para este grupo en la demo.</p>';
+    return;
+  }
+  list.forEach(m=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="machine-image"></div>
+      <h3 style="margin-bottom:4px;">${m.nombre}</h3>
+      <p style="font-size:12px;margin-bottom:6px;color:var(--text-secondary);">${m.grupo}</p>
+      <p style="font-size:13px;margin-bottom:8px;">${m.descripcion}</p>
+      <button class="btn btn-pecho btn-full" data-open-ex="${m.id}">Ver ejercicio</button>
+    `;
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('[data-open-ex]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-open-ex');
+      openExerciseModalById(id);
+    });
+  });
+}
+
+// --- Modal ejercicio ---
+function openExerciseModalById(id){
+  const all = Object.values(machinesByGroup).flat();
+  const ex = all.find(e => e.id === id);
+  if(!ex) return;
+
+  const modal = document.getElementById('exerciseModal');
+  if(!modal) return;
+
+  const titleEl = document.getElementById('modalTitle');
+  const subtitleEl = document.getElementById('modalSubtitle');
+  const descEl = document.getElementById('modalDescription');
+  const mediaEl = document.getElementById('modalMedia');
+  const stepsUl = document.getElementById('modalSteps');
+
+  if(titleEl) titleEl.textContent = ex.nombre || '';
+  if(subtitleEl) subtitleEl.textContent = ex.grupo || '';
+  if(descEl) descEl.textContent = ex.descripcion || '';
+  if(mediaEl) mediaEl.innerHTML = '';
+
+  // Cargar pasos de forma segura
+  if(stepsUl){
+    stepsUl.innerHTML = '';
+    (ex.pasos || []).forEach(p => {
+      const li = document.createElement('li');
+      li.textContent = p;
+      stepsUl.appendChild(li);
+    });
+  }
+
+  // Función interna para mostrar media (video / panel / foto)
+  function mostrarMediaTipo(exercise, tipo){
+    const target = document.getElementById('modalMedia');
+    if(!target) return;
+    target.innerHTML = '';
+
+    if(tipo === 'video' && exercise.tipo === 'video' && exercise.media){
+      const iframe = document.createElement('iframe');
+      iframe.src = exercise.media;
+      iframe.width = '100%';
+      iframe.height = '360';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      target.appendChild(iframe);
+      return;
+    }
+
+    if(tipo === 'panel' && exercise.imagenAlternativa){
+      const img = document.createElement('img');
+      img.src = exercise.imagenAlternativa;
+      img.alt = (exercise.nombre || '') + ' - panel';
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+      target.appendChild(img);
+      return;
+    }
+
+    if(tipo === 'foto' && exercise.imagenMaquina){
+      const img = document.createElement('img');
+      img.src = exercise.imagenMaquina;
+      img.alt = (exercise.nombre || '') + ' - foto';
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+      target.appendChild(img);
+      return;
+    }
+
+    target.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">No hay ese tipo de media disponible.</p>';
+  }
+
+  // Asignar listeners solo si existen los botones (evita errores si no están en el DOM)
+  const btnVideo = document.getElementById('btnVerVideo');
+  if(btnVideo) btnVideo.onclick = () => mostrarMediaTipo(ex, 'video');
+
+  const btnPanel = document.getElementById('btnVerPanel');
+  if(btnPanel) btnPanel.onclick = () => mostrarMediaTipo(ex, 'panel');
+
+  const btnFoto = document.getElementById('btnVerFoto');
+  if(btnFoto) btnFoto.onclick = () => mostrarMediaTipo(ex, 'foto');
+
+  // Cargar variantes si existe la función (comprobación segura)
+  if(typeof cargarVariantes === 'function'){
+    try { cargarVariantes(ex.id); } catch(e) { console.warn('cargarVariantes falló', e); }
+  }
+
+  // Mostrar por defecto: vídeo si es video, si no panel
+  mostrarMediaTipo(ex, ex.tipo === 'video' ? 'video' : 'panel');
+
+  // Abrir modal
+  modal.classList.add('active');
+document.body.style.overflow = 'hidden';
+}
+
+
+// --- Progreso / sesiones ---
 function renderSessions(){
-const container = document.getElementById('sessionsContainer'); if(!container) return; container.innerHTML = '';
-demoSessions.forEach(s=>{
-const kg = getKg(s.kgKey, s.defaultKg);
-const row = document.createElement('div'); row.className = 'session-row'; row.innerHTML = <div class="session-main"><strong>${s.nombre}</strong><br><span>Última sesión: <span id="${s.kgKey}_label">${kg}</span> kg</span><br><span class="session-edit" data-edit="${s.kgKey}">Editar kilos</span></div>;
-container.appendChild(row);
-});
-container.querySelectorAll('[data-edit]').forEach(el=>{
-el.addEventListener('click', ()=>{
-const key = el.getAttribute('data-edit'); const label = document.getElementById(key+'_label'); const actual = getKg(key, 0); const nuevo = prompt('Introduce los kilos:', actual);
-if(nuevo !== null && nuevo !== '' && !isNaN(Number(nuevo))){ const val = Number(nuevo); setKg(key, val); label.textContent = val; const ses = demoSessions.find(s=>s.kgKey===key); if(ses){ historyData.unshift({ id:'h'+Date.now(), ejercicio:ses.nombre, grupo:ses.grupo, kg:val, fecha:new Date().toISOString().slice(0,10) }); renderHistory(); } }
-});
-});
+  const container = document.getElementById('sessionsContainer');
+  container.innerHTML = '';
+  demoSessions.forEach(s=>{
+    const kg = getKg(s.kgKey, s.defaultKg);
+    const row = document.createElement('div');
+    row.className = 'session-row';
+    row.innerHTML = `
+      <div class="session-main">
+        <strong>${s.nombre}</strong><br>
+        <span>Última sesión: <span id="${s.kgKey}_label">${kg}</span> kg</span><br>
+        <span class="session-edit" data-edit="${s.kgKey}">Editar kilos</span>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+
+  container.querySelectorAll('[data-edit]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const key = el.getAttribute('data-edit');
+      const label = document.getElementById(key+'_label');
+      const actual = getKg(key, 0);
+      const nuevo = prompt('Introduce los kilos:', actual);
+      if(nuevo !== null && nuevo !== '' && !isNaN(Number(nuevo))){
+        const val = Number(nuevo);
+        setKg(key, val);
+        label.textContent = val;
+        const ses = demoSessions.find(s=>s.kgKey===key);
+        if(ses){
+          historyData.unshift({
+            id:'h'+Date.now(),
+            ejercicio:ses.nombre,
+            grupo:ses.grupo,
+            kg:val,
+            fecha:new Date().toISOString().slice(0,10)
+          });
+          renderHistory();
+        }
+      }
+    });
+  });
 }
 
+// --- Historial ---
 function renderHistory(filter='todos'){
-const cont = document.getElementById('historyContainer'); if(!cont) return; cont.innerHTML = '';
-const data = historyData.filter(h=>filter==='todos' ? true : h.grupo===filter);
-if(data.length===0){ cont.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Sin registros para este filtro.</p>'; return; }
-data.slice(0,10).forEach(h=>{ const row = document.createElement('div'); row.className = 'history-row'; row.innerHTML = <div><strong>${h.ejercicio}</strong> — ${h.kg} kg</div><div><span class="label">${h.fecha}</span></div>; cont.appendChild(row); });
+  const cont = document.getElementById('historyContainer');
+  cont.innerHTML = '';
+  const data = historyData.filter(h=>filter==='todos' ? true : h.grupo===filter);
+  if(data.length===0){
+    cont.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Sin registros para este filtro.</p>';
+    return;
+  }
+  data.slice(0,10).forEach(h=>{
+    const row = document.createElement('div');
+    row.className = 'history-row';
+    row.innerHTML = `
+      <div><strong>${h.ejercicio}</strong> — ${h.kg} kg</div>
+      <div><span class="label">${h.fecha}</span></div>
+    `;
+    cont.appendChild(row);
+  });
 }
 
 function initFilterChips(){
-const chips = document.querySelectorAll('.chip'); chips.forEach(ch=>{ ch.addEventListener('click', ()=>{ chips.forEach(c=>c.classList.remove('active')); ch.classList.add('active'); const f = ch.dataset.filter; renderHistory(f); }); });
+  const chips = document.querySelectorAll('.chip');
+  chips.forEach(ch=>{
+    ch.addEventListener('click', ()=>{
+      chips.forEach(c=>c.classList.remove('active'));
+      ch.classList.add('active');
+      const f = ch.dataset.filter;
+      renderHistory(f);
+    });
+  });
+}
+// --- VARIANTES DE AGARRE (MODULAR Y AMPLIABLE) ---
+const variantesAgarre = {
+  jalon_pecho: {
+    ancho: {
+      nombre: "Agarre ancho (prono)",
+      imagen: "img/jalon_ancho.jpg",
+      descripcion: "Mayor activación del dorsal alto y redondo mayor. Codos abiertos, menos bíceps."
+    },
+    triangulo: {
+      nombre: "Agarre triángulo (neutro)",
+      imagen: "img/jalon_triangulo.jpg",
+      descripcion: "Más dorsal medio e inferior. Más fuerza total y recorrido más largo."
+    },
+    supino: {
+      nombre: "Agarre supino (invertido)",
+      imagen: "img/jalon_supino.jpg",
+      descripcion: "Más bíceps y dorsal inferior. Ideal para progresar en dominadas."
+    }
+  },
+
+  polea_alta: {
+    ancho: {
+      nombre: "Agarre ancho (prono)",
+      imagen: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguCUgbnRHRRHF7R1CStvWRKUKmOCDVqM1nyo3iOTyjncyTufD2HskwI0Uf2muPvjI6R61RxS-4Ux7MgMXBNzv9-N0VeiNtPJbMe9zbIyVunmGRcHSXCQZoie3ttlxnjmPvGENHg7aUvkZ2njvbQT_EC5byvR3k2qI9aLEPW1cci8gREieJDXM5RS-Q/s16000/panel_polea_alta_scanner.png",
+      descripcion: "Mayor activación del dorsal ancho; codos hacia fuera, recorrido amplio. Ideal para anchura y desarrollo del V‑taper."
+    },
+    triangulo: {
+      nombre: "Agarre en triángulo (neutro)",
+      imagen: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyMIkJxVR4crgdNqxkGF_-ZK6IRIDjk70BwXUlG7f2dbXNT0aqqonXw5Z008BT-e7DXJxCXV95bFyq6a8o7fIGoICZlrn5EtxmSVGvebkBhsWcG0EMrugmt-hOLeZhn_lmnu70S4nuE4gmsrXUduoBFWPfOGyUMvVyrU6K_-lh9F7CRls5FDdQ3PEfads/s16000/OIP-1001571545.jpg",
+      descripcion: "Agarre neutro/triángulo: más recorrido y mayor implicación del dorsal medio e inferior; más cómodo para hombros sensibles."
+    }
+  }
+};
+
+
+// --- FUNCIÓN PARA MOSTRAR VARIANTES ---
+function cargarVariantes(maquinaID) {
+  const cont = document.getElementById("variantesContainer");
+  const botones = document.getElementById("variantesButtons");
+  const img = document.getElementById("variantesImagen");
+  const desc = document.getElementById("variantesDescripcion");
+
+  // Reset visual
+  botones.innerHTML = "";
+  img.src = "";
+  desc.textContent = "";
+
+  const variantes = variantesAgarre[maquinaID];
+  if (!variantes) {
+    cont.style.display = "none";
+    return;
+  }
+
+  cont.style.display = "block";
+
+  Object.keys(variantes).forEach(key => {
+    const v = variantes[key];
+    const btn = document.createElement("button");
+    btn.className = "btn btn-neutral";
+    btn.textContent = v.nombre;
+
+    btn.addEventListener("click", () => {
+      img.src = v.imagen;
+      desc.textContent = v.descripcion;
+    });
+
+    botones.appendChild(btn);
+  });
 }
 
-/* Initial render helpers called on DOMContentLoaded /
-function renderMachines(){ / placeholder overwritten earlier / }
-function renderSessions(){ / placeholder overwritten earlier / }
-function renderHistory(){ / placeholder overwritten earlier */ }
-
-/* Re-assign correct functions after definitions */
-renderMachines = function(){ const grid = document.getElementById('machinesGrid'); grid.innerHTML = ''; const list = machinesByGroup[currentGroup] || []; if(list.length === 0){ grid.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Todavía no hay máquinas configuradas para este grupo en la demo.</p>'; return; } list.forEach(m=>{ const card = document.createElement('div'); card.className = 'card'; card.innerHTML = <div class="machine-image"></div><h3 style="margin-bottom:4px;">${m.nombre}</h3><p style="font-size:12px;margin-bottom:6px;color:var(--text-secondary);">${m.grupo}</p><p style="font-size:13px;margin-bottom:8px;">${m.descripcion}</p><button class="btn btn-pecho btn-full" data-open-ex="${m.id}">Ver ejercicio</button>; grid.appendChild(card); }); grid.querySelectorAll('[data-open-ex]').forEach(btn=>{ btn.addEventListener('click', ()=>{ const id = btn.getAttribute('data-open-ex'); openExerciseModalById(id); }); }); };
-
-renderSessions = function(){ const container = document.getElementById('sessionsContainer'); if(!container) return; container.innerHTML = ''; demoSessions.forEach(s=>{ const kg = getKg(s.kgKey, s.defaultKg); const row = document.createElement('div'); row.className = 'session-row'; row.innerHTML = <div class="session-main"><strong>${s.nombre}</strong><br><span>Última sesión: <span id="${s.kgKey}_label">${kg}</span> kg</span><br><span class="session-edit" data-edit="${s.kgKey}">Editar kilos</span></div>; container.appendChild(row); }); container.querySelectorAll('[data-edit]').forEach(el=>{ el.addEventListener('click', ()=>{ const key = el.getAttribute('data-edit'); const label = document.getElementById(key+'_label'); const actual = getKg(key, 0); const nuevo = prompt('Introduce los kilos:', actual); if(nuevo !== null && nuevo !== '' && !isNaN(Number(nuevo))){ const val = Number(nuevo); setKg(key, val); label.textContent = val; const ses = demoSessions.find(s=>s.kgKey===key); if(ses){ historyData.unshift({ id:'h'+Date.now(), ejercicio:ses.nombre, grupo:ses.grupo, kg:val, fecha:new Date().toISOString().slice(0,10) }); renderHistory(); } } }); }); };
-
-renderHistory = function(filter='todos'){ const cont = document.getElementById('historyContainer'); if(!cont) return; cont.innerHTML = ''; const data = historyData.filter(h=>filter==='todos' ? true : h.grupo===filter); if(data.length===0){ cont.innerHTML = '<p style="font-size:13px;color:var(--text-secondary);">Sin registros para este filtro.</p>'; return; } data.slice(0,10).forEach(h=>{ const row = document.createElement('div'); row.className = 'history-row'; row.innerHTML = <div><strong>${h.ejercicio}</strong> — ${h.kg} kg</div><div><span class="label">${h.fecha}</span></div>; cont.appendChild(row); }); };
-
-/* Ensure initial UI state */
-document.addEventListener('DOMContentLoaded', ()=>{ initLevelSelector(); initMuscleMenu(); renderMachines(); renderSessions(); renderHistory(); initFilterChips(); attachModalHandlers(); });
 </script>
+<!-- --- MODAL: Exercise Modal (Cápsula completa) --- -->
+<div id="exerciseModal" class="exercise-modal" aria-hidden="true" style="display:none;">
+  <div class="exercise-modal__backdrop"></div>
+
+  <div class="exercise-modal__content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button id="modalClose" class="exercise-modal__close" aria-label="Cerrar">✕</button>
+
+    <header style="margin-bottom:8px;">
+      <h2 id="modalTitle" class="exercise-modal__title" style="margin:0;font-size:20px;">Título</h2>
+      <div id="modalSubtitle" class="exercise-modal__subtitle" style="color:#666;font-size:13px;margin-top:4px;">Grupo</div>
+    </header>
+
+    <div class="exercise-modal__main" style="display:flex;gap:16px;flex-wrap:wrap;">
+      <!-- Área media: vídeo / panel / foto / variante -->
+      <div id="modalMedia" class="exercise-modal__media" aria-live="polite" style="flex:1 1 420px;min-width:280px;max-width:520px;">
+        <!-- Contenido dinámico -->
+      </div>
+
+      <!-- Información y controles -->
+      <aside class="exercise-modal__info" style="flex:1 1 320px;min-width:260px;">
+        <p id="modalDescription" class="exercise-modal__desc" style="margin:0 0 8px 0;color:#222;"></p>
+
+        <div class="exercise-modal__controls" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+          <button id="btnVerVideo" class="btn btn-neutral" type="button">Ver vídeo</button>
+          <button id="btnVerPanel" class="btn btn-neutral" type="button">Ver máquina</button>
+          <button id="btnVerFoto" class="btn btn-neutral" type="button">Ver foto</button>
+        </div>
+
+        <div id="modalSciatica" style="margin-top:6px;font-size:14px;font-weight:600;color:#666;"></div>
+
+        <h4 style="margin:12px 0 6px 0;font-size:15px;">Variantes de agarre</h4>
+        <div id="modalVariantes" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;"></div>
+        <div id="modalVariantDescription" style="margin-bottom:10px;font-size:14px;color:var(--text-secondary,#666);"></div>
+
+        <h4 style="margin:8px 0 6px 0;font-size:15px;">Pasos</h4>
+        <ul id="modalSteps" class="exercise-modal__steps" style="margin:0 0 0 18px;padding:0;color:#222;"></ul>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<style>
+/* --- Estilos mínimos para el modal (puedes integrarlos en tu CSS principal) --- */
+.exercise-modal { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; }
+.exercise-modal__backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.5); }
+.exercise-modal__content { position:relative; width:95%; max-width:980px; background:#fff; border-radius:8px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,0.2); z-index:2; display:flex; flex-direction:column; }
+.exercise-modal__close { position:absolute; right:12px; top:12px; background:transparent; border:0; font-size:18px; cursor:pointer; }
+.exercise-modal__media img, .exercise-modal__media iframe { width:100%; height:auto; display:block; border-radius:6px; }
+.btn { padding:8px 10px; border-radius:6px; border:1px solid #ccc; background:#f7f7f7; cursor:pointer; }
+.btn-neutral { background:#f0f0f0; }
+.variante-btn { padding:6px 8px; border-radius:6px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+.variante-btn.activo { background:var(--accent-color,#007bff); color:#fff; border-color:transparent; }
+</style>
+
+<script>
+/* --- Lógica del modal (autocontenida y compatible con machinesByGroup y variantesAgarre) --- */
+
+// Utilidad: obtener ejercicio por id desde machinesByGroup (seguro)
+function findExerciseById(id){
+  if(!id) return null;
+  const groups = window.machinesByGroup || {};
+  return Object.values(groups).flat().find(e => e && e.id === id) || null;
+}
+
+// Mostrar panel informativo + foto de la máquina
+function mostrarMaquinaEnModal(ex){
+  const mediaEl = document.getElementById('modalMedia');
+  if(!mediaEl) return;
+  mediaEl.innerHTML = '';
+
+  if(ex.imagenAlternativa){
+    const imgPanel = document.createElement('img');
+    imgPanel.src = ex.imagenAlternativa;
+    imgPanel.alt = ex.nombre + ' - panel';
+    imgPanel.style.maxWidth = '100%';
+    imgPanel.style.height = 'auto';
+    mediaEl.appendChild(imgPanel);
+  }
+
+  if(ex.imagenMaquina){
+    const imgMaquina = document.createElement('img');
+    imgMaquina.src = ex.imagenMaquina;
+    imgMaquina.alt = ex.nombre + ' - máquina';
+    imgMaquina.style.maxWidth = '100%';
+    imgMaquina.style.height = 'auto';
+    imgMaquina.style.marginTop = '8px';
+    mediaEl.appendChild(imgMaquina);
+  }
+
+  // limpiar descripción de variante
+  const descCont = document.getElementById('modalVariantDescription');
+  if(descCont) descCont.textContent = '';
+  const variantesCont = document.getElementById('modalVariantes');
+  if(variantesCont) variantesCont.querySelectorAll('.variante-btn').forEach(b => b.classList.remove('activo'));
+}
+
+// Cargar variantes dentro del modal (usa variantesAgarre si existe)
+function cargarVariantesEnModal(exerciseId){
+  const cont = document.getElementById('modalVariantes');
+  const descCont = document.getElementById('modalVariantDescription');
+  const mediaEl = document.getElementById('modalMedia');
+  if(!cont) return;
+
+  cont.innerHTML = '';
+  if(descCont) descCont.textContent = '';
+
+  const variantes = (window.variantesAgarre && window.variantesAgarre[exerciseId]) || null;
+  if(!variantes){
+    cont.innerHTML = '<p style="font-size:13px;color:var(--text-secondary,#666);margin:0;">No hay variantes registradas.</p>';
+    return;
+  }
+
+  Object.keys(variantes).forEach(key => {
+    const v = variantes[key];
+    const btn = document.createElement('button');
+    btn.className = 'variante-btn';
+    btn.type = 'button';
+    btn.textContent = v.nombre || key;
+    btn.dataset.variante = key;
+
+    btn.onclick = () => {
+      // Mostrar imagen de la variante en el área de media
+      if(mediaEl){
+        mediaEl.innerHTML = '';
+        if(v.imagen){
+          const img = document.createElement('img');
+          img.src = v.imagen;
+          img.alt = (v.nombre || '') + ' - variante';
+          img.style.maxWidth = '100%';
+          img.style.height = 'auto';
+          mediaEl.appendChild(img);
+        } else {
+          mediaEl.innerHTML = '<p style="font-size:13px;color:var(--text-secondary,#666);">Imagen no disponible.</p>';
+        }
+      }
+      // Mostrar descripción de la variante
+      if(descCont) descCont.textContent = v.descripcion || '';
+      // marcar activo
+      cont.querySelectorAll('.variante-btn').forEach(b => b.classList.remove('activo'));
+      btn.classList.add('activo');
+
+      // Mostrar etiqueta de ciática específica de la variante si existe
+      const ciaticaEl = document.getElementById('modalSciatica');
+      if(ciaticaEl){
+        if(v.ciatica === 'aconsejable'){ ciaticaEl.textContent = 'Ciática: aconsejable'; ciaticaEl.style.color = '#0a7a07'; }
+        else if(v.ciatica === 'no_aconsejable'){ ciaticaEl.textContent = 'Ciática: no aconsejable'; ciaticaEl.style.color = '#b30000'; }
+        else if(v.ciatica === 'indiferente'){ ciaticaEl.textContent = 'Ciática: indiferente'; ciaticaEl.style.color = '#666'; }
+        else { /* si no hay etiqueta, no cambiar */ }
+      }
+    };
+
+    cont.appendChild(btn);
+  });
+
+  // Pulsar la primera variante por defecto
+  const first = cont.querySelector('.variante-btn');
+  if(first) first.click();
+}
+
+// Abrir modal y rellenar datos del ejercicio
+function openExerciseModalById(id){
+  const ex = findExerciseById(id);
+  if(!ex) return;
+
+  const modal = document.getElementById('exerciseModal');
+  if(!modal) return;
+
+  const titleEl = document.getElementById('modalTitle');
+  const subtitleEl = document.getElementById('modalSubtitle');
+  const descEl = document.getElementById('modalDescription');
+  const mediaEl = document.getElementById('modalMedia');
+  const stepsUl = document.getElementById('modalSteps');
+  const ciaticaEl = document.getElementById('modalSciatica');
+
+  if(titleEl) titleEl.textContent = ex.nombre || '';
+  if(subtitleEl) subtitleEl.textContent = ex.grupo || '';
+  if(descEl) descEl.textContent = ex.descripcion || '';
+  if(mediaEl) mediaEl.innerHTML = '';
+
+  // pasos
+  if(stepsUl){
+    stepsUl.innerHTML = '';
+    (ex.pasos || []).forEach(p => {
+      const li = document.createElement('li');
+      li.textContent = p;
+      stepsUl.appendChild(li);
+    });
+  }
+
+    // indicador general de ciática (ejercicio)
+  if(ciaticaEl){
+    if(ex.ciatica === 'aconsejable'){ ciaticaEl.textContent = 'Ciática: aconsejable'; ciaticaEl.style.color = '#0a7a07'; }
+    else if(ex.ciatica === 'no_aconsejable'){ ciaticaEl.textContent = 'Ciática: no aconsejable'; ciaticaEl.style.color = '#b30000'; }
+    else { ciaticaEl.textContent = 'Ciática: indiferente'; ciaticaEl.style.color = '#666'; }
+  }
+
+  // Asignar botones de vista
+  const btnVideo = document.getElementById('btnVerVideo');
+  if(btnVideo) btnVideo.onclick = () => {
+    if(ex.tipo === 'video' && ex.media){
+      mediaEl.innerHTML = '';
+      const iframe = document.createElement('iframe');
+      iframe.src = ex.media;
+      iframe.width = '100%';
+      iframe.height = '360';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      mediaEl.appendChild(iframe);
+    } else {
+      mediaEl.innerHTML = '<p style="font-size:13px;color:var(--text-secondary,#666);">Vídeo no disponible.</p>';
+    }
+  };
+
+  const btnPanel = document.getElementById('btnVerPanel');
+  if(btnPanel) btnPanel.onclick = () => mostrarMaquinaEnModal(ex);
+
+  const btnFoto = document.getElementById('btnVerFoto');
+  if(btnFoto) btnFoto.onclick = () => {
+    if(ex.imagenMaquina){
+      mediaEl.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = ex.imagenMaquina;
+      img.alt = ex.nombre + ' - foto';
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+      mediaEl.appendChild(img);
+    } else {
+      mediaEl.innerHTML = '<p style="font-size:13px;color:var(--text-secondary,#666);">Foto no disponible.</p>';
+    }
+  };
+
+  // Cargar variantes (si existen)
+  try { cargarVariantesEnModal(ex.id); } catch(e){ console.warn('cargarVariantesEnModal falló', e); }
+
+  // Mostrar por defecto: vídeo si es video, si no mostrar máquina
+  if(ex.tipo === 'video' && ex.media){
+    const btnVideoEl = document.getElementById('btnVerVideo');
+    if(btnVideoEl) btnVideoEl.click();
+    else {
+      mediaEl.innerHTML = '';
+      const iframe = document.createElement('iframe');
+      iframe.src = ex.media;
+      iframe.width = '100%';
+      iframe.height = '360';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      mediaEl.appendChild(iframe);
+    }
+  } else {
+    mostrarMaquinaEnModal(ex);
+  }
+
+  // Abrir modal
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden', 'false');
+  modal.classList.add('active');
+}
+
+// --- FIN DE LA FUNCIÓN openExerciseModalById ---
+
+
+<!-- --- CIERRE DEL MODAL (BLOQUE COMPLETO Y ARREGLADO) --- -->
+<script>
+(function(){
+
+  // Esperar a que el DOM esté listo
+  document.addEventListener("DOMContentLoaded", function(){
+
+    const modal = document.getElementById("exerciseModal");
+    if(!modal) return;
+
+    // Asegurar que el botón cerrar existe y está en el DOM correcto
+    let closeBtn = document.getElementById("modalClose");
+    if(!closeBtn){
+      // buscar el contenedor principal del modal
+      const content = modal.querySelector(".exercise-modal__content") || modal;
+      closeBtn = document.createElement("button");
+      closeBtn.id = "modalClose";
+      closeBtn.className = "exercise-modal__close";
+      closeBtn.type = "button";
+      closeBtn.setAttribute("aria-label", "Cerrar");
+      closeBtn.textContent = "✕";
+      // insertarlo como primer hijo del contenido para asegurar visibilidad y accesibilidad
+      content.insertBefore(closeBtn, content.firstChild);
+    }
+
+    // Función que realiza el cierre y limpieza
+    function cerrarModal(){
+      // ocultar modal
+      modal.style.display = "none";
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+
+      // limpiar contenido multimedia (iframe o img)
+      const media = document.getElementById("modalMedia");
+      if(media) media.innerHTML = "";
+
+      // limpiar estado de variantes (si procede)
+      const variantesCont = document.getElementById("modalVariantes");
+      if(variantesCont) variantesCont.querySelectorAll('.variante-btn').forEach(b => b.classList.remove('activo'));
+      const variantDesc = document.getElementById("modalVariantDescription");
+      if(variantDesc) variantDesc.textContent = "";
+    }
+
+    // Cerrar al pulsar el botón
+    closeBtn.addEventListener("click", function(e){
+      e.stopPropagation();
+      cerrarModal();
+    });
+
+    // Cerrar al pulsar en el backdrop (fondo oscuro)
+    modal.addEventListener("click", function(e){
+      // si el objetivo del clic es el backdrop o el propio modal (no el contenido)
+      if(e.target.classList.contains("exercise-modal__backdrop") || e.target === modal){
+        cerrarModal();
+      }
+    });
+
+    // Cerrar con tecla ESC
+    document.addEventListener("keydown", function(e){
+      if(e.key === "Escape" && modal.classList.contains("active")){
+        cerrarModal();
+      }
+    });
+
+    // Protección adicional: cerrar si se detecta que el modal está cubierto por otro elemento que impide clics
+    // (intento de solución para casos donde un overlay invisible bloquea el botón)
+    // comprobación periódica ligera mientras el modal esté abierto
+    let overlayCheckInterval = null;
+    function startOverlayCheck(){
+      if(overlayCheckInterval) return;
+      overlayCheckInterval = setInterval(() => {
+        if(!modal.classList.contains('active')){
+          clearInterval(overlayCheckInterval);
+          overlayCheckInterval = null;
+          return;
+        }
+        const rect = closeBtn.getBoundingClientRect();
+        const elAtPoint = document.elementFromPoint(rect.left + rect.width/2, rect.top + rect.height/2);
+        if(elAtPoint && elAtPoint !== closeBtn && !closeBtn.contains(elAtPoint)){
+          // si hay un elemento encima, forzamos que el botón esté en primer plano
+          closeBtn.style.zIndex = 10001;
+          closeBtn.style.pointerEvents = 'auto';
+        } else {
+          closeBtn.style.zIndex = '';
+          closeBtn.style.pointerEvents = '';
+        }
+      }, 300);
+    }
+    // arrancar comprobación cuando el modal se abra
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(m => {
+        if(m.attributeName === 'class' && modal.classList.contains('active')){
+          startOverlayCheck();
+        }
+      });
+    });
+    observer.observe(modal, { attributes: true });
+
+  });
+
+})();
+// ===============================
+// FIX MODAL COMPLETO
+// ===============================
+
+// Cerrar con botón
+function closeExerciseModal(){
+  const modal = document.getElementById('exerciseModal');
+  if(modal){
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+// Cerrar haciendo click fuera
+document.addEventListener('click', function(e){
+  const backdrop = document.getElementById('exerciseModal');
+  if(!backdrop) return;
+
+  if(e.target === backdrop){
+    backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// Cerrar con ESC
+document.addEventListener('keydown', function(e){
+  if(e.key === "Escape"){
+    closeExerciseModal();
+  }
+});
+</script>
+<!-- --- FIN DEL BLOQUE DE CIERRE DEL MODAL --- -->
+
+
+
 
 </body>
 </html>
