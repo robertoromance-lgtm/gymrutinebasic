@@ -294,10 +294,10 @@ p{margin:0 0 6px;color:var(--text-secondary);}
 
 </div> <!-- cierre de .app -->
 <!-- MI RUTINA SEMANAL -->
-<section id="mi-rutina-semanal" style="margin-top:20px;">
-  <h2 style="margin-bottom:10px;">Mi rutina semanal</h2>
+<section id="mi-rutina-semanal" style="margin:20px 0;">
+  <h2 style="margin-bottom:12px;">Mi rutina semanal</h2>
 
-  <div class="routine-buttons">
+  <div class="routine-buttons" style="display:flex;flex-direction:column;gap:8px;">
     <button class="btn btn-neutral btn-full" data-dia="lunes">Lunes</button>
     <button class="btn btn-neutral btn-full" data-dia="martes">Martes</button>
     <button class="btn btn-neutral btn-full" data-dia="miercoles">Miércoles</button>
@@ -307,7 +307,7 @@ p{margin:0 0 6px;color:var(--text-secondary);}
     <button class="btn btn-neutral btn-full" data-dia="domingo">Domingo</button>
   </div>
 
-  <div id="rutinaDiaContenido" style="margin-top:15px;"></div>
+  <div id="rutinaDiaContenido" style="margin-top:20px;"></div>
 </section>
 
 
@@ -328,6 +328,17 @@ p{margin:0 0 6px;color:var(--text-secondary);}
       <strong>Pasos básicos:</strong>
       <ul id="modalSteps" style="margin:4px 0 0 18px;padding:0;font-size:13px;"></ul>
     </div>
+<!-- VARIANTES DE AGARRE -->
+<div id="variantesContainer" style="margin-top:20px; display:none;">
+  <h3 style="margin-bottom:10px;">Variantes de agarre</h3>
+
+  <div id="variantesButtons" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+
+  <div id="variantesContenido" style="margin-top:15px;">
+    <img id="variantesImagen" src="" style="width:100%;border-radius:10px;margin-bottom:10px;">
+    <p id="variantesDescripcion" style="font-size:15px;line-height:1.4;"></p>
+  </div>
+</div>
 
     <button class="btn btn-neutral btn-full" onclick="closeExerciseModal()">Cerrar</button>
   </div>
@@ -336,6 +347,23 @@ p{margin:0 0 6px;color:var(--text-secondary);}
 // --- Datos de ejemplo (demo real) ---
 const machinesByGroup = {
   pecho: [
+  {
+  id:'press_pecho_convergente',
+  nombre:'Press de Pecho en Máquina',
+  grupo:'Pecho · Tríceps · Deltoides anterior',
+  tipo:'video',
+  media:'https://www.youtube.com/embed/2xS4qZzZxw4', 
+  imagenAlternativa:'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxDckgQrC3unWq3L4I7kyDPJbPt3j_vD6Yz9crPHg2lF4u7qZXXTrRYM4dd67E7V2p4sn7vykJdJFSmTxGOdo4ifx0MJoZwBK0ZdsDLUNJDSsCyTfnnxI1tR08id8DRPJ0xeZCWl3w06jARjPq-0Hi1bud_h9z-v3WnmXkkgU95bHcKfoNCCMIDiP0b0A/s16000/Copilot_20260328_115234.png',
+  imagenMaquina:'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjAIaumEZ0JXwc-Z7KzDaDGgeGaeVtSid0L_eGMSVR_02Igpy7IysMAotxmntKcVdlS3wt9f_F2jiLzKvhTpLP7HJ_dlWS5kyF1N-IEwRigOkWHRKjhfGXmI5fVn7FYmdwiDbCqF8kVLIczaJYMNlHmUJlM4XOaBNJzmCXGUrogPguOKLnJJfLCygIXqU/s16000/OIP-4126119451.jpg',
+  descripcion:'Máquina guiada para trabajar el pectoral con seguridad y estabilidad. Ideal para progresión de carga.',
+  pasos:[
+    'Ajusta el asiento para que las manos queden a la altura del pecho.',
+    'Apoya la espalda completamente en el respaldo.',
+    'Empuja las empuñaduras hacia adelante sin bloquear los codos.',
+    'Controla la vuelta manteniendo tensión en el pectoral.'
+  ]
+}
+
     {
       id:'press_maquina',
       nombre:'Press banca en máquina',
@@ -380,6 +408,23 @@ const machinesByGroup = {
         'Controla la subida sin soltar de golpe.'
       ]
     }
+    {
+  id: 'polea_alta',
+  nombre: 'Polea Alta (Lat Pulldown)',
+  grupo: 'Espalda · Bíceps · Dorsal ancho',
+  tipo: 'video',
+  media: 'https://www.youtube.com/embed/CAwf7n6Luuc',
+  imagenAlternativa: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguCUgbnRHRRHF7R1CStvWRKUKmOCDVqM1nyo3iOTyjncyTufD2HskwI0Uf2muPvjI6R61RxS-4Ux7MgMXBNzv9-N0VeiNtPJbMe9zbIyVunmGRcHSXCQZoie3ttlxnjmPvGENHg7aUvkZ2njvbQT_EC5byvR3kK2x2qI9aLEPW1cci8gREieJDXM5RS-Q/s16000/panel_polea_alta_scanner.png',
+  imagenMaquina: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyMIkJxVR4crgdNqxkGF_-ZK6IRIDjk70BwXUlG7f2dbXNT0aqqonXw5Z008BT-e7DXJxCXV95bFyq6a8o7fIGoICZlrn5EtxmSVGvebkBhsWcG0EMrugmt-hOLeZhn_lmnu70S4nuE4gmsrXUduoBFWPfOGyUMvVyrU6K_-lh9F7CRls5FDdQ3PEfads/s16000/OIP-1001571545.jpg',
+  descripcion: 'Ejercicio básico para trabajar el dorsal ancho con trayectoria guiada. Ideal para aprender técnica y progresar en dominadas.',
+  pasos: [
+    'Sujeta la barra con agarre más ancho que los hombros.',
+    'Lleva la barra hacia la parte alta del pecho sin balancearte.',
+    'Mantén el pecho abierto y la espalda recta.',
+    'Controla la subida sin soltar de golpe.'
+  ]
+}
+
   ],
   piernas: [],
   hombros: []
@@ -516,6 +561,8 @@ function openExerciseModalById(id){
     li.textContent = p;
     stepsUl.appendChild(li);
   });
+  cargarVariantes(ex.id);
+
   modal.classList.add('active');
 }
 function closeExerciseModal(){
@@ -597,111 +644,73 @@ function initFilterChips(){
     });
   });
 }
-// --- MI RUTINA SEMANAL ---
+// --- VARIANTES DE AGARRE (MODULAR Y AMPLIABLE) ---
+const variantesAgarre = {
+  jalon_pecho: {
+    ancho: {
+      nombre: "Agarre ancho (prono)",
+      imagen: "img/jalon_ancho.jpg",
+      descripcion: "Mayor activación del dorsal alto y redondo mayor. Codos abiertos, menos bíceps."
+    },
+    triangulo: {
+      nombre: "Agarre triángulo (neutro)",
+      imagen: "img/jalon_triangulo.jpg",
+      descripcion: "Más dorsal medio e inferior. Más fuerza total y recorrido más largo."
+    },
+    supino: {
+      nombre: "Agarre supino (invertido)",
+      imagen: "img/jalon_supino.jpg",
+      descripcion: "Más bíceps y dorsal inferior. Ideal para progresar en dominadas."
+    }
+  }
+  polea_alta: {
+  ancho: {
+    nombre: "Agarre ancho (prono)",
+    imagen: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEguCUgbnRHRRHF7R1CStvWRKUKmOCDVqM1nyo3iOTyjncyTufD2HskwI0Uf2muPvjI6R61RxS-4Ux7MgMXBNzv9-N0VeiNtPJbMe9zbIyVunmGRcHSXCQZoie3ttlxnjmPvGENHg7aUvkZ2njvbQT_EC5byvR3kK2x2qI9aLEPW1cci8gREieJDXM5RS-Q/s16000/panel_polea_alta_scanner.png",
+    descripcion: "Mayor activación del dorsal ancho; codos hacia fuera, recorrido amplio. Ideal para anchura y desarrollo del V-taper."
+  },
+  triangulo: {
+    nombre: "Agarre en triángulo (neutro)",
+    imagen: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiyMIkJxVR4crgdNqxkGF_-ZK6IRIDjk70BwXUlG7f2dbXNT0aqqonXw5Z008BT-e7DXJxCXV95bFyq6a8o7fIGoICZlrn5EtxmSVGvebkBhsWcG0EMrugmt-hOLeZhn_lmnu70S4nuE4gmsrXUduoBFWPfOGyUMvVyrU6K_-lh9F7CRls5FDdQ3PEfads/s16000/OIP-1001571545.jpg",
+    descripcion: "Agarre neutro/triángulo: más recorrido y mayor implicación del dorsal medio e inferior; más cómodo para hombros sensibles."
+  }
+}
 
-const rutinaSemanal = {
-  lunes: [
-    { nombre: "Prensa de pierna", maquina: "prensa" },
-    { nombre: "Extensión de cuádriceps", maquina: "extension" },
-    { nombre: "Femoral sentado", maquina: "femoral" },
-    { nombre: "Gemelos", maquina: "gemelos" },
-    { nombre: "Abdominal máquina", maquina: "abdominal" },
-    { nombre: "Cardio 10-20 min", maquina: null }
-  ],
-
-  martes: [
-    { nombre: "Jalón al pecho", maquina: "jalon" },
-    { nombre: "Remo sentado", maquina: "remo" },
-    { nombre: "Curl de bíceps", maquina: "biceps" },
-    { nombre: "Elevaciones laterales", maquina: "deltoides" },
-    { nombre: "Cardio 10-20 min", maquina: null }
-  ],
-
-  miercoles: [
-    { nombre: "Press de pecho", maquina: "pecho" },
-    { nombre: "Aperturas", maquina: "aperturas" },
-    { nombre: "Press de hombros", maquina: "hombros" },
-    { nombre: "Press de tríceps", maquina: "triceps" },
-    { nombre: "Abdominal máquina", maquina: "abdominal" }
-  ],
-
-  jueves: [
-    { nombre: "Día de descanso", maquina: null }
-  ],
-
-  viernes: [
-    { nombre: "Prensa de pierna", maquina: "prensa" },
-    { nombre: "Extensión de cuádriceps", maquina: "extension" },
-    { nombre: "Femoral sentado", maquina: "femoral" },
-    { nombre: "Gemelos", maquina: "gemelos" },
-    { nombre: "Abdominal máquina", maquina: "abdominal" },
-    { nombre: "Cardio 10-20 min", maquina: null }
-  ],
-
-  sabado: [
-    { nombre: "Press de pecho", maquina: "pecho" },
-    { nombre: "Jalón al pecho", maquina: "jalon" },
-    { nombre: "Press de hombros", maquina: "hombros" },
-    { nombre: "Press de tríceps", maquina: "triceps" },
-    { nombre: "Curl de bíceps", maquina: "biceps" },
-    { nombre: "Abdominal máquina", maquina: "abdominal" },
-    { nombre: "Cardio suave", maquina: null }
-  ],
-
-  domingo: [
-    { nombre: "Día libre", maquina: null }
-  ]
 };
 
+// --- FUNCIÓN PARA MOSTRAR VARIANTES ---
+function cargarVariantes(maquinaID) {
+  const cont = document.getElementById("variantesContainer");
+  const botones = document.getElementById("variantesButtons");
+  const img = document.getElementById("variantesImagen");
+  const desc = document.getElementById("variantesDescripcion");
 
-// Renderizado de la rutina del día seleccionado
-function renderRutinaDia(dia) {
-  const cont = document.getElementById("rutinaDiaContenido");
-  const ejercicios = rutinaSemanal[dia];
+  botones.innerHTML = "";
+  img.src = "";
+  desc.textContent = "";
 
-  if (!ejercicios) {
-    cont.innerHTML = "<p>No hay rutina definida para este día.</p>";
+  const variantes = variantesAgarre[maquinaID];
+  if (!variantes) {
+    cont.style.display = "none";
     return;
   }
 
-  let html = `<h3 style="margin-bottom:10px;text-transform:capitalize;">${dia}</h3>`;
+  cont.style.display = "block";
 
-  ejercicios.forEach(ej => {
-    if (ej.maquina) {
-      html += `
-        <div class="exercise-card" style="padding:10px;border:1px solid #ccc;border-radius:8px;margin-bottom:10px;">
-          <strong>${ej.nombre}</strong><br>
-          <button class="btn btn-neutral" onclick="openExerciseFromRutina('${ej.maquina}')">Ver ejercicio</button>
-        </div>
-      `;
-    } else {
-      html += `
-        <div class="exercise-card" style="padding:10px;border:1px solid #ccc;border-radius:8px;margin-bottom:10px;background:#f7f7f7;">
-          <strong>${ej.nombre}</strong>
-        </div>
-      `;
-    }
-  });
+  Object.keys(variantes).forEach(key => {
+    const v = variantes[key];
+    const btn = document.createElement("button");
+    btn.className = "btn btn-neutral";
+    btn.textContent = v.nombre;
 
-  cont.innerHTML = html;
-}
-
-
-// Conexión con tu modal actual
-function openExerciseFromRutina(maquinaID) {
-  const btn = document.querySelector(`[data-machine="${maquinaID}"]`);
-  if (btn) btn.click();
-}
-
-
-// Activación de botones
-document.querySelectorAll("#mi-rutina-semanal .routine-buttons button")
-  .forEach(btn => {
     btn.addEventListener("click", () => {
-      const dia = btn.getAttribute("data-dia");
-      renderRutinaDia(dia);
+      img.src = v.imagen;
+      desc.textContent = v.descripcion;
     });
+
+    botones.appendChild(btn);
   });
+}
 
 </script>
 </body>
