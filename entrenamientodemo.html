@@ -3,55 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Gym Pro - v3 Correcta</title>
+    <title>Mi Gym Pro - Orange Edition</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
+            --primary: #e67e22; /* Naranja principal */
+            --primary-dark: #d35400; /* Naranja oscuro */
+            --accent: #f39c12; /* Naranja amarillento */
             --success: #27ae60;
             --warning: #f1c40f;
             --danger: #e74c3c;
-            --bg: #f4f7f6;
+            --bg: #fff5ed; /* Fondo con un toque melocotón muy suave */
             --card-bg: #ffffff;
         }
 
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #333; padding-bottom: 50px; }
         .container { max-width: 600px; margin: auto; padding: 15px; }
         
-        h1, h2 { text-align: center; color: var(--primary); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        h1, h2 { text-align: center; color: var(--primary-dark); display: flex; align-items: center; justify-content: center; gap: 10px; }
         .material-icons { vertical-align: middle; }
 
-        .card { background: var(--card-bg); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .card { background: var(--card-bg); border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(230, 126, 34, 0.1); border: 1px solid rgba(230, 126, 34, 0.1); }
         
         .badge-sciatica { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; color: white; margin-bottom: 10px; }
         .bg-green { background-color: var(--success); }
         .bg-yellow { background-color: var(--warning); color: #000; }
         .bg-red { background-color: var(--danger); }
 
-        .btn { display: block; width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; transition: 0.3s; margin-top: 8px; text-align: center; text-decoration: none; box-sizing: border-box; }
-        .btn-main { background: var(--primary); color: white; }
-        .btn-outline { border: 1px solid #ddd; color: var(--primary); background: white; text-align: left; display: flex; justify-content: space-between; align-items: center; }
+        .btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; transition: 0.3s; margin-top: 8px; text-align: center; text-decoration: none; box-sizing: border-box; font-weight: 600; }
+        .btn-main { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 4px 6px rgba(211, 84, 0, 0.2); }
+        .btn-main:active { transform: scale(0.98); }
+        .btn-outline { border: 1px solid #ddd; color: var(--primary-dark); background: white; text-align: left; display: flex; justify-content: space-between; align-items: center; }
         
         .days-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(75px, 1fr)); gap: 8px; margin-bottom: 20px; }
-        .day-btn { padding: 10px 5px; font-size: 12px; background: #eee; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
-        .day-btn.active { background: var(--accent); color: white; }
+        .day-btn { padding: 12px 5px; font-size: 12px; background: white; border: 1px solid #eee; border-radius: 10px; cursor: pointer; font-weight: bold; color: var(--primary-dark); }
+        .day-btn.active { background: var(--primary); color: white; border-color: var(--primary-dark); box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
 
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; overflow-y: auto; z-index: 1000; padding: 10px; }
+        /* Estilo del Modal */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; overflow-y: auto; z-index: 1000; padding: 10px; }
         .modal.active { display: flex; align-items: flex-start; justify-content: center; }
-        .modal-content { background: white; border-radius: 15px; padding: 20px; width: 100%; max-width: 500px; margin-top: 20px; position: relative; }
-        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 30px; cursor: pointer; }
+        .modal-content { background: white; border-radius: 20px; padding: 25px; width: 100%; max-width: 500px; margin-top: 20px; position: relative; border-top: 6px solid var(--primary); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #999; }
 
-        .modal-img { width: 100%; border-radius: 10px; margin-top: 10px; border: 1px solid #eee; background: #f9f9f9; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 15px 0; background: #000; border-radius: 10px; overflow: hidden; }
+        .modal-img { width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid #eee; background: #fafafa; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 15px 0; background: #000; border-radius: 12px; overflow: hidden; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        .progress-box { background: #f0f7ff; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #d0e3ff; }
-        .progress-box input { width: 80px; padding: 8px; text-align: center; border-radius: 5px; border: 1px solid #ccc; font-size: 16px; }
+        .progress-box { background: #fff8f0; padding: 15px; border-radius: 12px; margin-top: 15px; border: 1px solid #ffe0bd; }
+        .progress-box input { width: 80px; padding: 10px; text-align: center; border-radius: 8px; border: 1px solid #ccc; font-size: 18px; color: var(--primary-dark); font-weight: bold; }
 
-        #searchBar { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 15px; box-sizing: border-box; }
+        #searchBar { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #eee; margin-bottom: 15px; box-sizing: border-box; font-size: 16px; outline: none; }
+        #searchBar:focus { border-color: var(--primary); box-shadow: 0 0 5px rgba(230, 126, 34, 0.3); }
         
-        .muscle-header { background: #eef2f3; padding: 5px 10px; border-radius: 5px; color: var(--accent); font-weight: bold; margin-top: 15px; font-size: 14px; text-transform: uppercase; border-left: 4px solid var(--accent); }
+        .muscle-header { background: #fff0e0; padding: 8px 12px; border-radius: 8px; color: var(--primary-dark); font-weight: 800; margin-top: 20px; font-size: 13px; text-transform: uppercase; border-left: 5px solid var(--primary); letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -71,13 +75,13 @@
             <button class="day-btn" onclick="showDay('Domingo', this)">DOM</button>
         </div>
         <div id="routineList">
-            <p style="text-align:center; color:#888;">Toca un día para empezar.</p>
+            <p style="text-align:center; color:#999; padding: 20px;">Toca un día para ver tu entrenamiento naranja.</p>
         </div>
     </section>
 
     <section class="card">
-        <h2><i class="material-icons">list_alt</i> Buscador General</h2>
-        <input type="text" id="searchBar" placeholder="Buscar máquina..." onkeyup="filterMachines()">
+        <h2><i class="material-icons">search</i> Buscador</h2>
+        <input type="text" id="searchBar" placeholder="Ej: Prensa, Pecho, Bíceps..." onkeyup="filterMachines()">
         <div id="allMachinesList"></div>
     </section>
 </div>
@@ -86,45 +90,55 @@
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
         <div id="modalSciatica"></div>
-        <h2 id="modalTitle"></h2>
-        <p id="modalMuscles" style="color:var(--accent); font-weight:bold;"></p>
+        <h2 id="modalTitle" style="text-align: left; margin: 5px 0;"></h2>
+        <p id="modalMuscles" style="color:var(--primary); font-weight:bold; margin-top:0;"></p>
+        
         <div class="video-container" id="modalVideo"></div>
+        
         <div class="progress-box">
-            <strong><i class="material-icons">trending_up</i> Peso (kg):</strong>
-            <input type="number" id="weightInput">
-            <button class="btn-main" onclick="saveWeight()" style="display:inline; width:auto; padding:8px">Guardar</button>
+            <strong><i class="material-icons" style="font-size:18px; color:var(--primary);">trending_up</i> Peso Máximo:</strong><br><br>
+            <input type="number" id="weightInput" placeholder="0"> kg 
+            <button class="btn-main" onclick="saveWeight()" style="display:inline; width:auto; padding:10px 20px; margin-left:10px;">Guardar</button>
         </div>
-        <div style="margin-top:15px;"><p id="modalNote" style="font-style:italic; color:#666;"></p></div>
-        <h3>Guía Visual</h3>
+
+        <div style="margin-top:20px;">
+            <p><strong><i class="material-icons" style="font-size:18px; color:var(--primary);">info</i> Nota de Entrenamiento:</strong></p>
+            <p id="modalNote" style="font-style: italic; color: #555; line-height: 1.5;"></p>
+        </div>
+
+        <h3 style="border-bottom: 2px solid #eee; padding-bottom: 5px;">📋 Identificación</h3>
+        <p><strong>Tabla de Máquina:</strong></p>
         <img id="imgTable" class="modal-img" src="">
+        <p><strong>Foto en el Gym:</strong></p>
         <img id="imgPhoto" class="modal-img" src="">
-        <button class="btn btn-main" onclick="closeModal()">Cerrar</button>
+        
+        <button class="btn btn-main" onclick="closeModal()" style="margin-top:25px;">Volver</button>
     </div>
 </div>
 
 <script>
+// ==========================================
+// BASE DE DATOS COMPLETA
+// ==========================================
 const machines = [
-    // PECHO
-    { id: "p_conv", nombre: "Press Pecho Convergente", grupo: "Pecho", sciatica: "green", tags: ["Miercoles", "Sabado"], nota: "Discos: permite cargas pesadas." },
-    { id: "p_vert", nombre: "Press Pecho Vertical", grupo: "Pecho", sciatica: "green", tags: ["Miercoles"], nota: "Estabilidad total." },
-    { id: "peck_deck", nombre: "Peck Deck", grupo: "Pecho", sciatica: "green", tags: ["Miercoles"], nota: "Mantén tensión." },
-    // ESPALDA
-    { id: "jalon_p", nombre: "Jalón al Pecho", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], nota: "No balancear." },
-    { id: "remo_s", nombre: "Remo Sentado", grupo: "Espalda", sciatica: "yellow", tags: ["Martes"], nota: "Espalda recta." },
-    { id: "remo_conv", nombre: "Remo Convergente", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], nota: "Grosor y fuerza." },
-    // PIERNAS
-    { id: "prensa_i", nombre: "Prensa Inclinada", grupo: "Pierna", sciatica: "yellow", tags: ["Lunes", "Viernes", "Sabado"], nota: "No bloquees rodillas." },
-    { id: "ext_cuad", nombre: "Extensión Cuádriceps", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], nota: "Aislamiento." },
-    { id: "curl_fem", nombre: "Curl Femoral", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], nota: "Isquios." },
-    // HOMBROS / DELTOIDES
-    { id: "press_h", nombre: "Press Hombro Conv.", grupo: "Hombro", sciatica: "green", tags: ["Miercoles", "Sabado"], nota: "Empuje seguro." },
-    { id: "vuelos_post", nombre: "Vuelos Posteriores", grupo: "Hombro", sciatica: "green", tags: ["Martes", "Miercoles"], nota: "Aspecto redondeado." },
-    // BRAZOS
-    { id: "curl_b", nombre: "Curl Bíceps Scott", grupo: "Bíceps", sciatica: "green", tags: ["Martes"], nota: "Aislamiento." },
-    { id: "ext_tri", nombre: "Extensiones Tríceps", grupo: "Tríceps", sciatica: "green", tags: ["Miercoles"], nota: "Codos pegados." },
-    // CORE / ABDOMINAL
-    { id: "crunch", nombre: "Crunch Abdominal", grupo: "Abdominal", sciatica: "yellow", tags: ["Lunes", "Miercoles", "Viernes", "Sabado"], nota: "Usa el abdomen." },
-    { id: "paralelas", nombre: "Elevación Paralelas", grupo: "Abdominal", sciatica: "green", tags: ["Lunes", "Viernes", "Sabado"], nota: "Zona baja." }
+    { id: "p_conv", nombre: "Press Pecho Convergente", grupo: "Pecho", sciatica: "green", tags: ["Miercoles", "Sabado"], nota: "La de discos permite cargas más pesadas y progresivas." },
+    { id: "p_vert", nombre: "Press Pecho Vertical", grupo: "Pecho", sciatica: "green", tags: ["Miercoles"], nota: "Excelente para control total del movimiento." },
+    { id: "peck_deck", nombre: "Peck Deck / Contractora", grupo: "Pecho", sciatica: "green", tags: ["Miercoles"], nota: "Mantén los codos alineados." },
+    { id: "jalon_p", nombre: "Jalón al Pecho", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], nota: "Enfócate en bajar con el dorsal, no con los brazos." },
+    { id: "remo_s", nombre: "Remo Sentado", grupo: "Espalda", sciatica: "yellow", tags: ["Martes"], nota: "Pecho fuera y espalda neutra." },
+    { id: "remo_conv", nombre: "Remo Convergente", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], nota: "Ideal para ganar densidad en la espalda." },
+    { id: "ext_lum", nombre: "Extensión Lumbar", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], nota: "Fortalece la zona baja con cuidado." },
+    { id: "prensa_i", nombre: "Prensa Inclinada", grupo: "Pierna", sciatica: "yellow", tags: ["Lunes", "Viernes", "Sabado"], nota: "No bloquees las rodillas arriba." },
+    { id: "ext_cuad", nombre: "Extensión Cuádriceps", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], nota: "Punta de los pies hacia arriba." },
+    { id: "curl_fem", nombre: "Curl Femoral", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], nota: "Controla el retorno del peso." },
+    { id: "hip_thrust", nombre: "Hip Thrust Máquina", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes", "Sabado"], nota: "Máxima contracción de glúteo arriba." },
+    { id: "gemelo", nombre: "Gemelo Sentado", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], nota: "Estira bien abajo." },
+    { id: "press_h", nombre: "Press Hombro Conv.", grupo: "Hombro", sciatica: "green", tags: ["Miercoles", "Sabado"], nota: "Controla que los hombros no suban a las orejas." },
+    { id: "vuelos_post", nombre: "Vuelos Posteriores", grupo: "Hombro", sciatica: "green", tags: ["Martes", "Miercoles"], nota: "Trabajo de detalle para hombro redondo." },
+    { id: "curl_b", nombre: "Curl Bíceps Scott", grupo: "Bíceps", sciatica: "green", tags: ["Martes"], nota: "No estires el brazo al 100% para evitar tendinitis." },
+    { id: "ext_tri", nombre: "Extensiones Tríceps", grupo: "Tríceps", sciatica: "green", tags: ["Miercoles"], nota: "Codos pegados al torso." },
+    { id: "crunch", nombre: "Crunch Abdominal", grupo: "Abdominal", sciatica: "yellow", tags: ["Lunes", "Miercoles", "Viernes", "Sabado"], nota: "Enrolla la columna, no tires del cuello." },
+    { id: "paralelas", nombre: "Elevación Paralelas", grupo: "Abdominal", sciatica: "green", tags: ["Lunes", "Viernes", "Sabado"], nota: "Evita el balanceo." }
 ];
 
 const resumenDias = {
@@ -137,40 +151,38 @@ const resumenDias = {
     "Domingo": "Libre"
 };
 
+let selectedId = null;
+
 function showDay(day, btn) {
     document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const container = document.getElementById('routineList');
     
-    // 1. Caso Descanso/Libre
     if(day === 'Jueves' || day === 'Domingo') {
         container.innerHTML = `
-            <div style="text-align:center; padding:30px; color:var(--primary);">
-                <i class="material-icons" style="font-size:48px;">spa</i><br>
-                <strong>Día de ${resumenDias[day]}</strong>.<br>¡Recupera energías!
+            <div style="text-align:center; padding:40px; color:var(--primary-dark);">
+                <i class="material-icons" style="font-size:60px;">spa</i><br><br>
+                <strong style="font-size:18px;">Día de ${resumenDias[day]}</strong><br>
+                <span style="color:#777;">¡Disfruta tu descanso, te lo has ganado!</span>
             </div>`;
         return;
     }
 
-    // 2. Título de qué toca hoy
-    let html = `<div style="margin-bottom:15px;">
-                    <small style="color:var(--accent); font-weight:bold;">HOY TOCA:</small><br>
-                    <strong style="font-size:18px;">${resumenDias[day]}</strong>
+    let html = `<div style="margin-bottom:15px; border-left: 4px solid var(--primary); padding-left: 15px;">
+                    <small style="color:var(--primary); font-weight:bold; text-transform: uppercase;">Hoy toca:</small><br>
+                    <strong style="font-size:20px; color:var(--primary-dark);">${resumenDias[day]}</strong>
                 </div>`;
 
-    // 3. Filtrar y agrupar por músculo
     const filtrados = machines.filter(m => m.tags.includes(day));
+    const grupos = [...new Set(filtrados.map(m => m.grupo))];
     
-    // Agrupamos para que salga "PECHO", luego sus máquinas, luego "TRICEPS"...
-    const gruposEncontrados = [...new Set(filtrados.map(m => m.grupo))];
-    
-    gruposEncontrados.forEach(g => {
+    grupos.forEach(g => {
         html += `<div class="muscle-header">${g}</div>`;
-        const maquinasGrupo = filtrados.filter(m => m.grupo === g);
-        maquinasGrupo.forEach(m => {
+        filtrados.filter(m => m.grupo === g).forEach(m => {
             html += `
-                <button class="btn btn-main" onclick="openModal('${m.id}')" style="text-align:left; display:flex; justify-content:space-between;">
-                    ${m.nombre} <i class="material-icons">play_circle_outline</i>
+                <button class="btn btn-main" onclick="openModal('${m.id}')" style="text-align:left; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span>${m.nombre}</span>
+                    <i class="material-icons">chevron_right</i>
                 </button>`;
         });
     });
@@ -178,26 +190,46 @@ function showDay(day, btn) {
     container.innerHTML = html;
 }
 
-// Funciones de soporte
 function openModal(id) {
     const m = machines.find(x => x.id === id);
+    selectedId = id;
     document.getElementById('modalTitle').innerText = m.nombre;
     document.getElementById('modalMuscles').innerText = m.grupo;
     document.getElementById('modalNote').innerText = m.nota;
     document.getElementById('imgTable').src = "https://via.placeholder.com/400x200?text=Subir+Foto+Tabla";
     document.getElementById('imgPhoto').src = "https://via.placeholder.com/400x200?text=Subir+Foto+Gym";
+    
+    const sci = document.getElementById('modalSciatica');
+    const colors = { green: ['bg-green', 'RECOMENDADO CIÁTICA'], yellow: ['bg-yellow', 'PRECAUCIÓN CIÁTICA'], red: ['bg-red', 'RIESGO CIÁTICA'] };
+    sci.innerHTML = `<span class="badge-sciatica ${colors[m.sciatica][0]}">${colors[m.sciatica][1]}</span>`;
+
+    document.getElementById('weightInput').value = localStorage.getItem('kg_' + id) || "";
     document.getElementById('exerciseModal').classList.add('active');
-}
-function closeModal() { document.getElementById('exerciseModal').classList.remove('active'); }
-function saveWeight() { alert("Peso guardado!"); }
-function filterMachines() {
-    const q = document.getElementById('searchBar').value.toLowerCase();
-    const f = machines.filter(m => m.nombre.toLowerCase().includes(q));
-    document.getElementById('allMachinesList').innerHTML = f.map(m => `<div class="btn btn-outline" onclick="openModal('${m.id}')">${m.nombre}</div>`).join('');
+    document.body.style.overflow = "hidden";
 }
 
-// Iniciar con el catálogo cargado
-filterMachines();
+function closeModal() { 
+    document.getElementById('exerciseModal').classList.remove('active'); 
+    document.body.style.overflow = "auto";
+}
+
+function saveWeight() {
+    localStorage.setItem('kg_' + selectedId, document.getElementById('weightInput').value);
+    alert("¡Marca guardada!");
+}
+
+function filterMachines() {
+    const q = document.getElementById('searchBar').value.toLowerCase();
+    const f = machines.filter(m => m.nombre.toLowerCase().includes(q) || m.grupo.toLowerCase().includes(q));
+    document.getElementById('allMachinesList').innerHTML = f.map(m => `
+        <div class="btn btn-outline" onclick="openModal('${m.id}')">
+            <span><strong>${m.nombre}</strong><br><small style="color:#888;">${m.grupo}</small></span>
+            <i class="material-icons" style="color:var(--primary);">add_circle</i>
+        </div>
+    `).join('');
+}
+
+filterMachines(); // Inicia el buscador
 </script>
 </body>
 </html>
