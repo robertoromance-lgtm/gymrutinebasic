@@ -58,10 +58,10 @@
 <body>
 
 <div class="container">
-    <h1>🏋️‍♂️ Mi Entrenador Personal</h1>
+    <h1>&#x1F3CB;&#xFE0F; Mi Entrenador Personal</h1>
 
-    <section class="card">
-        <h2>📅 Mi Rutina Diaria</h2>
+<section class="card">
+    <h2>&#x1F4C5; Mi Rutina Diaria</h2>
         <div class="days-grid" id="daySelector">
             <button class="day-btn" onclick="showDay('lunes')">Lun</button>
             <button class="day-btn" onclick="showDay('martes')">Mar</button>
@@ -76,13 +76,13 @@
     </section>
 
     <section class="card">
-        <h2>🛠️ Catálogo de Ejercicios</h2>
+    <h2>&#x1F6E0;&#xFE0F; Catálogo de Ejercicios</h2>
         <input type="text" id="searchBar" placeholder="Buscar máquina o músculo..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-bottom:10px;" onkeyup="filterMachines()">
         <div id="allMachinesList"></div>
     </section>
 
-    <section class="card">
-        <h2>🧘 Estiramientos Finales</h2>
+   <section class="card">
+    <h2>&#x1F9D8; Estiramientos Finales</h2>
         <div id="stretchesList"></div>
     </section>
 </div>
@@ -97,12 +97,13 @@
         <div class="video-container" id="modalVideo"></div>
         
         <div class="progress-box">
-            <strong>📊 Mi Progreso:</strong> 
+    <strong>&#x1F4CA; Mi Progreso:</strong> 
             <input type="number" id="weightInput"> kg 
             <button class="btn-main" onclick="saveWeight()" style="display:inline; width:auto; padding:5px 10px;">Guardar</button>
         </div>
 
-        <div id="modalVariations" style="margin-top:15px;"></div>
+<div id="modalVariations" style="margin-top:15px;">
+    </div>
 
         <h3>📋 Guía Técnica</h3>
         <p><strong>Tabla explicativa:</strong></p>
@@ -223,7 +224,7 @@ function openModal(id) {
     // Variaciones
     const varDiv = document.getElementById('modalVariations');
     if(m.variaciones && m.variaciones.length > 0) {
-        varDiv.innerHTML = "<strong>🔄 Variantes de agarre:</strong><br>" + 
+        varDiv.innerHTML = "<strong>&#x1F504; Variantes de agarre:</strong><br>" +
             m.variaciones.map(v => `<button class="variation-btn" onclick="alert('${v.efecto}')">${v.nombre}</button>`).join('');
     } else {
         varDiv.innerHTML = "";
