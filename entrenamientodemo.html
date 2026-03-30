@@ -7,13 +7,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary: #e67e22; /* Naranja principal */
-            --primary-dark: #d35400; /* Naranja oscuro */
-            --accent: #f39c12; /* Naranja amarillento */
+            --primary: #e67e22; 
+            --primary-dark: #d35400; 
+            --accent: #f39c12; 
             --success: #27ae60;
             --warning: #f1c40f;
             --danger: #e74c3c;
-            --bg: #fff5ed; /* Fondo con un toque melocotón muy suave */
+            --bg: #fff5ed; 
             --card-bg: #ffffff;
         }
 
@@ -39,7 +39,6 @@
         .day-btn { padding: 12px 5px; font-size: 12px; background: white; border: 1px solid #eee; border-radius: 10px; cursor: pointer; font-weight: bold; color: var(--primary-dark); }
         .day-btn.active { background: var(--primary); color: white; border-color: var(--primary-dark); box-shadow: 0 3px 6px rgba(0,0,0,0.1); }
 
-        /* Estilo del Modal */
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; overflow-y: auto; z-index: 1000; padding: 10px; }
         .modal.active { display: flex; align-items: flex-start; justify-content: center; }
         .modal-content { background: white; border-radius: 20px; padding: 25px; width: 100%; max-width: 500px; margin-top: 20px; position: relative; border-top: 6px solid var(--primary); }
@@ -53,8 +52,6 @@
         .progress-box input { width: 80px; padding: 10px; text-align: center; border-radius: 8px; border: 1px solid #ccc; font-size: 18px; color: var(--primary-dark); font-weight: bold; }
 
         #searchBar { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #eee; margin-bottom: 15px; box-sizing: border-box; font-size: 16px; outline: none; }
-        #searchBar:focus { border-color: var(--primary); box-shadow: 0 0 5px rgba(230, 126, 34, 0.3); }
-        
         .muscle-header { background: #fff0e0; padding: 8px 12px; border-radius: 8px; color: var(--primary-dark); font-weight: 800; margin-top: 20px; font-size: 13px; text-transform: uppercase; border-left: 5px solid var(--primary); letter-spacing: 1px; }
     </style>
 </head>
@@ -75,7 +72,7 @@
             <button class="day-btn" onclick="showDay('Domingo', this)">DOM</button>
         </div>
         <div id="routineList">
-            <p style="text-align:center; color:#999; padding: 20px;">Toca un día para ver tu entrenamiento naranja.</p>
+            <p style="text-align:center; color:#999; padding: 20px;">Toca un día para ver tu entrenamiento.</p>
         </div>
     </section>
 
@@ -96,7 +93,7 @@
         <div class="video-container" id="modalVideo"></div>
         
         <div class="progress-box">
-            <strong><i class="material-icons" style="font-size:18px; color:var(--primary);">trending_up</i> Peso Máximo:</strong><br><br>
+            <strong><i class="material-icons" style="font-size:18px; color:var(--primary);">trending_up</i> Mi Peso Actual:</strong><br><br>
             <input type="number" id="weightInput" placeholder="0"> kg 
             <button class="btn-main" onclick="saveWeight()" style="display:inline; width:auto; padding:10px 20px; margin-left:10px;">Guardar</button>
         </div>
@@ -107,9 +104,9 @@
         </div>
 
         <h3 style="border-bottom: 2px solid #eee; padding-bottom: 5px;">📋 Identificación</h3>
-        <p><strong>Tabla de Máquina:</strong></p>
+        <p><strong>Músculos implicados:</strong></p>
         <img id="imgTable" class="modal-img" src="">
-        <p><strong>Foto en el Gym:</strong></p>
+        <p><strong>Máquina en el Gym:</strong></p>
         <img id="imgPhoto" class="modal-img" src="">
         
         <button class="btn btn-main" onclick="closeModal()" style="margin-top:25px;">Volver</button>
@@ -117,28 +114,35 @@
 </div>
 
 <script>
-// ==========================================
-// BASE DE DATOS COMPLETA
-// ==========================================
 const machines = [
-    { id: "p_conv", nombre: "Press Pecho Convergente", grupo: "Pecho", sciatica: "green", tags: ["Miercoles", "Sabado"], nota: "La de discos permite cargas más pesadas y progresivas." },
-    { id: "p_vert", nombre: "Press Pecho Vertical", grupo: "Pecho", sciatica: "green", tags: ["Miercoles"], nota: "Excelente para control total del movimiento." },
-    { id: "peck_deck", nombre: "Peck Deck / Contractora", grupo: "Pecho", sciatica: "green", tags: ["Miercoles"], nota: "Mantén los codos alineados." },
-    { id: "jalon_p", nombre: "Jalón al Pecho", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], nota: "Enfócate en bajar con el dorsal, no con los brazos." },
-    { id: "remo_s", nombre: "Remo Sentado", grupo: "Espalda", sciatica: "yellow", tags: ["Martes"], nota: "Pecho fuera y espalda neutra." },
-    { id: "remo_conv", nombre: "Remo Convergente", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], nota: "Ideal para ganar densidad en la espalda." },
-    { id: "ext_lum", nombre: "Extensión Lumbar", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], nota: "Fortalece la zona baja con cuidado." },
-    { id: "prensa_i", nombre: "Prensa Inclinada", grupo: "Pierna", sciatica: "yellow", tags: ["Lunes", "Viernes", "Sabado"], nota: "No bloquees las rodillas arriba." },
-    { id: "ext_cuad", nombre: "Extensión Cuádriceps", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], nota: "Punta de los pies hacia arriba." },
-    { id: "curl_fem", nombre: "Curl Femoral", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], nota: "Controla el retorno del peso." },
-    { id: "hip_thrust", nombre: "Hip Thrust Máquina", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes", "Sabado"], nota: "Máxima contracción de glúteo arriba." },
-    { id: "gemelo", nombre: "Gemelo Sentado", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], nota: "Estira bien abajo." },
-    { id: "press_h", nombre: "Press Hombro Conv.", grupo: "Hombro", sciatica: "green", tags: ["Miercoles", "Sabado"], nota: "Controla que los hombros no suban a las orejas." },
-    { id: "vuelos_post", nombre: "Vuelos Posteriores", grupo: "Hombro", sciatica: "green", tags: ["Martes", "Miercoles"], nota: "Trabajo de detalle para hombro redondo." },
-    { id: "curl_b", nombre: "Curl Bíceps Scott", grupo: "Bíceps", sciatica: "green", tags: ["Martes"], nota: "No estires el brazo al 100% para evitar tendinitis." },
-    { id: "ext_tri", nombre: "Extensiones Tríceps", grupo: "Tríceps", sciatica: "green", tags: ["Miercoles"], nota: "Codos pegados al torso." },
-    { id: "crunch", nombre: "Crunch Abdominal", grupo: "Abdominal", sciatica: "yellow", tags: ["Lunes", "Miercoles", "Viernes", "Sabado"], nota: "Enrolla la columna, no tires del cuello." },
-    { id: "paralelas", nombre: "Elevación Paralelas", grupo: "Abdominal", sciatica: "green", tags: ["Lunes", "Viernes", "Sabado"], nota: "Evita el balanceo." }
+    { 
+        id: "prensa_i", 
+        nombre: "Prensa Inclinada", 
+        grupo: "Pierna", 
+        sciatica: "yellow", 
+        tags: ["Lunes", "Viernes", "Sabado"], 
+        video: "https://www.youtube.com/embed/lrkMoax-TSs?si=0_iZVbE4WvnwQOjd",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-WIuh5zFJb-sb-p7glwkldaI-SAe9rZdTy1MkWzqx02MkoyHupvgbdKvPdRD7OejHo8QLwIw0jHaSNcoMxIdiIQPOFgYp1I2bzA4c5XUCglESWeGY-1rdWSvfcqa_yc2pAYVvPNojv4YFGiQnWOMDJGzFawx30uXuF32j7wan13SB71AG-pTXkr1rp6c/s16000/bench-press-hangi-kaslar%C4%B1-%C3%A7al%C4%B1%C5%9Ft%C4%B1r%C4%B1r.jpg", 
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgclqVw8ahAEJQcaEsVBKZDw_a1o-UaE92nevdFBLHvmDAaSvkLifj1LkJlNALZLtAZNj7ZR3OCWMBKxoNObTAxKDRIJFkA5gK9O-QrAkip4Nye7RNrpwfg2VnTDrs1txOtbjoouV44a1Y2Kc0EeTN5F_JpSYCAjuG3PnWCI8fSY7UfUaz4coOuUDX8nlg/s16000/press_delcinado-1024x569-1.png",
+        nota: "No bloquees las rodillas al estirar. Mantén la espalda baja siempre pegada al respaldo para proteger la ciática." 
+    },
+    { id: "p_conv", nombre: "Press Pecho Convergente", grupo: "Pecho", sciatica: "green", tags: ["Miercoles", "Sabado"], video: "", imgTable: "", imgPhoto: "", nota: "La de discos permite cargas más pesadas y progresivas." },
+    { id: "p_vert", nombre: "Press Pecho Vertical", grupo: "Pecho", sciatica: "green", tags: ["Miercoles"], video: "", imgTable: "", imgPhoto: "", nota: "Excelente para control total del movimiento." },
+    { id: "peck_deck", nombre: "Peck Deck / Contractora", grupo: "Pecho", sciatica: "green", tags: ["Miercoles"], video: "", imgTable: "", imgPhoto: "", nota: "Mantén los codos alineados." },
+    { id: "jalon_p", nombre: "Jalón al Pecho", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], video: "", imgTable: "", imgPhoto: "", nota: "Enfócate en bajar con el dorsal, no con los brazos." },
+    { id: "remo_s", nombre: "Remo Sentado", grupo: "Espalda", sciatica: "yellow", tags: ["Martes"], video: "", imgTable: "", imgPhoto: "", nota: "Pecho fuera y espalda neutra." },
+    { id: "remo_conv", nombre: "Remo Convergente", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], video: "", imgTable: "", imgPhoto: "", nota: "Ideal para ganar densidad en la espalda." },
+    { id: "ext_lum", nombre: "Extensión Lumbar", grupo: "Espalda", sciatica: "green", tags: ["Martes", "Sabado"], video: "", imgTable: "", imgPhoto: "", nota: "Fortalece la zona baja con cuidado." },
+    { id: "ext_cuad", nombre: "Extensión Cuádriceps", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], video: "", imgTable: "", imgPhoto: "", nota: "Punta de los pies hacia arriba." },
+    { id: "curl_fem", nombre: "Curl Femoral", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], video: "", imgTable: "", imgPhoto: "", nota: "Controla el retorno del peso." },
+    { id: "hip_thrust", nombre: "Hip Thrust Máquina", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes", "Sabado"], video: "", imgTable: "", imgPhoto: "", nota: "Máxima contracción de glúteo arriba." },
+    { id: "gemelo", nombre: "Gemelo Sentado", grupo: "Pierna", sciatica: "green", tags: ["Lunes", "Viernes"], video: "", imgTable: "", imgPhoto: "", nota: "Estira bien abajo." },
+    { id: "press_h", nombre: "Press Hombro Conv.", grupo: "Hombro", sciatica: "green", tags: ["Miercoles", "Sabado"], video: "", imgTable: "", imgPhoto: "", nota: "Controla que los hombros no suban a las orejas." },
+    { id: "vuelos_post", nombre: "Vuelos Posteriores", grupo: "Hombro", sciatica: "green", tags: ["Martes", "Miercoles"], video: "", imgTable: "", imgPhoto: "", nota: "Trabajo de detalle para hombro redondo." },
+    { id: "curl_b", nombre: "Curl Bíceps Scott", grupo: "Bíceps", sciatica: "green", tags: ["Martes"], video: "", imgTable: "", imgPhoto: "", nota: "No estires el brazo al 100% para evitar tendinitis." },
+    { id: "ext_tri", nombre: "Extensiones Tríceps", grupo: "Tríceps", sciatica: "green", tags: ["Miercoles"], video: "", imgTable: "", imgPhoto: "", nota: "Codos pegados al torso." },
+    { id: "crunch", nombre: "Crunch Abdominal", grupo: "Abdominal", sciatica: "yellow", tags: ["Lunes", "Miercoles", "Viernes", "Sabado"], video: "", imgTable: "", imgPhoto: "", nota: "Enrolla la columna, no tires del cuello." },
+    { id: "paralelas", nombre: "Elevación Paralelas", grupo: "Abdominal", sciatica: "green", tags: ["Lunes", "Viernes", "Sabado"], video: "", imgTable: "", imgPhoto: "", nota: "Evita el balanceo." }
 ];
 
 const resumenDias = {
@@ -163,7 +167,7 @@ function showDay(day, btn) {
             <div style="text-align:center; padding:40px; color:var(--primary-dark);">
                 <i class="material-icons" style="font-size:60px;">spa</i><br><br>
                 <strong style="font-size:18px;">Día de ${resumenDias[day]}</strong><br>
-                <span style="color:#777;">¡Disfruta tu descanso, te lo has ganado!</span>
+                <span style="color:#777;">¡Disfruta tu descanso!</span>
             </div>`;
         return;
     }
@@ -196,9 +200,12 @@ function openModal(id) {
     document.getElementById('modalTitle').innerText = m.nombre;
     document.getElementById('modalMuscles').innerText = m.grupo;
     document.getElementById('modalNote').innerText = m.nota;
-    document.getElementById('imgTable').src = "https://via.placeholder.com/400x200?text=Subir+Foto+Tabla";
-    document.getElementById('imgPhoto').src = "https://via.placeholder.com/400x200?text=Subir+Foto+Gym";
+    document.getElementById('imgTable').src = m.imgTable || "https://via.placeholder.com/400x200?text=Subir+Foto+Tabla";
+    document.getElementById('imgPhoto').src = m.imgPhoto || "https://via.placeholder.com/400x200?text=Subir+Foto+Gym";
     
+    const vContainer = document.getElementById('modalVideo');
+    vContainer.innerHTML = m.video ? `<iframe src="${m.video}" frameborder="0" allowfullscreen></iframe>` : `<div style="color:#999; padding:40px; text-align:center;">Video pendiente...</div>`;
+
     const sci = document.getElementById('modalSciatica');
     const colors = { green: ['bg-green', 'RECOMENDADO CIÁTICA'], yellow: ['bg-yellow', 'PRECAUCIÓN CIÁTICA'], red: ['bg-red', 'RIESGO CIÁTICA'] };
     sci.innerHTML = `<span class="badge-sciatica ${colors[m.sciatica][0]}">${colors[m.sciatica][1]}</span>`;
@@ -210,12 +217,13 @@ function openModal(id) {
 
 function closeModal() { 
     document.getElementById('exerciseModal').classList.remove('active'); 
+    document.getElementById('modalVideo').innerHTML = ""; 
     document.body.style.overflow = "auto";
 }
 
 function saveWeight() {
     localStorage.setItem('kg_' + selectedId, document.getElementById('weightInput').value);
-    alert("¡Marca guardada!");
+    alert("¡Peso actualizado!");
 }
 
 function filterMachines() {
@@ -224,12 +232,12 @@ function filterMachines() {
     document.getElementById('allMachinesList').innerHTML = f.map(m => `
         <div class="btn btn-outline" onclick="openModal('${m.id}')">
             <span><strong>${m.nombre}</strong><br><small style="color:#888;">${m.grupo}</small></span>
-            <i class="material-icons" style="color:var(--primary);">add_circle</i>
+            <i class="material-icons" style="color:var(--primary);">info</i>
         </div>
     `).join('');
 }
 
-filterMachines(); // Inicia el buscador
+filterMachines();
 </script>
 </body>
 </html>
