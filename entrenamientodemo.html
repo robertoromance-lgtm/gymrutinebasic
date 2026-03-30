@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>App Entrenamiento</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+body{
+  font-family:system-ui;
+  margin:0;
+  background:#f2f2f2;
+}
+.app{max-width:800px;margin:auto;padding:15px;}
+.card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+.btn{
+  display:block;
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border:none;
+  border-radius:8px;
+  background:#333;
+  color:white;
+}
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.modal-backdrop.active{display:flex;}
+.modal{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  width:90%;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<h1>Mi entrenamiento</h1>
+
+<!-- RUTINA -->
+<div class="card">
+  <h2>Rutina semanal</h2>
+
+  <button class="btn" data-dia="lunes">Lunes</button>
+  <button class="btn" data-dia="martes">Martes</button>
+  <button class="btn" data-dia="miercoles">Miércoles</button>
+
+  <div id="rutinaContenido" style="margin-top:10px;"></div>
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <h3 id="modalTitulo"></h3>
+    <p id="modalDesc"></p>
+    <button class="btn" id="cerrarModal">Cerrar</button>
+  </div>
+</div>
+
+<script>
+
+// ================= DATOS =================
+
+const machines = {
+  pecho: [
+    {id:'press', nombre:'Press pecho', desc:'Empuja hacia delante'}
+  ],
+  espalda: [
+    {id:'jalon', nombre:'Jalón al pecho', desc:'Tira hacia abajo'}
+  ]
+};
+
+const rutina = {
+  lunes:['press'],
+  martes:['jalon'],
+  miercoles:[]
+};
+
+// ================= UTIL =================
+
+function getExercise(id){
+  return Object.values(machines).flat().find(e=>e.id===id);
+}
+
+// ================= RUTINA =================
+
+document.querySelectorAll('[data-dia]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const dia = btn.dataset.dia;
+    renderDia(dia);
+  });
+});
+
+function renderDia(dia){
+  const cont = document.getElementById('rutinaContenido');
+  cont.innerHTML = '';
+
+  const ejercicios = rutina[dia];
+
+  if(!ejercicios.length){
+    cont.innerHTML = 'Descanso';
+    return;
+  }
+
+  ejercicios.forEach(id=>{
+    const ex = getExercise(id);
+
+    const div = document.createElement('div');
+    div.className = 'card';
+
+    div.innerHTML = `
+      <strong>${ex.nombre}</strong>
+      <button class="btn" data-id="${ex.id}">Ver</button>
+    `;
+
+    cont.appendChild(div);
+  });
+
+  document.querySelectorAll('[data-id]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      abrirModal(btn.dataset.id);
+    });
+  });
+}
+
+// ================= MODAL =================
+
+function abrirModal(id){
+  const ex = getExercise(id);
+
+  document.getElementById('modalTitulo').textContent = ex.nombre;
+  document.getElementById('modalDesc').textContent = ex.desc;
+
+  document.getElementById('modal').classList.add('active');
+}
+
+function cerrarModal(){
+  document.getElementById('modal').classList.remove('active');
+}
+
+document.getElementById('cerrarModal').addEventListener('click', cerrarModal);
+
+document.getElementById('modal').addEventListener('click', e=>{
+  if(e.target.id === 'modal') cerrarModal();
+});
+
+</script>
+
+</body>
+</html>
