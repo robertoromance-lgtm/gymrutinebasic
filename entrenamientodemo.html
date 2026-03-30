@@ -55,9 +55,13 @@ body{
 <div class="card">
   <h2>Rutina semanal</h2>
 
-  <button class="btn" data-dia="lunes">Lunes</button>
-  <button class="btn" data-dia="martes">Martes</button>
-  <button class="btn" data-dia="miercoles">Miércoles</button>
+<button class="btn" data-dia="lunes">Lunes</button>
+<button class="btn" data-dia="martes">Martes</button>
+<button class="btn" data-dia="miercoles">Miércoles</button>
+<button class="btn" data-dia="jueves">Jueves</button>
+<button class="btn" data-dia="viernes">Viernes</button>
+<button class="btn" data-dia="sabado">Sábado</button>
+<button class="btn" data-dia="domingo">Domingo</button>
 
   <div id="rutinaContenido" style="margin-top:10px;"></div>
 </div>
@@ -83,13 +87,37 @@ const machines = {
   ],
   espalda: [
     {id:'jalon', nombre:'Jalón al pecho', desc:'Tira hacia abajo'}
+  ],
+  piernas: [
+    {id:'prensa', nombre:'Prensa', desc:'Empuje de piernas'}
+  ],
+  hombros: [
+    {id:'hombro', nombre:'Press hombro', desc:'Empuje vertical'}
+  ],
+  biceps: [
+    {id:'curl', nombre:'Curl bíceps', desc:'Flexión de brazos'}
+  ],
+  triceps: [
+    {id:'triceps', nombre:'Extensión tríceps', desc:'Empuje de brazos'}
+  ],
+  abdominales: [
+    {id:'abs', nombre:'Crunch máquina', desc:'Trabajo abdominal'}
+  ],
+  cardio: [
+    {id:'cinta', nombre:'Cinta', desc:'Cardio caminando/corriendo'}
+  ],
+  fullbody: [
+    {id:'full', nombre:'Circuito general', desc:'Entrenamiento global'}
   ]
 };
-
 const rutina = {
-  lunes:['press'],
-  martes:['jalon'],
-  miercoles:[]
+  lunes: ['piernas','abdominales','cardio'],
+  martes: ['espalda','biceps','cardio','hombros'],
+  miercoles: ['pecho','hombros','triceps','abdominales'],
+  jueves: [],
+  viernes: ['piernas','abdominales','cardio'],
+  sabado: ['fullbody','cardio'],
+  domingo: []
 };
 
 // ================= UTIL =================
@@ -111,27 +139,38 @@ function renderDia(dia){
   const cont = document.getElementById('rutinaContenido');
   cont.innerHTML = '';
 
-  const ejercicios = rutina[dia];
+  const grupos = rutina[dia];
 
-  if(!ejercicios.length){
-    cont.innerHTML = 'Descanso';
+  if(!grupos || grupos.length === 0){
+    cont.innerHTML = '<p>Descanso 😌</p>';
     return;
   }
 
-  ejercicios.forEach(id=>{
-    const ex = getExercise(id);
+  // Mostrar título del día
+  const titulo = document.createElement('h3');
+  titulo.textContent = dia.toUpperCase() + ' → ' + grupos.join(' + ');
+  cont.appendChild(titulo);
 
-    const div = document.createElement('div');
-    div.className = 'card';
+  grupos.forEach(grupo=>{
+    const lista = machines[grupo];
 
-    div.innerHTML = `
-      <strong>${ex.nombre}</strong>
-      <button class="btn" data-id="${ex.id}">Ver</button>
-    `;
+    if(!lista) return;
 
-    cont.appendChild(div);
+    lista.forEach(ex=>{
+      const div = document.createElement('div');
+      div.className = 'card';
+
+      div.innerHTML = `
+        <strong>${ex.nombre}</strong>
+        <p style="font-size:13px;color:#666;">${grupo}</p>
+        <button class="btn" data-id="${ex.id}">Ver ejercicio</button>
+      `;
+
+      cont.appendChild(div);
+    });
   });
 
+  // Activar modal
   document.querySelectorAll('[data-id]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       abrirModal(btn.dataset.id);
