@@ -3,55 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GymPro Ultimate - Orange Edition</title>
+    <title>GymPro Ultimate - 27 Estaciones</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary: #e67e22; --primary-dark: #d35400; --accent: #f39c12; 
+            --primary: #e67e22; --primary-dark: #d35400;
             --success: #27ae60; --warning: #f1c40f; --danger: #e74c3c;
             --bg: #fff5ed; --card-bg: #ffffff;
         }
-
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #333; padding-bottom: 50px; }
         .container { max-width: 600px; margin: auto; padding: 15px; }
-        
         h1 { text-align: center; color: var(--primary-dark); display: flex; align-items: center; justify-content: center; gap: 10px; }
-
+        
+        /* Tarjetas y Botones */
         .card { background: var(--card-bg); border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(230, 126, 34, 0.1); border: 1px solid rgba(230, 126, 34, 0.1); }
+        .btn-main { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: 600; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; cursor: pointer; }
+        .btn-outline { background: white; border: 1px solid #eee; padding: 12px; border-radius: 10px; width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; font-size: 14px; color: #555; }
         
-        .badge-sciatica { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; color: white; margin-bottom: 10px; }
-        .bg-green { background-color: var(--success); }
-        .bg-yellow { background-color: var(--warning); color: #000; }
-
-        .btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; transition: 0.3s; margin-top: 8px; text-align: center; text-decoration: none; box-sizing: border-box; font-weight: 600; }
-        .btn-main { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 4px 6px rgba(211, 84, 0, 0.2); text-align: left; display: flex; justify-content: space-between; align-items: center; }
-        .btn-planb { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; margin-bottom: 15px; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-outline { border: 1px solid #eee; color: #555; background: white; text-align: left; display: flex; justify-content: space-between; align-items: center; font-size: 14px; margin-bottom: 5px; }
-        
+        /* Selector Días */
         .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 15px; }
         .day-btn { padding: 12px 2px; font-size: 10px; background: white; border: 1px solid #eee; border-radius: 10px; cursor: pointer; font-weight: bold; color: var(--primary-dark); }
-        .day-btn.active { background: var(--primary); color: white; border-color: var(--primary-dark); }
+        .day-btn.active { background: var(--primary); color: white; }
         .day-btn.rest { color: #aaa; background: #fafafa; }
 
+        /* Modal */
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; overflow-y: auto; z-index: 1000; padding: 10px; }
         .modal.active { display: flex; align-items: flex-start; justify-content: center; }
         .modal-content { background: white; border-radius: 20px; padding: 25px; width: 100%; max-width: 500px; margin-top: 20px; position: relative; border-top: 6px solid var(--primary); }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #999; }
-
-        .modal-img { width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid #eee; background: #fafafa; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 15px 0; background: #000; border-radius: 12px; overflow: hidden; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
+        
         .info-section { margin-top: 15px; padding: 15px; border-radius: 10px; background: #fefefe; border: 1px solid #eee; }
         .setup-box { background: #fffbe6; border: 1px solid #ffe58f; }
         .weight-box { background: #f0fff4; border: 1px solid #c6f6d5; }
         .setup-input { width: 100%; border: none; background: transparent; font-size: 16px; font-weight: bold; color: #856404; outline: none; border-bottom: 1px dashed #ffe58f; }
-
-        .info-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
-        .info-table td { padding: 8px; border-bottom: 1px solid #eee; }
+        .modal-img { width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid #eee; }
         
-        #searchBar { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #eee; margin-bottom: 10px; box-sizing: border-box; font-size: 16px; }
-        .muscle-header { background: #fff0e0; padding: 8px 12px; border-radius: 8px; color: var(--primary-dark); font-weight: 800; margin-top: 20px; font-size: 12px; text-transform: uppercase; border-left: 5px solid var(--primary); }
+        #searchBar { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #eee; margin-bottom: 10px; box-sizing: border-box; }
+        .muscle-header { background: #fff0e0; padding: 8px 12px; border-radius: 8px; color: var(--primary-dark); font-weight: 800; margin-top: 15px; font-size: 11px; text-transform: uppercase; border-left: 5px solid var(--primary); }
     </style>
 </head>
 <body>
@@ -73,8 +61,8 @@
     </section>
 
     <section class="card">
-        <h2><i class="material-icons">search</i> Buscador</h2>
-        <input type="text" id="searchBar" placeholder="Prensa, Pecho, Pierna..." onkeyup="filterMachines()">
+        <h2><i class="material-icons">search</i> Buscador de Máquinas</h2>
+        <input type="text" id="searchBar" placeholder="Ej: Prensa, Jalón, Bíceps..." onkeyup="filterMachines()">
         <div id="allMachinesList"></div>
     </section>
 </div>
@@ -82,86 +70,71 @@
 <div class="modal" id="exerciseModal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
-        
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div id="modalSciatica"></div>
-            <div id="sncStatus"></div>
-        </div>
+        <div id="modalSciatica"></div>
+        <h2 id="modalTitle"></h2>
+        <p id="modalMuscles" style="color:var(--primary); font-weight:bold; margin-top:0;"></p>
 
-        <h2 id="modalTitle" style="margin: 5px 0;"></h2>
-        <p id="modalMuscles" style="color:var(--primary); font-weight:bold; margin-bottom:15px; font-size:14px;"></p>
-        
         <div class="info-section setup-box">
-            <strong style="font-size:10px; color:#856404;"><i class="material-icons" style="font-size:12px;">settings</i> MI SETUP</strong>
-            <input type="text" id="setupInput" class="setup-input" placeholder="Ajuste de asiento, respaldo..." onchange="saveData('setup')">
+            <strong style="font-size:10px; color:#856404;">MI SETUP (ASIENTO/REGLAJE)</strong>
+            <input type="text" id="setupInput" class="setup-input" onchange="saveData('setup')">
         </div>
 
         <div class="info-section weight-box">
-            <strong style="font-size:10px; color:#27ae60;"><i class="material-icons" style="font-size:12px;">fitness_center</i> KG ACTUALES</strong>
+            <strong style="font-size:10px; color:#27ae60;">MI PESO MÁXIMO (KG)</strong>
             <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
-                <input type="number" id="weightInput" style="width:70px; padding:8px; border-radius:8px; border:1px solid #ccc; font-weight:bold;" onchange="saveData('weight')"> 
+                <input type="number" id="weightInput" style="width:80px; padding:10px; border-radius:8px; border:1px solid #ccc; font-weight:bold;" onchange="saveData('weight')">
                 <strong>kg</strong>
             </div>
         </div>
 
-        <button class="btn btn-planb" onclick="togglePlanB()">
-            <i class="material-icons">block</i> PLAN B (MÁQUINA OCUPADA)
-        </button>
-        <div id="planBBox" class="info-section" style="display:none; background:#f0f5ff;">
-            <p id="modalPlanB" style="margin:0; font-weight:bold; color:#2b6cb0;"></p>
+        <div class="info-section" style="background:#f0f5ff;">
+            <strong style="color:#2b6cb0; font-size:11px;">PLAN B (SI ESTÁ OCUPADA)</strong>
+            <p id="modalPlanB" style="margin:5px 0; font-weight:bold;"></p>
         </div>
 
-        <div class="video-container" id="modalVideo"></div>
-
-        <div class="info-section" id="sectionSteps">
-            <strong style="color:var(--primary-dark);">🏋️ Paso a paso</strong>
-            <table class="info-table" id="stepsTableContent"></table>
-        </div>
-
-        <div class="info-section" id="sectionErrors">
-            <strong style="color:var(--danger);">⚠️ Errores comunes</strong>
-            <table class="info-table" id="errorTableContent"></table>
-        </div>
+        <div id="modalVideo" style="margin-top:15px;"></div>
 
         <div class="info-section">
             <strong>📋 Guía Visual</strong>
-            <p style="font-size:12px;">Músculos:</p>
-            <img id="imgTable" class="modal-img" src="">
-            <p style="font-size:12px; margin-top:10px;">En el Gym:</p>
-            <img id="imgPhoto" class="modal-img" src="">
+            <p style="font-size:12px; margin-bottom:5px;">Músculos implicados:</p>
+            <img id="imgTable" class="modal-img">
+            <p style="font-size:12px; margin:10px 0 5px 0;">Máquina en el Gym:</p>
+            <img id="imgPhoto" class="modal-img">
         </div>
         
-        <button class="btn" style="background:#eee; color:#333;" onclick="closeModal()">VOLVER</button>
+        <button class="btn-main" onclick="closeModal()" style="margin-top:20px; justify-content:center;">CERRAR</button>
     </div>
 </div>
 
 <script>
 const machines = [
-    { 
-        id: "prensa_45", nombre: "Prensa 45°", grupo: "Pierna", prioridad: 1, sciatica: "yellow", planB: "Prensa Horizontal", tags: ["Lunes", "Viernes", "Sabado"],
-        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-QKH1W9BAoXhY2vcmoTHCQyDBCvUdlTzAwasDaqptWnF6swPXTg3xijeTuxBn_KRjiR0Wq0GE7Ew8XCDuLYHxtCD0jZ4TQMaodPeDQDfidHGBFTEESNeHlEtepIihq0ecZwcVreOtWur3ANPvYmWRu8q2joftjLxVDMagm_fmmzHn8tSZ3IaTXZiIFS0/s16000/parto45.png",
-        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzK6MEmudrgI7qjGBNLi0XXMaToiPB9FTv8Sp5t14_vLXzZYid1XnTtWpylMi9CvUlouij4DxXAW1Ub_91flo3-zf3OK0rpvkcmy7rqFW1vMwaZqWjKyq8u35-_0Gib1OBY4tIunWvvUFHjHKFondHA0o4XT1nZ3VXNUZjQgYfwEhfp9P3QmO4MM3GH-I/s16000/prensa-45-mgpl70-3-m20-1-960-720.jpeg",
-        pasos: [["1. Posición", "Pies anchura hombros."],["2. Ejecución", "Baja lento, empuja sin bloquear rodillas."]],
-        errores: [["Rebote", "No bajes de golpe."],["Caderas", "No levantes el glúteo."]]
-    },
-    { 
-        id: "hiptrust", nombre: "Hip Thrust (Placas)", grupo: "Pierna", prioridad: 1, sciatica: "green", planB: "Prensa (pies altos)", tags: ["Lunes", "Viernes", "Sabado"],
-        video: "https://www.youtube.com/embed/eaU-gdh9BCY",
-        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyTfd6tTIl3ZObvzVSNehmhOCiG_59cEkgT6VV3uoxoNe6EYiSqOdoRLNngLDf7S5vJGmx-HooYagebCSGwAiAcY-2vB9ZDYFKdFrP48aZ5v1FjWbIqzElTcqk_aDN3Rc8KW_P9dRAnhgNpc1yUiy7uvJkkSmlzynpPAThjgHaVzNddcDM2Ia3aR4C5RM/s16000/hiphip.png",
-        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZyZKjGu1Cgy2OvqAch_5Kd89UiUckFEs6cxTkOYrU1bV2JGN4ddhwvdx50rLTOiypKws6wXdZx3gcNz4w3Hb334ob476BHO-YCJwNg2TwDfKVPS9RYTxyr8NjGNK-qyoASy1VPqW5gVdJpzNgXL2eLmXeioFbD937sVOM1TkZnUVbkHsthyV_O9O1ies/s16000/hiptrust2.png"
-    },
-    { id: "ext_c", nombre: "Extensión Cuádriceps", grupo: "Pierna", prioridad: 2, sciatica: "green", tags: ["Lunes", "Viernes"], pasos: [["1. Ajuste", "Rodillo en el empeine."]] },
-    { id: "flex_a", nombre: "Flexión Acostado", grupo: "Pierna", prioridad: 2, sciatica: "green", tags: ["Lunes", "Viernes"] },
-    { id: "abd", nombre: "Abductores", grupo: "Pierna", prioridad: 3, sciatica: "green", tags: ["Lunes", "Viernes"] },
-    { id: "adu", nombre: "Aductores", grupo: "Pierna", prioridad: 3, sciatica: "green", tags: ["Lunes", "Viernes"] },
-    { id: "gem_s", nombre: "Gemelo Sentado", grupo: "Pierna", prioridad: 4, sciatica: "green", tags: ["Lunes", "Viernes", "Sabado"] },
-    { id: "jalon", nombre: "Jalón al Pecho", grupo: "Espalda", prioridad: 1, sciatica: "green", tags: ["Martes", "Sabado"] },
-    { id: "remo", nombre: "Remo Sentado", grupo: "Espalda", prioridad: 2, sciatica: "green", tags: ["Martes", "Sabado"] },
-    { id: "p_conv", nombre: "Press Pecho Convergente", grupo: "Pecho", prioridad: 1, sciatica: "green", tags: ["Miercoles", "Sabado"] },
-    { id: "h_conv", nombre: "Press Hombro Convergente", grupo: "Hombro", prioridad: 1, sciatica: "green", tags: ["Miercoles", "Sabado"] },
-    { id: "curl_b", nombre: "Curl Bíceps Polea", grupo: "Brazos", prioridad: 3, sciatica: "green", tags: ["Martes", "Sabado"] },
-    { id: "tri_s", nombre: "Press Tríceps Sentado", grupo: "Brazos", prioridad: 3, sciatica: "green", tags: ["Miercoles", "Sabado"] },
-    { id: "crunch", nombre: "Crunch Abdominal", grupo: "Core", prioridad: 4, sciatica: "green", tags: ["Lunes", "Miercoles", "Viernes", "Sabado"] }
+    { id: "1", nombre: "Press de Pecho Convergente", grupo: "Pecho", tags: ["Miercoles", "Sabado"], planB: "Pec Fly", sciatica: "green" },
+    { id: "2", nombre: "Apertura Pec Fly", grupo: "Pecho", tags: ["Miercoles"], planB: "Press de Pecho", sciatica: "green" },
+    { id: "3", nombre: "Vertical Chest Press", grupo: "Pecho", tags: ["Miercoles"], planB: "Press Convergente", sciatica: "green" },
+    { id: "4", nombre: "Remo Sentado (A/B/C)", grupo: "Espalda", tags: ["Martes", "Sabado"], planB: "Polea baja triángulo", sciatica: "green" },
+    { id: "5", nombre: "Jalón al Pecho", grupo: "Espalda", tags: ["Martes", "Sabado"], planB: "Dominadas asistidas", sciatica: "green" },
+    { id: "6", nombre: "Dominadas Asistidas", grupo: "Espalda", tags: ["Martes"], planB: "Jalón al pecho", sciatica: "green" },
+    { id: "7", nombre: "Extensión Lumbar Placas", grupo: "Espalda", tags: ["Martes", "Sabado"], planB: "Banco extensiones", sciatica: "yellow" },
+    { id: "8", nombre: "Press Hombro Convergente", grupo: "Hombro", tags: ["Miercoles", "Sabado"], planB: "Press de Hombro (otra)", sciatica: "green" },
+    { id: "9", nombre: "Press de Hombro (Estación)", grupo: "Hombro", tags: ["Miercoles"], planB: "Press Convergente", sciatica: "green" },
+    { id: "10", nombre: "Deltoides Posterior Reverse Fly", grupo: "Hombro", tags: ["Miercoles", "Sabado"], planB: "Remo codos altos", sciatica: "green" },
+    { id: "11", nombre: "Curl de Bíceps (A/B)", grupo: "Brazos", tags: ["Martes", "Sabado"], planB: "Polea baja barra", sciatica: "green" },
+    { id: "12", nombre: "Press Tríceps Sentado", grupo: "Brazos", tags: ["Miercoles", "Sabado"], planB: "Polea alta tríceps", sciatica: "green" },
+    { id: "13", nombre: "Prensa Inclinada 45°", grupo: "Pierna", tags: ["Lunes", "Viernes", "Sabado"], planB: "Prensa horizontal", sciatica: "yellow", imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-QKH1W9BAoXhY2vcmoTHCQyDBCvUdlTzAwasDaqptWnF6swPXTg3xijeTuxBn_KRjiR0Wq0GE7Ew8XCDuLYHxtCD0jZ4TQMaodPeDQDfidHGBFTEESNeHlEtepIihq0ecZwcVreOtWur3ANPvYmWRu8q2joftjLxVDMagm_fmmzHn8tSZ3IaTXZiIFS0/s16000/parto45.png" },
+    { id: "14", nombre: "Prensa Horizontal", grupo: "Pierna", tags: ["Lunes", "Viernes"], planB: "Prensa inclinada", sciatica: "green" },
+    { id: "15", nombre: "Extensión de Cuádriceps", grupo: "Pierna", tags: ["Lunes", "Viernes"], planB: "Prensa pies bajos", sciatica: "green" },
+    { id: "16", nombre: "Flexión Pierna Acostado", grupo: "Pierna", tags: ["Lunes", "Viernes"], planB: "Flexión sentado", sciatica: "green" },
+    { id: "17", nombre: "Flexión Pierna Sentado", grupo: "Pierna", tags: ["Lunes", "Viernes"], planB: "Flexión acostado", sciatica: "green" },
+    { id: "18", nombre: "Hip Thrust Placas (Matrix)", grupo: "Pierna", tags: ["Lunes", "Viernes", "Sabado"], planB: "Prensa pies altos", sciatica: "green" },
+    { id: "19", nombre: "Abductor (Estación)", grupo: "Pierna", tags: ["Lunes", "Viernes"], planB: "Polea baja glúteo", sciatica: "green" },
+    { id: "20", nombre: "Adductor (Estación)", grupo: "Pierna", tags: ["Lunes", "Viernes"], planB: "Gomas / Polea", sciatica: "green" },
+    { id: "21", nombre: "Gemelo Sentado", grupo: "Pierna", tags: ["Lunes", "Viernes", "Sabado"], planB: "Puntas en prensa", sciatica: "green" },
+    { id: "22", nombre: "Crunch Abdominal", grupo: "Core", tags: ["Lunes", "Miercoles", "Viernes", "Sabado"], planB: "Plancha", sciatica: "green" },
+    { id: "23", nombre: "Extensión Espalda (Core)", grupo: "Core", tags: ["Martes", "Sabado"], planB: "Peso muerto rumano", sciatica: "yellow" },
+    { id: "24", nombre: "Smith Machine", grupo: "Multiuso", tags: ["Sabado"], planB: "Mancuernas", sciatica: "yellow" },
+    { id: "25", nombre: "Decline Bench Press", grupo: "Pecho", tags: ["Miercoles"], planB: "Press Smith", sciatica: "green" },
+    { id: "26", nombre: "Poleas y Accesorios", grupo: "Multiuso", tags: ["Martes", "Sabado"], planB: "-", sciatica: "green" },
+    { id: "27", nombre: "Gemelo de pie", grupo: "Pierna", tags: ["Lunes", "Viernes"], planB: "Gemelo sentado", sciatica: "green" }
 ];
 
 let currentId = null;
@@ -172,18 +145,18 @@ function showDay(day, btn) {
     const container = document.getElementById('routineList');
     
     if(day === 'Jueves' || day === 'Domingo') {
-        container.innerHTML = `<div style="text-align:center; padding:30px;"><i class="material-icons" style="font-size:48px;">spa</i><br>DESCANSO</div>`;
+        container.innerHTML = `<div style="text-align:center; padding:30px; color:#999;"><i class="material-icons" style="font-size:48px;">spa</i><br>DESCANSO</div>`;
         return;
     }
 
-    const filtrados = machines.filter(m => m.tags.includes(day)).sort((a,b) => a.prioridad - b.prioridad);
-    let html = `<h3>Hoy: ${day}</h3>`;
+    const filtrados = machines.filter(m => m.tags.includes(day));
+    let html = `<h3>Plan: ${day}</h3>`;
     const grupos = [...new Set(filtrados.map(m => m.grupo))];
     
     grupos.forEach(g => {
         html += `<div class="muscle-header">${g}</div>`;
         filtrados.filter(m => m.grupo === g).forEach(m => {
-            html += `<button class="btn btn-main" onclick="openModal('${m.id}')"><span>${m.nombre}</span><i class="material-icons">${getSncIcon(m.prioridad)}</i></button>`;
+            html += `<button class="btn-main" onclick="openModal('${m.id}')"><span>${m.nombre}</span><i class="material-icons">chevron_right</i></button>`;
         });
     });
     container.innerHTML = html;
@@ -194,38 +167,21 @@ function openModal(id) {
     currentId = id;
     document.getElementById('modalTitle').innerText = m.nombre;
     document.getElementById('modalMuscles').innerText = m.grupo;
-    document.getElementById('modalPlanB').innerText = m.planB || "Consulta al monitor";
-    document.getElementById('planBBox').style.display = 'none';
+    document.getElementById('modalPlanB').innerText = m.planB;
     
-    // Cargar datos guardados
     document.getElementById('setupInput').value = localStorage.getItem('setup_'+id) || "";
     document.getElementById('weightInput').value = localStorage.getItem('weight_'+id) || "";
 
-    // Multimedia
-    document.getElementById('imgTable').src = m.imgTable || "";
-    document.getElementById('imgPhoto').src = m.imgPhoto || "";
-    const v = document.getElementById('modalVideo');
-    v.innerHTML = m.video ? `<iframe src="${m.video}" frameborder="0" allowfullscreen></iframe>` : "";
+    const sci = document.getElementById('modalSciatica');
+    sci.innerHTML = m.sciatica === 'green' ? 
+        `<span style="background:var(--success); color:white; padding:4px 10px; border-radius:10px; font-size:10px;">OK CIÁTICA</span>` : 
+        `<span style="background:var(--warning); color:black; padding:4px 10px; border-radius:10px; font-size:10px;">CUIDADO CIÁTICA</span>`;
 
-    // Tablas
-    renderTable('sectionSteps', 'stepsTableContent', m.pasos);
-    renderTable('sectionErrors', 'errorTableContent', m.errores);
-
-    // Status
-    const s = { green: ['bg-green', 'OK CIÁTICA'], yellow: ['bg-yellow', 'CUIDADO'] }[m.sciatica] || ['bg-green', 'OK'];
-    document.getElementById('modalSciatica').innerHTML = `<span class="badge-sciatica ${s[0]}">${s[1]}</span>`;
-    document.getElementById('sncStatus').innerHTML = `<i class="material-icons" style="color:${getSncColor(m.prioridad)}">${getSncIcon(m.prioridad)}</i>`;
+    document.getElementById('imgTable').src = m.imgTable || "https://via.placeholder.com/400x200?text=Imagen+Musculos";
+    document.getElementById('imgPhoto').src = m.imgPhoto || "https://via.placeholder.com/400x200?text=Foto+Gym";
 
     document.getElementById('exerciseModal').classList.add('active');
     document.body.style.overflow = "hidden";
-}
-
-function renderTable(sectId, contId, data) {
-    const sect = document.getElementById(sectId);
-    if(data?.length > 0) {
-        sect.style.display = 'block';
-        document.getElementById(contId).innerHTML = data.map(d => `<tr><td><strong>${d[0]}</strong></td><td>${d[1]}</td></tr>`).join('');
-    } else { sect.style.display = 'none'; }
 }
 
 function saveData(type) {
@@ -236,13 +192,10 @@ function saveData(type) {
 function filterMachines() {
     const q = document.getElementById('searchBar').value.toLowerCase();
     const f = machines.filter(m => m.nombre.toLowerCase().includes(q) || m.grupo.toLowerCase().includes(q));
-    document.getElementById('allMachinesList').innerHTML = f.map(m => `<div class="btn btn-outline" onclick="openModal('${m.id}')"><span>${m.nombre}</span><i class="material-icons">info</i></div>`).join('');
+    document.getElementById('allMachinesList').innerHTML = f.map(m => `<div class="btn-outline" onclick="openModal('${m.id}')"><span>${m.nombre}</span><i class="material-icons">info</i></div>`).join('');
 }
 
-function getSncIcon(p) { return ["battery_full", "battery_6_bar", "battery_3_bar", "battery_alert"][p-1]; }
-function getSncColor(p) { return ["#27ae60", "#f1c40f", "#e67e22", "#e74c3c"][p-1]; }
-function togglePlanB() { const b = document.getElementById('planBBox'); b.style.display = b.style.display === 'none' ? 'block' : 'none'; }
-function closeModal() { document.getElementById('exerciseModal').classList.remove('active'); document.getElementById('modalVideo').innerHTML = ""; document.body.style.overflow = "auto"; }
+function closeModal() { document.getElementById('exerciseModal').classList.remove('active'); document.body.style.overflow = "auto"; }
 
 showDay('Lunes', document.querySelector('.day-btn'));
 filterMachines();
