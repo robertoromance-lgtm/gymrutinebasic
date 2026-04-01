@@ -125,33 +125,70 @@
 
 <script>
 const machines = [
-    { id: "p_conv", nombre: "1. Press de Pecho Convergente", grupo: "Pecho", sciatica: "green", snc: 3, planB: "Pec Fly", tags: ["Miercoles", "Sabado"], pasos: [["1. Asiento", "Ajusta para que los agarres queden al pecho medio."], ["2. Empuje", "Extiende sin bloquear codos."]] },
+    { 
+        id: "press_convergente", nombre: "1. Press de Pecho Convergente", grupo: "Pecho", sciatica: "green", snc: 3, planB: "Pec Fly",
+        tags: ["Miercoles", "Sabado"], 
+        video: "https://www.youtube.com/embed/lrkMoax-TSs",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-WIuh5zFJb-sb-p7glwkldaI-SAe9rZdTy1MkWzqx02MkoyHupvgbdKvPdRD7OejHo8QLwIw0jHaSNcoMxIdiIQPOFgYp1I2bzA4c5XUCglESWeGY-1rdWSvfcqa_yc2pAYVvPNojv4YFGiQnWOMDJGzFawx30uXuF32j7wan13SB71AG-pTXkr1rp6c/s16000/bench-press-hangi-kaslar%C4%B1-%C3%A7al%C4%B1%C5%9Ft%C4%B1r%C4%B1r.jpg",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgclqVw8ahAEJQcaEsVBKZDw_a1o-UaE92nevdFBLHvmDAaSvkLifj1LkJlNALZLtAZNj7ZR3OCWMBKxoNObTAxKDRIJFkA5gK9O-QrAkip4Nye7RNrpwfg2VnTDrs1txOtbjoouV44a1Y2Kc0EeTN5F_JpSYCAjuG3PnWCI8fSY7UfUaz4coOuUDX8nlg/s16000/press_delcinado-1024x569-1.png",
+        pasos: [["1. Ajuste", "Altura del asiento para que los agarres queden al pectoral medio."], ["2. Empuje", "Extiende sin bloquear codos."]]
+    },
     { id: "pec_fly", nombre: "2. Apertura Pectoral Pec Fly", grupo: "Pecho", sciatica: "green", snc: 2, planB: "Press de Pecho", tags: ["Miercoles", "Sabado"] },
     { id: "vert_press", nombre: "3. Vertical Chest Press", grupo: "Pecho", sciatica: "green", snc: 3, planB: "Press Convergente", tags: ["Miercoles"] },
-    { id: "remo_sent", nombre: "4. Remo Sentado (Unificado)", grupo: "Espalda", sciatica: "yellow", snc: 3, planB: "Polea baja triángulo", tags: ["Martes", "Sabado"], pasos: [["1. Pecho", "Mantén el pecho erguido contra el apoyo."], ["2. Tracción", "Codos hacia atrás rozando el cuerpo."]] },
+    { id: "remo_sent", nombre: "4. Remo Sentado (Unificado)", grupo: "Espalda", sciatica: "yellow", snc: 3, planB: "Polea baja triángulo", tags: ["Martes", "Sabado"] },
     { id: "jalon_pech", nombre: "5. Jalón al Pecho", grupo: "Espalda", sciatica: "green", snc: 3, planB: "Dominadas asistidas", tags: ["Martes", "Sabado"] },
-    { id: "dom_asist", nombre: "6. Dominadas Asistidas", grupo: "Espalda", sciatica: "green", snc: 3, planB: "Jalón al pecho", tags: ["Martes"] },
-    { id: "ext_lumb", nombre: "7. Extensión Lumbar Placas", grupo: "Espalda", sciatica: "yellow", snc: 2, planB: "Banco extensiones", tags: ["Martes"] },
-    { id: "homb_conv", nombre: "8. Press Hombro Convergente", grupo: "Hombro", sciatica: "green", snc: 3, planB: "Press Pecho (alternativo)", tags: ["Miercoles", "Sabado"] },
-    { id: "homb_est", nombre: "9. Press Hombro (Estación)", grupo: "Hombro", sciatica: "green", snc: 3, planB: "Press Hombro Conv.", tags: ["Miercoles"] },
-    { id: "rev_fly", nombre: "10. Deltoides Posterior Fly", grupo: "Hombro", sciatica: "green", snc: 2, planB: "Remo codos altos", tags: ["Martes", "Sabado"] },
-    { id: "curl_bic", nombre: "11. Curl de Bíceps (Unificado)", grupo: "Brazos", sciatica: "green", snc: 1, planB: "Polea baja barra", tags: ["Martes", "Sabado"] },
-    { id: "press_tri", nombre: "12. Press Tríceps Sentado", grupo: "Brazos", sciatica: "green", snc: 1, planB: "Fondos asistidos", tags: ["Miercoles", "Sabado"] },
-    { id: "pren_45", nombre: "13. Prensa Inclinada 45°", grupo: "Pierna", sciatica: "yellow", snc: 4, planB: "Prensa horizontal", tags: ["Lunes", "Viernes"], pasos: [["1. Pies", "En la zona media de la plataforma."], ["2. Bajada", "Baja lento, vigila el lumbar."]], errores: [["Bloqueo", "No estires las rodillas del todo."]] },
-    { id: "pren_horiz", nombre: "14. Prensa Horizontal", grupo: "Pierna", sciatica: "yellow", snc: 3, planB: "Prensa 45°", tags: ["Lunes", "Viernes", "Sabado"] },
-    { id: "ext_cuad", nombre: "15. Extensión Cuádriceps", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Prensa (Pies bajos)", tags: ["Lunes", "Viernes"] },
-    { id: "flex_acos", nombre: "16. Flexión Pierna Acostado", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Flexión sentado", tags: ["Lunes", "Viernes"] },
-    { id: "flex_sent", nombre: "17. Flexión Pierna Sentado", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Flexión acostado", tags: ["Lunes", "Viernes"] },
-    { id: "hip_thrust_mat", nombre: "18. Hip Thrust (Matrix)", grupo: "Glúteo", sciatica: "green", snc: 4, planB: "Prensa (Pies altos)", tags: ["Lunes", "Viernes", "Sabado"], pasos: [["1. Apoyo", "Cinturón ajustado."], ["2. Empuje", "Talones fuertes, aprieta arriba."]] },
-    { id: "abd_est", nombre: "19. Abductor (Estación)", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Otra unidad abductor", tags: ["Lunes", "Viernes", "Sabado"] },
-    { id: "add_est", nombre: "20. Adductor (Estación)", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Otra unidad adductor", tags: ["Lunes", "Viernes"] },
-    { id: "gem_sent", nombre: "21. Gemelo Sentado", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Puntas en prensa", tags: ["Lunes", "Viernes"] },
-    { id: "crunch_unif", nombre: "22. Crunch Abdominal", grupo: "Core", sciatica: "green", snc: 1, planB: "Plancha frontal", tags: ["Lunes", "Viernes", "Sabado"] },
-    { id: "back_ext", nombre: "23. Extensión Espalda", grupo: "Core", sciatica: "yellow", snc: 2, planB: "Hiperextensiones", tags: ["Martes"] },
-    { id: "smith_maq", nombre: "24. Smith Machine", grupo: "Multiuso", sciatica: "yellow", snc: 4, planB: "Mancuernas", tags: ["Lunes", "Sabado"] },
-    { id: "decl_bench", nombre: "25. Decline Bench Press", grupo: "Pecho", sciatica: "green", snc: 4, planB: "Press Smith", tags: ["Miercoles", "Sabado"] },
+    { id: "dom_asist", nombre: "6. Dominadas Asistidas", grupo: "Espalda", sciatica: "green", snc: 3, planB: "Jalón al Pecho", tags: ["Martes"] },
+    { id: "ext_lumb_plac", nombre: "7. Extensión Lumbar de Placas", grupo: "Espalda", sciatica: "yellow", snc: 2, planB: "Banco de extensiones", tags: ["Martes"] },
+    { id: "homb_conv", nombre: "8. Press Hombro Convergente", grupo: "Hombro", sciatica: "green", snc: 3, planB: "Press de Pecho (alternativo)", tags: ["Miercoles", "Sabado"] },
+    { id: "homb_est", nombre: "9. Press de Hombro (Estación)", grupo: "Hombro", sciatica: "green", snc: 3, planB: "Press Hombro Convergente", tags: ["Miercoles"] },
+    { id: "rev_fly", nombre: "10. Deltoides Posterior Reverse Fly", grupo: "Hombro", sciatica: "green", snc: 2, planB: "Remo sentado codos altos", tags: ["Martes", "Sabado"] },
+    { id: "curl_bic", nombre: "11. Curl de Bíceps (Unificado)", grupo: "Brazos", sciatica: "green", snc: 1, planB: "Polea baja con barra", tags: ["Martes", "Sabado"] },
+    { id: "press_tri", nombre: "12. Press de Tríceps Sentado", grupo: "Brazos", sciatica: "green", snc: 1, planB: "Fondos asistidos", tags: ["Miercoles", "Sabado"] },
+    { 
+        id: "prensa_45", nombre: "13. Prensa Inclinada 45°", grupo: "Pierna", sciatica: "yellow", snc: 4, planB: "Prensa Horizontal",
+        tags: ["Lunes", "Viernes"], 
+        video: "https://www.youtube.com/embed/wpHk7S4eF5I",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-QKH1W9BAoXhY2vcmoTHCQyDBCvUdlTzAwasDaqptWnF6swPXTg3xijeTuxBn_KRjiR0Wq0GE7Ew8XCDuLYHxtCD0jZ4TQMaodPeDQDfidHGBFTEESNeHlEtepIihq0ecZwcVreOtWur3ANPvYmWRu8q2joftjLxVDMagm_fmmzHn8tSZ3IaTXZiIFS0/s16000/parto45.png",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzK6MEmudrgI7qjGBNLi0XXMaToiPB9FTv8Sp5t14_vLXzZYid1XnTtWpylMi9CvUlouij4DxXAW1Ub_91flo3-zf3OK0rpvkcmy7rqFW1vMwaZqWjKyq8u35-_0Gib1OBY4tIunWvvUFHjHKFondHA0o4XT1nZ3VXNUZjQgYfwEhfp9P3QmO4MM3GH-I/s16000/prensa-45-mgpl70-3-m20-1-960-720.jpeg"
+    },
+    { 
+        id: "prensa_norm", nombre: "14. Prensa Horizontal de placas", grupo: "Pierna", sciatica: "yellow", snc: 3, planB: "Prensa Inclinada",
+        tags: ["Lunes", "Viernes", "Sabado"],
+        video: "https://www.youtube.com/embed/pmf4NhF15fM",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEixTkPvlCTnpdC6n8vTsk0r56ZNdavzjusCDgvMuThiFIOGERCi7DU5ftrFHbLIciHwW5gPuuTue0Cg2KfmDM-_rd-Ri__j3tr8mTPh6zFbW2-MXrPbC_WFh7GSVlDL2J7S7Xw9KHmJLjHrKCE0exbqG-MNuFErR5OljPmrGH5PFkKYhFP4u4hU6PgIm4Q/s16000/parto2.png",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4zIOKnL_XWuDhf9YUCn6ZOUs_cIxWJI-eUeKb9DwU3fnadhyphenhyphenaQDxRXK42KVOiiQaHmMeMYMcVws0qxqvHxi_m94brkLjDn2y54zpdjojdL7hEno_6702Ga06iEdLZ-ygaLltvu_SJBKV558bGmx_EeWYlBtNbCTtcfpHoqTjiNVKtttjXDRra3YBypy8/s16000/parto.png"
+    },
+    { 
+        id: "ext_piernas", nombre: "15. Extensión de Cuádriceps", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Prensa (Pies bajos)",
+        tags: ["Lunes", "Viernes"], 
+        video: "https://www.youtube.com/embed/J-Y-Z0EU9Ic",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEip5T7jTyLxXGLNn3yfRR2x85zZpNISJe1AwRDimLLO49ZYJG9ipTTDw5JTQOqZF4XBzNhAgvFltOZPw8qKzEKVFNbqFyjcsc5UIbt5T7jId_Nyfy3ROaaqu1SIlaM9tGMVPBJtftpk2HuAUaJxLuA8LEueSzTdHJyLL7bIebGnsDr6NnrT-K4MJQMS4OM/s16000/extensiondepiernassentado.png",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhe8STcL0zu41EUEBvb2u_zD92BsGr87boSfg6zufUdrLbhN4qt9MuNM1SSVh9rG4odvvoUQhDOCEI6BXOLPKg145DpDQqrIK7dewkAF_QPErcxeYZDdWzulNjNsUoD9VCVXUIVEPa_fhh3igWmXJITnoqMWdJhKVnAyxbIQjOhaiU2eKXOCoaMuN-9UXA/s16000/extensiondepiernassentado2.png"
+    },
+    { id: "flex_acos", nombre: "16. Flexión de Pierna Acostado", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Flexión sentado", tags: ["Lunes", "Viernes"] },
+    { 
+        id: "flexion_sentado", nombre: "17. Flexión de Pierna Sentado", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Flexión acostado",
+        tags: ["Lunes", "Viernes"], 
+        video: "https://www.youtube.com/embed/KnVkCUh6of8",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjadKLmViwNN5Tj_DsZSJC_moXOjWHdaFGFYovGb2vs6s7tONtpCwVxMFz2KTP3Nu2uaS29p6hsJKozxbROtHWSxn-Er9uKmuiz_5zwQ1aaIqqIWzHXHoB9lNezH1767Go8zbKU14QWNf_PTgHhJAppK-f9c0GBIw5kPnlPRkFMrINckHcjlCAokFb0X8/s16000/flexion%20piernasentado.png",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-Ru07QPn6U_8PjwRJJgK8_DpzdaDpKgIHxO_HLI6pIlUeHYYD5or5lTX3_b-GT4NeFXlv-t0KNTAzqR32PILmj7vH3DUW8rRZm1NKzZUZWg5-TnC4t-oprwb4lAaQtSzvB2onSINqGyLu7IivJMX_7TfVKEQTmZ5Q65Cyp55J5HMcKkS7jjQp3n2m3Ig/s16000/flexionpiernassentado.png"
+    },
+    { 
+        id: "hip_thrust", nombre: "18. Hip Thrust de Placas (Matrix)", grupo: "Glúteo", sciatica: "green", snc: 4, planB: "Prensa (Pies altos)",
+        tags: ["Lunes", "Viernes", "Sabado"], 
+        video: "https://www.youtube.com/embed/eaU-gdh9BCY",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyTfd6tTIl3ZObvzVSNehmhOCiG_59cEkgT6VV3uoxoNe6EYiSqOdoRLNngLDf7S5vJGmx-HooYagebCSGwAiAcY-2vB9ZDYFKdFrP48aZ5v1FjWbIqzElTcqk_aDN3Rc8KW_P9dRAnhgNpc1yUiy7uvJkkSmlzynpPAThjgHaVzNddcDM2Ia3aR4C5RM/s16000/hiphip.png",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZyZKjGu1Cgy2OvqAch_5Kd89UiUckFEs6cxTkOYrU1bV2JGN4ddhwvdx50rLTOiypKws6wXdZx3gcNz4w3Hb334ob476BHO-YCJwNg2TwDfKVPS9RYTxyr8NjGNK-qyoASy1VPqW5gVdJpzNgXL2eLmXeioFbD937sVOM1TkZnUVbkHsthyV_O9O1ies/s16000/hiptrust2.png"
+    },
+    { id: "abd_est", nombre: "19. Abductor (Estación)", grupo: "Glúteo / Pierna", sciatica: "green", snc: 1, planB: "Otra unidad de abductor", tags: ["Lunes", "Viernes", "Sabado"] },
+    { id: "add_est", nombre: "20. Adductor (Estación)", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Otra unidad de adductor", tags: ["Lunes", "Viernes"] },
+    { id: "gem_sent", nombre: "21. Elevación Talón Gemelo Sentado", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Puntas en prensa horizontal", tags: ["Lunes", "Viernes"] },
+    { id: "crunch_abd", nombre: "22. Contracción Abdominal Crunch", grupo: "Core", sciatica: "green", snc: 1, planB: "Plancha frontal", tags: ["Lunes", "Viernes", "Sabado"] },
+    { id: "back_ext", nombre: "23. Extensión de Espalda (Back Extension)", grupo: "Core / Lumbar", sciatica: "yellow", snc: 2, planB: "Peso muerto rumano", tags: ["Martes"] },
+    { id: "smith_maq", nombre: "24. Smith Machine (Multiuso)", grupo: "Multiuso", sciatica: "yellow", snc: 4, planB: "Barra libre / Mancuernas", tags: ["Lunes", "Sabado"] },
+    { id: "decl_bench", nombre: "25. Decline Bench Press (Barra)", grupo: "Pecho", sciatica: "green", snc: 4, planB: "Press plano", tags: ["Miercoles", "Sabado"] },
     { id: "poleas_acc", nombre: "26. Poleas y Accesorios", grupo: "Multiuso", sciatica: "green", snc: 2, planB: "Plan B funcional", tags: ["Martes", "Miercoles", "Viernes"] },
-    { id: "gem_pie", nombre: "27. Gemelo de Pie", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Gemelo sentado", tags: ["Sabado"] }
+    { id: "gem_pie", nombre: "27. Gemelo de pie / Estaciones", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Gemelo sentado", tags: ["Sabado"] }
 ];
 /* --- LÓGICA DE LA APLICACIÓN (ORDEN POR FATIGA SNC) --- */
 
