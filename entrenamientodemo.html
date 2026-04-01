@@ -3,235 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GymPro Ultimate - Mi Entrenador</title>
+    <title>GymPro Ultimate - Orange Edition</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --primary: #e67e22; --primary-dark: #d35400; --bg: #fff5ed; --card-bg: #ffffff; --success: #27ae60; --danger: #e74c3c; --warning: #f1c40f; }
+        :root {
+            --primary: #e67e22; --primary-dark: #d35400; --accent: #f39c12; 
+            --success: #27ae60; --warning: #f1c40f; --danger: #e74c3c;
+            --bg: #fff5ed; --card-bg: #ffffff;
+        }
+
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #333; padding-bottom: 50px; }
         .container { max-width: 600px; margin: auto; padding: 15px; }
         
+        h1, h2 { text-align: center; color: var(--primary-dark); display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; }
+
+        .card { background: var(--card-bg); border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(230, 126, 34, 0.1); border: 1px solid rgba(230, 126, 34, 0.1); }
+        
+        /* Badges */
+        .badge-sciatica { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; color: white; margin-bottom: 10px; }
+        .bg-green { background-color: var(--success); }
+        .bg-yellow { background-color: var(--warning); color: #000; }
+
+        /* Botones */
+        .btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; transition: 0.3s; margin-top: 8px; text-align: center; text-decoration: none; box-sizing: border-box; font-weight: 600; }
+        .btn-main { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 4px 6px rgba(211, 84, 0, 0.2); }
+        .btn-planb { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; margin-bottom: 15px; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-outline { border: 1px solid #eee; color: #555; background: white; text-align: left; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+        
         /* Selector de Días */
-        .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 20px; }
+        .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 15px; }
         .day-btn { padding: 12px 2px; font-size: 10px; background: white; border: 1px solid #eee; border-radius: 10px; cursor: pointer; font-weight: bold; color: var(--primary-dark); }
-        .day-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 10px rgba(230,126,34,0.3); }
+        .day-btn.active { background: var(--primary); color: white; border-color: var(--primary-dark); }
         .day-btn.rest { color: #aaa; background: #fafafa; }
-
-        /* Tarjetas y Botones */
-        .card { background: var(--card-bg); border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .btn-exercise { background: white; border: 1px solid #eee; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 8px; cursor: pointer; text-align: left; }
-        .btn-main { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; }
-        .btn-planb { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; padding: 10px; border-radius: 10px; width: 100%; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px 0; }
-
-        /* Buscador */
-        .search-box { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 20px; box-sizing: border-box; font-size: 16px; }
 
         /* Modal */
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; overflow-y: auto; z-index: 1000; padding: 10px; }
         .modal.active { display: flex; align-items: flex-start; justify-content: center; }
-        .modal-content { background: white; border-radius: 20px; padding: 20px; width: 100%; max-width: 500px; margin-top: 20px; position: relative; border-top: 6px solid var(--primary); }
-        
-        .info-section { margin-top: 15px; padding: 12px; border-radius: 10px; background: #f9f9f9; border: 1px solid #eee; }
+        .modal-content { background: white; border-radius: 20px; padding: 25px; width: 100%; max-width: 500px; margin-top: 20px; position: relative; border-top: 6px solid var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #999; }
+
+        .modal-img { width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid #eee; background: #fafafa; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 15px 0; background: #000; border-radius: 12px; overflow: hidden; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .info-section { margin-top: 15px; padding: 15px; border-radius: 10px; background: #fefefe; border: 1px solid #eee; }
         .setup-box { background: #fffbe6; border: 1px solid #ffe58f; }
         .setup-input { width: 100%; border: none; background: transparent; font-size: 16px; font-weight: bold; color: #856404; outline: none; border-bottom: 1px dashed #ffe58f; }
+
+        .info-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+        .info-table th { background: #fdf2f2; color: #c0392b; text-align: left; padding: 8px; }
+        .info-table td { padding: 8px; border-bottom: 1px solid #eee; }
         
-        .muscle-header { background: #fff0e0; padding: 8px 12px; border-radius: 8px; color: var(--primary-dark); font-weight: 800; margin-top: 20px; font-size: 11px; text-transform: uppercase; border-left: 5px solid var(--primary); }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 15px 0; border-radius: 10px; background: #000; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .modal-img { width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid #eee; }
-        .badge { padding: 4px 8px; border-radius: 5px; font-size: 10px; font-weight: bold; color: white; }
+        .advice-list { padding-left: 20px; margin-top: 8px; font-size: 13px; line-height: 1.5; color: #444; }
+
+        #searchBar { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #eee; margin-bottom: 10px; box-sizing: border-box; font-size: 16px; }
+        .muscle-header { background: #fff0e0; padding: 8px 12px; border-radius: 8px; color: var(--primary-dark); font-weight: 800; margin-top: 20px; font-size: 12px; text-transform: uppercase; border-left: 5px solid var(--primary); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1><i class="material-icons" style="vertical-align: middle; color: var(--primary);">bolt</i> GymPro Pro</h1>
-    
-    <div class="days-grid" id="daySelector">
-        <button class="day-btn" onclick="renderApp('Lunes', this)">LUN</button>
-        <button class="day-btn" onclick="renderApp('Martes', this)">MAR</button>
-        <button class="day-btn" onclick="renderApp('Miercoles', this)">MIE</button>
-        <button class="day-btn rest" onclick="renderApp('Jueves', this)">JUE</button>
-        <button class="day-btn" onclick="renderApp('Viernes', this)">VIE</button>
-        <button class="day-btn" onclick="renderApp('Sabado', this)">SAB</button>
-        <button class="day-btn rest" onclick="renderApp('Domingo', this)">DOM</button>
-    </div>
+    <h1><i class="material-icons">fitness_center</i> GymPro Orange</h1>
 
-    <input type="text" id="searchBar" class="search-box" placeholder="🔍 Buscar máquina o músculo..." onkeyup="search()">
+    <section class="card">
+        <div class="days-grid">
+            <button class="day-btn" onclick="showDay('Lunes', this)">LUN</button>
+            <button class="day-btn" onclick="showDay('Martes', this)">MAR</button>
+            <button class="day-btn" onclick="showDay('Miercoles', this)">MIE</button>
+            <button class="day-btn rest" onclick="showDay('Jueves', this)">JUE</button>
+            <button class="day-btn" onclick="showDay('Viernes', this)">VIE</button>
+            <button class="day-btn" onclick="showDay('Sabado', this)">SAB</button>
+            <button class="day-btn rest" onclick="showDay('Domingo', this)">DOM</button>
+        </div>
+        <div id="routineList">
+            <p style="text-align:center; color:#999; padding: 20px;">Selecciona un día para empezar.</p>
+        </div>
+    </section>
 
-    <div id="mainContent"></div>
-
-    <div id="allMachinesSection">
-        <h2 style="margin-top:30px; font-size:18px;"><i class="material-icons" style="vertical-align: middle;">list_alt</i> Directorio de Máquinas</h2>
-        <div id="categoryList"></div>
-    </div>
+    <section class="card">
+        <h2><i class="material-icons">search</i> Buscador Global</h2>
+        <input type="text" id="searchBar" placeholder="Ej: Prensa, Pecho, Pierna..." onkeyup="filterMachines()">
+        <div id="allMachinesList"></div>
+    </section>
 </div>
 
 <div class="modal" id="exerciseModal">
     <div class="modal-content">
-        <span style="position:absolute; top:15px; right:20px; font-size:30px; cursor:pointer;" onclick="closeModal()">&times;</span>
+        <span class="close-modal" onclick="closeModal()">&times;</span>
         
-        <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <div id="modalSciatica"></div>
             <div id="sncStatus"></div>
         </div>
 
-        <h2 id="modalTitle" style="margin:10px 0;"></h2>
+        <h2 id="modalTitle" style="text-align: left; margin: 0;"></h2>
+        <p id="modalMuscles" style="color:var(--primary); font-weight:bold; margin: 5px 0 15px 0; font-size:14px;"></p>
         
         <div class="info-section setup-box">
-            <strong style="font-size:10px; color:#856404;"><i class="material-icons" style="font-size:12px;">settings</i> MI SETUP (Toca para editar)</strong>
-            <input type="text" id="setupInput" class="setup-input" onchange="saveSetup()">
+            <strong style="font-size:10px; color:#856404; text-transform:uppercase;"><i class="material-icons" style="font-size:12px;">settings</i> Mis Ajustes (Asiento/Tope)</strong>
+            <input type="text" id="setupInput" class="setup-input" placeholder="Anota aquí tus reglajes..." onchange="saveSetup()">
         </div>
 
-        <button class="btn-planb" onclick="togglePlanB()">
-            <i class="material-icons">block</i> ¡OCUPADA! VER PLAN B
+        <button class="btn btn-planb" onclick="togglePlanB()">
+            <i class="material-icons">block</i> ¡ESTÁ OCUPADA! VER PLAN B
         </button>
         <div id="planBBox" class="info-section" style="display:none; background:#f0f5ff; border-color:#adc6ff;">
-            <p id="modalPlanB" style="margin:0; font-weight:bold; color:#2b6cb0;"></p>
+            <strong style="color:#2b6cb0; font-size:12px;">Usa esta en su lugar:</strong>
+            <p id="modalPlanB" style="margin:5px 0; font-weight:bold;"></p>
         </div>
 
         <div class="video-container" id="modalVideo"></div>
         
-        <div class="info-section" style="display:flex; justify-content:space-between; align-items:center;">
-            <strong style="font-size:14px;">Mi Peso:</strong>
+        <div class="info-section" style="display:flex; justify-content:space-between; align-items:center; background:#fff8f0;">
+            <strong>Mi Último Peso:</strong>
             <div>
-                <input type="number" id="weightInput" style="width:60px; padding:8px; border-radius:8px; border:1px solid #ccc;"> kg
-                <button onclick="saveWeight()" style="background:var(--primary); color:white; border:none; padding:8px; border-radius:8px;">OK</button>
+                <input type="number" id="weightInput" style="width:60px; padding:8px; border-radius:8px; border:1px solid #ccc; font-weight:bold;"> kg
+                <button onclick="saveWeight()" style="background:var(--primary); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">OK</button>
             </div>
         </div>
 
-        <div id="imageSection">
-            <p><small>Músculos Implicados:</small></p>
+        <div class="info-section" id="sectionSteps">
+            <strong style="color:var(--primary-dark); font-size:14px;">🏋️ Paso a paso</strong>
+            <table class="info-table" id="stepsTableContent"></table>
+        </div>
+
+        <div class="info-section" id="sectionErrors" style="border-color:#fadbd8;">
+            <strong style="color:var(--danger); font-size:14px;">⚠️ Errores comunes</strong>
+            <table class="info-table" id="errorTableContent"></table>
+        </div>
+
+        <div class="info-section" id="sectionAdvice" style="background:#f0f9ff; border-color:#bee3f8;">
+            <strong style="color:#2b6cb0; font-size:14px;">🎯 Consejos técnicos</strong>
+            <ul class="advice-list" id="adviceListContent"></ul>
+        </div>
+
+        <div class="info-section">
+            <strong style="font-size:14px;">📋 Guía Visual</strong>
+            <p style="font-size:12px; margin:10px 0 5px 0;">Músculos implicados:</p>
             <img id="imgTable" class="modal-img" src="">
-            <p><small>Ubicación / Máquina:</small></p>
+            <p style="font-size:12px; margin:15px 0 5px 0;">Ubicación en el gimnasio:</p>
             <img id="imgPhoto" class="modal-img" src="">
         </div>
+        
+        <button class="btn btn-main" onclick="closeModal()" style="margin-top:20px;">VOLVER AL PLAN</button>
     </div>
 </div>
 
 <script>
-// --- TODA LA BASE DE DATOS RECONSTRUIDA ---
 const machines = [
-    // PIERNA
-    { id: "p_45", nombre: "Prensa Inclinada 45°", grupo: "Pierna", tags: ["Lunes", "Viernes", "Sabado"], prioridad: 1, planB: "Prensa Horizontal", sciatica: "yellow", video: "https://www.youtube.com/embed/wpHk7S4eF5I", imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-QKH1W9BAoXhY2vcmoTHCQyDBCvUdlTzAwasDaqptWnF6swPXTg3xijeTuxBn_KRjiR0Wq0GE7Ew8XCDuLYHxtCD0jZ4TQMaodPeDQDfidHGBFTEESNeHlEtepIihq0ecZwcVreOtWur3ANPvYmWRu8q2joftjLxVDMagm_fmmzHn8tSZ3IaTXZiIFS0/s16000/parto45.png" },
-    { id: "ht", nombre: "Hip Thrust Placas (Matrix)", grupo: "Pierna", tags: ["Lunes", "Viernes", "Sabado"], prioridad: 1, planB: "Prensa (pies altos)", sciatica: "green", video: "https://www.youtube.com/embed/eaU-gdh9BCY" },
-    { id: "ext_c", nombre: "Extensión de Cuádriceps", grupo: "Pierna", tags: ["Lunes", "Viernes"], prioridad: 2, planB: "Prensa (pies bajos)", sciatica: "green" },
-    { id: "flex_a", nombre: "Flexión Pierna Acostado", grupo: "Pierna", tags: ["Lunes", "Viernes"], prioridad: 2, planB: "Flexión sentado", sciatica: "green" },
-    { id: "gem_s", nombre: "Gemelo Sentado", grupo: "Pierna", tags: ["Lunes", "Viernes", "Sabado"], prioridad: 4, planB: "Puntas en prensa", sciatica: "green" },
-    
-    // ESPALDA
-    { id: "jalon", nombre: "Jalón al Pecho", grupo: "Espalda", tags: ["Martes", "Sabado"], prioridad: 1, planB: "Dominadas asistidas", sciatica: "green" },
-    { id: "remo", nombre: "Remo Sentado", grupo: "Espalda", tags: ["Martes", "Sabado"], prioridad: 2, planB: "Polea baja con triángulo", sciatica: "green" },
-    { id: "ext_l", nombre: "Extensión Lumbar", grupo: "Espalda", tags: ["Martes", "Sabado"], prioridad: 4, planB: "Banco extensiones", sciatica: "green" },
-    
-    // PECHO / HOMBRO / BRAZOS
-    { id: "p_conv", nombre: "Press Pecho Convergente", grupo: "Pecho", tags: ["Miercoles", "Sabado"], prioridad: 1, planB: "Pec Fly", sciatica: "green" },
-    { id: "h_conv", nombre: "Press Hombro Convergente", grupo: "Hombro", tags: ["Miercoles", "Sabado"], prioridad: 1, planB: "Press Hombro Máquina", sciatica: "green" },
-    { id: "curl_b", nombre: "Curl de Bíceps", grupo: "Brazos", tags: ["Martes", "Sabado"], prioridad: 3, planB: "Polea baja", sciatica: "green" },
-    { id: "tri_s", nombre: "Press Tríceps Sentado", grupo: "Brazos", tags: ["Miercoles", "Sabado"], prioridad: 3, planB: "Fondos asistidos", sciatica: "green" },
-    
-    // CORE
-    { id: "crunch", nombre: "Crunch Abdominal", grupo: "Core", tags: ["Lunes", "Miercoles", "Viernes", "Sabado"], prioridad: 4, planB: "Plancha", sciatica: "green" }
+    { 
+        id: "p_45", 
+        nombre: "Prensa Inclinada 45°", 
+        grupo: "Pierna", 
+        prioridad: 1, 
+        sciatica: "yellow", 
+        planB: "Prensa Horizontal",
+        tags: ["Lunes", "Viernes", "Sabado"], 
+        video: "https://www.youtube.com/embed/wpHk7S4eF5I",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-QKH1W9BAoXhY2vcmoTHCQyDBCvUdlTzAwasDaqptWnF6swPXTg3xijeTuxBn_KRjiR0Wq0GE7Ew8XCDuLYHxtCD0jZ4TQMaodPeDQDfidHGBFTEESNeHlEtepIihq0ecZwcVreOtWur3ANPvYmWRu8q2joftjLxVDMagm_fmmzHn8tSZ3IaTXZiIFS0/s16000/parto45.png",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzK6MEmudrgI7qjGBNLi0XXMaToiPB9FTv8Sp5t14_vLXzZYid1XnTtWpylMi9CvUlouij4DxXAW1Ub_91flo3-zf3OK0rpvkcmy7rqFW1vMwaZqWjKyq8u35-_0Gib1OBY4tIunWvvUFHjHKFondHA0o4XT1nZ3VXNUZjQgYfwEhfp9P3QmO4MM3GH-I/s16000/prensa-45-mgpl70-3-m20-1-960-720.jpeg",
+        pasos: [["1. Carga", "Pon los discos con el seguro puesto."],["2. Pies", "Anchura de hombros en el centro."],["3. Desbloqueo", "Empuja, quita topes y baja controlado."]],
+        errores: [["Rodillas hacia adentro", "Empújalas hacia afuera."],["Levantar glúteo", "Mantén la zona lumbar pegada."]],
+        consejos: ["No bloquees las rodillas al extender.", "Respira al bajar."]
+    },
+    { 
+        id: "ht", 
+        nombre: "Hip Thrust (Matrix Placas)", 
+        grupo: "Pierna", 
+        prioridad: 1, 
+        sciatica: "green", 
+        planB: "Prensa (pies altos)",
+        tags: ["Lunes", "Viernes", "Sabado"], 
+        video: "https://www.youtube.com/embed/eaU-gdh9BCY",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyTfd6tTIl3ZObvzVSNehmhOCiG_59cEkgT6VV3uoxoNe6EYiSqOdoRLNngLDf7S5vJGmx-HooYagebCSGwAiAcY-2vB9ZDYFKdFrP48aZ5v1FjWbIqzElTcqk_aDN3Rc8KW_P9dRAnhgNpc1yUiy7uvJkkSmlzynpPAThjgHaVzNddcDM2Ia3aR4C5RM/s16000/hiphip.png",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZyZKjGu1Cgy2OvqAch_5Kd89UiUckFEs6cxTkOYrU1bV2JGN4ddhwvdx50rLTOiypKws6wXdZx3gcNz4w3Hb334ob476BHO-YCJwNg2TwDfKVPS9RYTxyr8NjGNK-qyoASy1VPqW5gVdJpzNgXL2eLmXeioFbD937sVOM1TkZnUVbkHsthyV_O9O1ies/s16000/hiptrust2.png",
+        pasos: [["1. Cinturón", "Ajusta la almohadilla sobre la cadera."],["2. Empuje", "Sube la pelvis hasta horizontal."],["3. Pausa", "Aprieta glúteo 1 segundo arriba."]],
+        errores: [["Arquear espalda", "Mantén barbilla al pecho."]],
+        consejos: ["Empuja con los talones, no con las puntas."]
+    },
+    { id: "ext_c", nombre: "Extensión Cuádriceps", grupo: "Pierna", prioridad: 2, sciatica: "green", tags: ["Lunes", "Viernes"], pasos: [["1. Ajuste", "El rodillo sobre los tobillos."]] },
+    { id: "jalon", nombre: "Jalón al Pecho", grupo: "Espalda", prioridad: 1, sciatica: "green", tags: ["Martes", "Sabado"], pasos: [["1. Agarre", "Más ancho que los hombros."]] },
+    { id: "remo", nombre: "Remo Sentado", grupo: "Espalda", prioridad: 2, sciatica: "green", tags: ["Martes", "Sabado"] },
+    { id: "p_conv", nombre: "Press Pecho Convergente", grupo: "Pecho", prioridad: 1, sciatica: "green", tags: ["Miercoles", "Sabado"] },
+    { id: "h_conv", nombre: "Press Hombro Convergente", grupo: "Hombro", prioridad: 1, sciatica: "green", tags: ["Miercoles", "Sabado"] },
+    { id: "curl_b", nombre: "Curl Bíceps Polea", grupo: "Brazos", prioridad: 3, sciatica: "green", tags: ["Martes", "Sabado"] },
+    { id: "tri_s", nombre: "Press Tríceps Sentado", grupo: "Brazos", prioridad: 3, sciatica: "green", tags: ["Miercoles", "Sabado"] },
+    { id: "crunch", nombre: "Crunch Abdominal Máquina", grupo: "Core", prioridad: 4, sciatica: "green", tags: ["Lunes", "Miercoles", "Viernes", "Sabado"] }
 ];
 
-let currentDaySelected = 'Lunes';
+const resumen = { "Lunes": "Pierna + Core", "Martes": "Espalda + Bíceps", "Miercoles": "Pecho + Hombro + Tríceps + Core", "Viernes": "Pierna + Core", "Sabado": "Full Body" };
 let currentId = null;
 
-function renderApp(day, btn) {
-    if(btn) {
-        document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    }
-    currentDaySelected = day;
-    const container = document.getElementById('mainContent');
+function showDay(day, btn) {
+    document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    const container = document.getElementById('routineList');
     
     if(day === 'Jueves' || day === 'Domingo') {
-        container.innerHTML = `<div class="card" style="text-align:center; padding:30px;"><i class="material-icons" style="font-size:48px; color:var(--primary);">spa</i><h3>Día de Descanso</h3><p>Recupera hoy para rendir mañana.</p></div>`;
+        container.innerHTML = `<div style="text-align:center; padding:40px; color:#999;"><i class="material-icons" style="font-size:60px;">spa</i><br><strong>DESCANSO ACTIVO</strong></div>`;
         return;
     }
 
-    const filtrados = machines.filter(m => m.tags.includes(day));
-    filtrados.sort((a,b) => a.prioridad - b.prioridad);
-
-    let html = `<h3>Rutina: ${day}</h3>`;
+    const filtrados = machines.filter(m => m.tags.includes(day)).sort((a,b) => a.prioridad - b.prioridad);
+    let html = `<div style="margin-bottom:15px; border-left:4px solid var(--primary); padding-left:12px;"><small>Hoy toca:</small><br><strong>${resumen[day]}</strong></div>`;
+    
     const grupos = [...new Set(filtrados.map(m => m.grupo))];
     grupos.forEach(g => {
         html += `<div class="muscle-header">${g}</div>`;
         filtrados.filter(m => m.grupo === g).forEach(m => {
-            html += renderButton(m);
+            html += `<button class="btn btn-main" onclick="openModal('${m.id}')" style="text-align:left; display:flex; justify-content:space-between; align-items:center;"><span>${m.nombre}</span><i class="material-icons">${getSncIcon(m.prioridad)}</i></button>`;
         });
     });
-    container.innerHTML = html;
-}
-
-function renderButton(m) {
-    const icons = ["battery_full", "battery_6_bar", "battery_3_bar", "battery_alert"];
-    return `
-        <button class="btn-exercise" onclick="openModal('${m.id}')">
-            <span>${m.nombre}</span>
-            <i class="material-icons" style="color:${getSncColor(m.prioridad)}; font-size:20px;">${icons[m.prioridad-1]}</i>
-        </button>`;
-}
-
-function renderAllByGroups() {
-    const container = document.getElementById('categoryList');
-    const grupos = [...new Set(machines.map(m => m.grupo))];
-    let html = "";
-    grupos.forEach(g => {
-        html += `<div class="muscle-header">${g}</div>`;
-        machines.filter(m => m.grupo === g).forEach(m => {
-            html += renderButton(m);
-        });
-    });
-    container.innerHTML = html;
-}
-
-function search() {
-    const q = document.getElementById('searchBar').value.toLowerCase();
-    const container = document.getElementById('mainContent');
-    if(q === "") { renderApp(currentDaySelected); return; }
-    
-    const res = machines.filter(m => m.nombre.toLowerCase().includes(q) || m.grupo.toLowerCase().includes(q));
-    let html = `<h3>Resultados:</h3>`;
-    res.forEach(m => html += renderButton(m));
     container.innerHTML = html;
 }
 
 function openModal(id) {
     const m = machines.find(x => x.id === id);
+    if(!m) return;
     currentId = id;
     document.getElementById('modalTitle').innerText = m.nombre;
-    document.getElementById('modalPlanB').innerText = "Alternativa: " + (m.planB || "No definida");
+    document.getElementById('modalMuscles').innerText = m.grupo;
+    document.getElementById('modalPlanB').innerText = m.planB || "No definido";
     document.getElementById('planBBox').style.display = 'none';
     
-    // Multimedia
-    document.getElementById('imgTable').src = m.imgTable || "";
-    document.getElementById('imgPhoto').src = m.imgPhoto || "";
-    const v = document.getElementById('modalVideo');
-    v.innerHTML = m.video ? `<iframe src="${m.video}" frameborder="0" allowfullscreen></iframe>` : "";
-
     // Memoria
     document.getElementById('setupInput').value = localStorage.getItem('setup_'+id) || "";
     document.getElementById('weightInput').value = localStorage.getItem('weight_'+id) || "";
 
-    // Badges
-    const colors = { green: '#27ae60', yellow: '#f1c40f' };
-    document.getElementById('modalSciatica').innerHTML = `<span class="badge" style="background:${colors[m.sciatica]}">CIÁTICA: ${m.sciatica.toUpperCase()}</span>`;
-    
-    const sncIcons = ["battery_full", "battery_6_bar", "battery_3_bar", "battery_alert"];
-    document.getElementById('sncStatus').innerHTML = `<i class="material-icons" style="color:${getSncColor(m.prioridad)}">${sncIcons[m.prioridad-1]}</i>`;
+    // Multimedia
+    document.getElementById('imgTable').src = m.imgTable || "";
+    document.getElementById('imgPhoto').src = m.imgPhoto || "";
+    const v = document.getElementById('modalVideo');
+    v.innerHTML = m.video ? `<iframe src="${m.video}" frameborder="0" allowfullscreen></iframe>` : `<p style="text-align:center; padding:20px; color:#999;">Video no disponible</p>`;
+
+    // Tablas
+    renderTable('sectionSteps', 'stepsTableContent', m.pasos);
+    renderTable('sectionErrors', 'errorTableContent', m.errores);
+    const advSect = document.getElementById('sectionAdvice');
+    if(m.consejos?.length > 0) {
+        advSect.style.display = 'block';
+        document.getElementById('adviceListContent').innerHTML = m.consejos.map(c => `<li>${c}</li>`).join('');
+    } else { advSect.style.display = 'none'; }
+
+    // Status
+    const colors = { green: ['bg-green', 'OK CIÁTICA'], yellow: ['bg-yellow', 'CUIDADO'] };
+    const s = colors[m.sciatica] || colors.green;
+    document.getElementById('modalSciatica').innerHTML = `<span class="badge-sciatica ${s[0]}">${s[1]}</span>`;
+    document.getElementById('sncStatus').innerHTML = `<i class="material-icons" style="color:${getSncColor(m.prioridad)}">${getSncIcon(m.prioridad)}</i>`;
 
     document.getElementById('exerciseModal').classList.add('active');
+    document.body.style.overflow = "hidden";
 }
 
+function renderTable(sectId, contId, data) {
+    const sect = document.getElementById(sectId);
+    if(data?.length > 0) {
+        sect.style.display = 'block';
+        document.getElementById(contId).innerHTML = data.map(d => `<tr><td><strong>${d[0]}</strong></td><td>${d[1]}</td></tr>`).join('');
+    } else { sect.style.display = 'none'; }
+}
+
+function filterMachines() {
+    const q = document.getElementById('searchBar').value.toLowerCase();
+    const f = machines.filter(m => m.nombre.toLowerCase().includes(q) || m.grupo.toLowerCase().includes(q));
+    document.getElementById('allMachinesList').innerHTML = f.map(m => `<div class="btn btn-outline" onclick="openModal('${m.id}')"><span>${m.nombre} (${m.grupo})</span><i class="material-icons" style="color:var(--primary);">info</i></div>`).join('');
+}
+
+function getSncIcon(p) { return ["battery_full", "battery_6_bar", "battery_3_bar", "battery_alert"][p-1]; }
 function getSncColor(p) { return ["#27ae60", "#f1c40f", "#e67e22", "#e74c3c"][p-1]; }
 function saveSetup() { localStorage.setItem('setup_'+currentId, document.getElementById('setupInput').value); }
-function saveWeight() { localStorage.setItem('weight_'+currentId, document.getElementById('weightInput').value); alert("Guardado"); }
+function saveWeight() { localStorage.setItem('weight_'+currentId, document.getElementById('weightInput').value); alert("¡Peso Guardado!"); }
 function togglePlanB() { const b = document.getElementById('planBBox'); b.style.display = b.style.display === 'none' ? 'block' : 'none'; }
-function closeModal() { document.getElementById('exerciseModal').classList.remove('active'); document.getElementById('modalVideo').innerHTML = ""; }
+function closeModal() { document.getElementById('exerciseModal').classList.remove('active'); document.getElementById('modalVideo').innerHTML = ""; document.body.style.overflow = "auto"; }
 
-// Inicio
-renderApp('Lunes', document.querySelector('.day-btn'));
-renderAllByGroups();
+// Init
+showDay('Lunes', document.querySelector('.day-btn'));
+filterMachines();
 </script>
 </body>
 </html>
