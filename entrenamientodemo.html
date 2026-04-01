@@ -268,7 +268,7 @@ const machines = [
     { id: "flex_acos", nombre: "Flexión Pierna Acostado", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Flexión sentado", tags: ["Lunes", "Viernes"] },
     { 
         id: "abd_est", 
-        nombre: "19. Abductor (Estación)", 
+        nombre: "Abductor (Estación)", 
         grupo: "Pierna", 
         sciatica: "green", 
         snc: 1, 
@@ -296,7 +296,37 @@ const machines = [
             "Para más intensidad, haz una pausa de 2-3 seg en la apertura máxima."
         ]
     },
-    { id: "add_est", nombre: "Adductor (Estación)", grupo: "Pierna", sciatica: "green", snc: 1, tags: ["Lunes", "Viernes"] },
+    { 
+        id: "add_est", 
+        nombre: "Aductor (Estación)", 
+        grupo: "Pierna", 
+        sciatica: "green", 
+        snc: 1, 
+        planB: "Aductor en polea",
+        tags: ["Lunes", "Viernes"],
+        video: "https://www.youtube.com/embed/oqfThnamTf4",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi1uixYGf4WlbrOSSw_z-m-NhmWH-jGSybHfUfDV3vVQXEHSlSYNjQQG_8Jn2Lh1FT_AObpO3lgaEGU3ufSSkg-QGdk1pZPWnL05OUsAVJ70EPuIN2cJlKmvj61EZlQG5T7wAr9_mJ_Rm0zc3sSLRhWCsPDbI03znSAU7FwwbZPOo709zMd6elDGuQjZDY/s16000/aductor2b.png",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjh42JAwR74mJ-MEb99JdsPNYEiCbRRvUR9F0-fAets-WsdXB2uNHEXQi8p4lTL5tQcZDfFYlHdaxhKnO-PS9k29luHo3rqFIZ4Yr85-UsjS4MgUmIxPVzQ0d4Zu-1_XJfKk_i28Yo_P9wuOe4GcvYe7PvHsAhAGqTIoAD7H8Cj7i2X8GMhPSPDSD3tnVY/s16000/aductor2c.png",
+        pasos: [
+            ["1. Posición inicial", "Siéntate con la espalda pegada al respaldo, rodillas abiertas y pies apoyados."],
+            ["2. Cierre", "Junta las piernas empujando el acolchado hacia adentro de forma controlada."],
+            ["3. Contracción", "Mantén 1 segundo en la posición máxima apretando los aductores."],
+            ["4. Apertura", "Vuelve lentamente a la posición inicial manteniendo tensión."]
+        ],
+        errores: [
+            ["Postura del tronco", "Mantén la espalda pegada al respaldo y el core activo."],
+            ["Cerrar con impulso", "Realiza el movimiento lento y controlado, sin rebotes."],
+            ["Rango excesivo", "No fuerces la aducción; prioriza la técnica sobre el rango de movimiento."],
+            ["Pies desalineados", "Mantén los pies paralelos para activar correctamente los aductores."]
+        ],
+        consejos: [
+            "Activa el core para evitar rotación pélvica.",
+            "Piensa en 'traer las rodillas' en vez de simplemente empujar con los pies.",
+            "Controla la fase negativa (la apertura): es clave para la eficacia del ejercicio.",
+            "Prueba pausas de 1–2 segundos en la contracción para mayor reclutamiento muscular.",
+            "Útil como complemento para mejorar la estabilidad de la cadera."
+        ]
+    },
     { id: "gem_sent", nombre: "Gemelo Sentado", grupo: "Pierna", sciatica: "green", snc: 1, tags: ["Lunes", "Viernes"] },
     { id: "crunch_unif", nombre: "Crunch Abdominal", grupo: "Core", sciatica: "green", snc: 1, tags: ["Lunes", "Viernes", "Sabado"] },
     { id: "back_ext", nombre: "Extensión Espalda", grupo: "Core", sciatica: "yellow", snc: 2, tags: ["Martes"] },
@@ -304,6 +334,38 @@ const machines = [
     { id: "decl_bench", nombre: "Decline Bench Press", grupo: "Pecho", sciatica: "green", snc: 4, tags: ["Miercoles", "Sabado"] },
     { id: "poleas_acc", nombre: "Poleas y Accesorios", grupo: "Multiuso", sciatica: "green", snc: 2, tags: ["Martes", "Miercoles", "Viernes"] },
     { id: "gem_pie", nombre: "Gemelo de Pie", grupo: "Pierna", sciatica: "green", snc: 1, tags: ["Sabado"] }
+
+    { 
+        id: "lat_raises_ext", 
+        nombre: "Apertura de Hombros Lateral Raises", 
+        grupo: "Hombro (Externo)", 
+        sciatica: "green", 
+        snc: 2, 
+        planB: "Elevaciones laterales mancuerna",
+        tags: ["Miercoles", "Sabado"],
+        video: "https://www.youtube.com/embed/sEhjeYuf--Q",
+        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjM8yo5aTQh_jBVu97r6pjAs2mR7n_25qovVFRx_uxoMJEbRhUA0pCgtLlK0nqKSDaFPN5BGX8eQekS4cYUP_Pv9Zrb4-ZsvWI2yl6LG1t2dtgfP_80s3AqmgW3Oj37ruTL-vYvPngGRw8Vsr2GQNdeHc1fV2ugMSCbWfOhMm_cIpB54jXBq5SmhM9VQYo/s16000/lateralraises.png",
+        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEimKyEWsbXSyMWhOZ39hFpFF4TluA4DaZZCR-7WfBLfKSYPF_i3ouuRMANkVUIYJI3PHk7d6rpWNKEZ-WyP2mhmInY-fk1Xng19n-01-6prpW7ikabbY3-7zYrZV41vTTM8kyfOEHL-6VrIaZRcqnWrBh9oy0_iwjzw9x4kYZ_aFvwnGWAkTch-19gzW5c/s16000/hombrolaterl2.png",
+        pasos: [
+            ["1. Posición inicial", "Siéntate con la espalda pegada al respaldo y los pies firmes en el suelo."],
+            ["2. Preparación", "Sujeta los mangos o apoya los antebrazos manteniendo ligera flexión de codos."],
+            ["3. Elevación", "Eleva los brazos lateralmente hasta la altura de los hombros con control."],
+            ["4. Descenso", "Baja lentamente sin dejar caer los brazos para mantener la tensión."]
+        ],
+        errores: [
+            ["Elevar con impulso", "Realiza el movimiento lento y controlado, sin rebotes."],
+            ["Subir demasiado", "Detén la elevación a la altura de los hombros para evitar pinzamientos."],
+            ["Encoger hombros", "Mantén los trapecios relajados; centra el trabajo en el deltoides lateral."],
+            ["Balancear tronco", "Mantén la espalda apoyada para aislar correctamente el hombro."]
+        ],
+        consejos: [
+            "Mantén una ligera flexión de codos para proteger la articulación.",
+            "Baja más despacio de lo que subes para trabajar la fase excéntrica.",
+            "Busca la línea lateral, evita llevar las manos por delante del cuerpo.",
+            "Si notas tensión en el cuello, baja el peso y prioriza la técnica.",
+            "Prueba un tempo 2-1-2 (2s subida, 1s pausa, 2s bajada) para mayor congestión."
+        ]
+    },
 ];
 /* --- LÓGICA DE LA APLICACIÓN (ORDEN POR FATIGA SNC) --- */
 
