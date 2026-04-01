@@ -26,6 +26,16 @@
         .card { background: var(--card-bg); border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(230, 126, 34, 0.1); border: 1px solid rgba(230, 126, 34, 0.1); }
         
         .badge-sciatica { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; color: white; margin-bottom: 10px; }
+        /* Color para máquinas de otros centros */
+.muscle-header.externo {
+    background: #8e44ad; /* Púrpura */
+    border-left: 5px solid #6c3483;
+}
+
+.btn-externo {
+    border-left: 5px solid #8e44ad !important;
+    background: #fdfaff !important;
+}
         /* Estilo base para el círculo de fatiga */
 .badge-snc { 
     color: #fff; 
@@ -284,13 +294,13 @@ let currentId = "";
  * Función principal: Filtra y ordena por SNC
  */
 function showDay(day, btn) {
-    // 1. UI: Activar el botón del día pulsado
+    // 1. UI: Activar botón del día
     document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     
     const container = document.getElementById('routineList');
     
-    // 2. Gestión de días de descanso
+    // 2. Días de descanso
     if(day === 'Jueves' || day === 'Domingo') {
         container.innerHTML = `
             <div style="text-align:center; padding:40px; color:var(--primary-dark);">
@@ -300,31 +310,36 @@ function showDay(day, btn) {
         return;
     }
 
-    // 3. Filtrar máquinas por el día y ORDENAR POR SNC (4 arriba, 1 abajo)
+    // 3. Filtrar y Ordenar por SNC (4 arriba, 1 abajo)
     let filtrados = machines
         .filter(m => m.tags?.includes(day))
         .sort((a, b) => (b.snc || 1) - (a.snc || 1));
 
-    // 4. Generar el HTML
     let html = `<div style="margin-bottom:15px; border-left: 4px solid var(--primary); padding-left: 15px;">
                     <small>Foco de hoy:</small><br><strong>${resumenDias[day]}</strong>
                 </div>`;
 
+    // 4. Agrupar y Renderizar
     const grupos = [...new Set(filtrados.map(m => m.grupo))];
     
     grupos.forEach(g => {
-        html += `<div class="muscle-header">${g}</div>`;
-        filtrados.filter(m => m.grupo === g).forEach(m => {
-            
-            // ESTA ES LA PARTE DEL SEMÁFORO (PUNTO 2)
-            const sncClass = `snc-${m.snc || 1}`; 
+        // DETECTAR SI ES GRUPO EXTERNO (NUEVO)
+        const esExterno = g.toLowerCase().includes("externo");
+        const headerClass = esExterno ? "muscle-header externo" : "muscle-header";
+        const btnExtraClass = esExterno ? "btn-externo" : "";
+        const iconoFinal = esExterno ? "pin_drop" : "bolt";
 
+        html += `<div class="${headerClass}">${g}</div>`;
+        
+        filtrados.filter(m => m.grupo === g).forEach(m => {
+            const sncClass = `snc-${m.snc || 1}`;
+            
             html += `
-                <button class="btn btn-main" onclick="openModal('${m.id}')" style="text-align:left; display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <button class="btn btn-main ${btnExtraClass}" onclick="openModal('${m.id}')" style="text-align:left; display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <span>${m.nombre}</span>
                     <div style="display:flex; align-items:center;">
                         <span class="badge-snc ${sncClass}">F${m.snc || 1}</span>
-                        <i class="material-icons" style="margin-left:10px; font-size:18px; opacity:0.7;">bolt</i>
+                        <i class="material-icons" style="margin-left:10px; font-size:18px; opacity:0.7;">${iconoFinal}</i>
                     </div>
                 </button>`;
         });
