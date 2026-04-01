@@ -56,9 +56,8 @@
         .advice-list li { margin-bottom: 8px; color: #444; }
 
         .progress-box { background: #fff8f0; padding: 15px; border-radius: 12px; margin-top: 15px; border: 1px solid #ffe0bd; }
-        .progress-box input { width: 80px; padding: 10px; text-align: center; border-radius: 8px; border: 1px solid #ccc; font-size: 18px; color: var(--primary-dark); font-weight: bold; }
+        .progress-box input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; color: var(--primary-dark); font-weight: bold; margin-bottom: 10px; box-sizing: border-box; }
 
-        /* NUEVA SECCIÓN PLAN B */
         .planb-section { margin-top: 15px; padding: 12px; border-radius: 10px; background: #eef2ff; border: 1px solid #c7d2fe; color: #3730a3; }
 
         #searchBar { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #eee; margin-bottom: 15px; box-sizing: border-box; font-size: 16px; outline: none; }
@@ -101,7 +100,7 @@
         
         <div class="planb-section" id="sectionPlanB" style="display:none;">
             <strong style="display:flex; align-items:center; gap:5px;">
-                <i class="material-icons" style="font-size:18px;">alt_route</i> PLAN B (Si está ocupada):
+                <i class="material-icons" style="font-size:18px;">alt_route</i> PLAN B:
             </strong>
             <p id="modalPlanB" style="margin: 5px 0 0 0; font-weight: bold;"></p>
         </div>
@@ -109,9 +108,13 @@
         <div class="video-container" id="modalVideo"></div>
         
         <div class="progress-box">
-            <strong><i class="material-icons" style="font-size:18px; color:var(--primary);">trending_up</i> Mi Peso Actual:</strong><br><br>
-            <input type="number" id="weightInput" placeholder="0"> kg 
-            <button class="btn-main" onclick="saveWeight()" style="display:inline; width:auto; padding:10px 20px; margin-left:10px;">Guardar</button>
+            <strong><i class="material-icons" style="font-size:18px; color:var(--primary);">settings</i> Setup (Asiento / Posición):</strong>
+            <input type="text" id="setupInput" placeholder="Ej: Altura 4, Respaldo 2">
+            
+            <strong><i class="material-icons" style="font-size:18px; color:var(--primary);">trending_up</i> Peso Actual:</strong>
+            <input type="number" id="weightInput" placeholder="0">
+            
+            <button class="btn btn-main" onclick="saveExerciseData()" style="margin-top:0;">Guardar Datos</button>
         </div>
 
         <div class="info-section" id="sectionSteps" style="display:none; border-color:#e2e8f0;">
@@ -162,16 +165,8 @@ const machines = [
         imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyTfd6tTIl3ZObvzVSNehmhOCiG_59cEkgT6VV3uoxoNe6EYiSqOdoRLNngLDf7S5vJGmx-HooYagebCSGwAiAcY-2vB9ZDYFKdFrP48aZ5v1FjWbIqzElTcqk_aDN3Rc8KW_P9dRAnhgNpc1yUiy7uvJkkSmlzynpPAThjgHaVzNddcDM2Ia3aR4C5RM/s16000/hiphip.png", 
         imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZyZKjGu1Cgy2OvqAch_5Kd89UiUckFEs6cxTkOYrU1bV2JGN4ddhwvdx50rLTOiypKws6wXdZx3gcNz4w3Hb334ob476BHO-YCJwNg2TwDfKVPS9RYTxyr8NjGNK-qyoASy1VPqW5gVdJpzNgXL2eLmXeioFbD937sVOM1TkZnUVbkHsthyV_O9O1ies/s16000/hiptrust2.png",
         nota: "El mejor ejercicio para glúteo mayor.",
-        pasos: [
-            ["1. Posición", "Espalda en respaldo, pies firmes."],
-            ["2. Elevación", "Empuja con talones hasta alinear cuerpo."],
-            ["3. Contracción", "Aprieta 1 seg arriba."],
-            ["4. Descenso", "Baja con control."]
-        ],
-        errores: [
-            ["Fuerza lumbar", "Usa la cadera."],
-            ["Empujar puntas", "Usa los talones."]
-        ],
+        pasos: [["1. Posición", "Espalda en respaldo, pies firmes."],["2. Elevación", "Empuja con talones hasta alinear cuerpo."],["3. Contracción", "Aprieta 1 seg arriba."],["4. Descenso", "Baja con control."]],
+        errores: [["Fuerza lumbar", "Usa la cadera."],["Empujar puntas", "Usa los talones."]],
         consejos: ["Mirada al frente.", "Retroversión pélvica arriba."]
     },
     { 
@@ -223,14 +218,16 @@ const machines = [
         imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-QKH1W9BAoXhY2vcmoTHCQyDBCvUdlTzAwasDaqptWnF6swPXTg3xijeTuxBn_KRjiR0Wq0GE7Ew8XCDuLYHxtCD0jZ4TQMaodPeDQDfidHGBFTEESNeHlEtepIihq0ecZwcVreOtWur3ANPvYmWRu8q2joftjLxVDMagm_fmmzHn8tSZ3IaTXZiIFS0/s16000/parto45.png", 
         imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzK6MEmudrgI7qjGBNLi0XXMaToiPB9FTv8Sp5t14_vLXzZYid1XnTtWpylMi9CvUlouij4DxXAW1Ub_91flo3-zf3OK0rpvkcmy7rqFW1vMwaZqWjKyq8u35-_0Gib1OBY4tIunWvvUFHjHKFondHA0o4XT1nZ3VXNUZjQgYfwEhfp9P3QmO4MM3GH-I/s16000/prensa-45-mgpl70-3-m20-1-960-720.jpeg"
     },
-    { id: "p_declinado", nombre: "Press Declinado (Barra)", grupo: "Pecho", sciatica: "green", planB: "Press Pecho Convergente", tags: ["Miercoles", "Sabado"], video: "https://www.youtube.com/embed/lrkMoax-TSs?si=0_iZVbE4WvnwQOjd", imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-WIuh5zFJb-sb-p7glwkldaI-SAe9rZdTy1MkWzqx02MkoyHupvgbdKvPdRD7OejHo8QLwIw0jHaSNcoMxIdiIQPOFgYp1I2bzA4c5XUCglESWeGY-1rdWSvfcqa_yc2pAYVvPNojv4YFGiQnWOMDJGzFawx30uXuF32j7wan13SB71AG-pTXkr1rp6c/s16000/bench-press-hangi-kaslar%C4%B1-%C3%A7al%C4%B1%C5%9Ft%C4%B1r%C4%B1r.jpg", imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgclqVw8ahAEJQcaEsVBKZDw_a1o-UaE92nevdFBLHvmDAaSvkLifj1LkJlNALZLtAZNj7ZR3OCWMBKxoNObTAxKDRIJFkA5gK9O-QrAkip4Nye7RNrpwfg2VnTDrs1txOtbjoouV44a1Y2Kc0EeTN5F_JpSYCAjuG3PnWCI8fSY7UfUaz4coOuUDX8nlg/s16000/press_delcinado-1024x569-1.png" },
+    { id: "p_declinado", nombre: "Press Declinado (Barra)", grupo: "Pecho", sciatica: "green", planB: "Press Convergente", tags: ["Miercoles", "Sabado"], video: "https://www.youtube.com/embed/lrkMoax-TSs?si=0_iZVbE4WvnwQOjd", imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-WIuh5zFJb-sb-p7glwkldaI-SAe9rZdTy1MkWzqx02MkoyHupvgbdKvPdRD7OejHo8QLwIw0jHaSNcoMxIdiIQPOFgYp1I2bzA4c5XUCglESWeGY-1rdWSvfcqa_yc2pAYVvPNojv4YFGiQnWOMDJGzFawx30uXuF32j7wan13SB71AG-pTXkr1rp6c/s16000/bench-press-hangi-kaslar%C4%B1-%C3%A7al%C4%B1%C5%9Ft%C4%B1r%C4%B1r.jpg", imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgclqVw8ahAEJQcaEsVBKZDw_a1o-UaE92nevdFBLHvmDAaSvkLifj1LkJlNALZLtAZNj7ZR3OCWMBKxoNObTAxKDRIJFkA5gK9O-QrAkip4Nye7RNrpwfg2VnTDrs1txOtbjoouV44a1Y2Kc0EeTN5F_JpSYCAjuG3PnWCI8fSY7UfUaz4coOuUDX8nlg/s16000/press_delcinado-1024x569-1.png" },
     { id: "flexion_acostado", nombre: "Flexión Acostado", grupo: "Pierna", sciatica: "green", planB: "Flexión Sentado", tags: ["Lunes", "Viernes"] },
-    { id: "abductores", nombre: "Abductores", grupo: "Pierna", sciatica: "green", planB: "Gomas / Polea baja lateral", tags: ["Lunes", "Viernes"] },
-    { id: "aductores", nombre: "Aductores", grupo: "Pierna", sciatica: "green", planB: "Gomas / Polea baja medial", tags: ["Lunes", "Viernes"] },
+    { id: "abductores", nombre: "Abductores", grupo: "Pierna", sciatica: "green", planB: "Polea lateral", tags: ["Lunes", "Viernes"] },
+    { id: "aductores", nombre: "Aductores", grupo: "Pierna", sciatica: "green", planB: "Polea medial", tags: ["Lunes", "Viernes"] },
     { id: "gemelo_sentado", nombre: "Gemelos Sentado", grupo: "Pierna", sciatica: "green", planB: "Puntas en Prensa", tags: ["Lunes", "Viernes"] }
+    // Aquí puedes seguir pegando el resto de tus 27 máquinas con sus datos completos
 ];
 
 const resumenDias = { "Lunes": "Piernas", "Martes": "Espalda", "Miercoles": "Pecho", "Jueves": "Descanso", "Viernes": "Piernas", "Sabado": "Full Body", "Domingo": "Libre" };
+let currentId = "";
 
 function showDay(day, btn) {
     document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
@@ -255,12 +252,17 @@ function showDay(day, btn) {
 function openModal(id) {
     const m = machines.find(x => x.id === id);
     if(!m) return;
+    currentId = id;
     document.getElementById('modalTitle').innerText = m.nombre;
     document.getElementById('modalMuscles').innerText = m.grupo;
     document.getElementById('modalNote').innerText = m.nota || "";
     document.getElementById('imgTable').src = m.imgTable || "";
     document.getElementById('imgPhoto').src = m.imgPhoto || "";
     
+    // Cargar persistencia
+    document.getElementById('setupInput').value = localStorage.getItem('setup_'+id) || "";
+    document.getElementById('weightInput').value = localStorage.getItem('weight_'+id) || "";
+
     // Plan B
     const planBSect = document.getElementById('sectionPlanB');
     if(m.planB) {
@@ -268,11 +270,9 @@ function openModal(id) {
         document.getElementById('modalPlanB').innerText = m.planB;
     } else { planBSect.style.display = 'none'; }
 
-    // Video
     const vContainer = document.getElementById('modalVideo');
     vContainer.innerHTML = m.video ? `<iframe src="${m.video}" frameborder="0" allowfullscreen></iframe>` : `<p style="color:#999; text-align:center; padding:20px;">Vídeo pendiente</p>`;
 
-    // Secciones Dinámicas
     renderTable('sectionSteps', 'stepsTableContent', m.pasos);
     renderTable('sectionErrors', 'errorTableContent', m.errores);
     
@@ -282,7 +282,6 @@ function openModal(id) {
         document.getElementById('adviceListContent').innerHTML = m.consejos.map(c => `<li>${c}</li>`).join('');
     } else { advSect.style.display = 'none'; }
 
-    // Sciatica
     const sci = document.getElementById('modalSciatica');
     const colors = { green: ['bg-green', 'OK CIÁTICA'], yellow: ['bg-yellow', 'CUIDADO'], red: ['bg-red', 'RIESGO'] };
     const sData = colors[m.sciatica] || colors.green;
@@ -290,6 +289,12 @@ function openModal(id) {
 
     document.getElementById('exerciseModal').classList.add('active');
     document.body.style.overflow = "hidden";
+}
+
+function saveExerciseData() {
+    localStorage.setItem('setup_' + currentId, document.getElementById('setupInput').value);
+    localStorage.setItem('weight_' + currentId, document.getElementById('weightInput').value);
+    alert("Datos guardados en este dispositivo.");
 }
 
 function renderTable(sectId, contId, data) {
