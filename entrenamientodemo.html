@@ -7,43 +7,60 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary: #e67e22; --primary-dark: #d35400; --accent: #f39c12; 
-            --success: #27ae60; --warning: #f1c40f; --danger: #e74c3c;
-            --bg: #fff5ed; --card-bg: #ffffff;
+            --primary: #e67e22; 
+            --primary-dark: #d35400; 
+            --accent: #f39c12; 
+            --success: #27ae60;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --bg: #fff5ed; 
+            --card-bg: #ffffff;
         }
+
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); color: #333; padding-bottom: 50px; }
         .container { max-width: 600px; margin: auto; padding: 15px; }
+        
         h1, h2 { text-align: center; color: var(--primary-dark); display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .card { background: var(--card-bg); border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(230,126,34,0.1); border: 1px solid rgba(230,126,34,0.1); }
+
+        .card { background: var(--card-bg); border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(230, 126, 34, 0.1); border: 1px solid rgba(230, 126, 34, 0.1); }
+        
         .badge-sciatica { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; color: white; margin-bottom: 10px; }
-        .bg-green { background-color: var(--success); } .bg-yellow { background-color: var(--warning); color: #000; } .bg-red { background-color: var(--danger); }
+        .bg-green { background-color: var(--success); }
+        .bg-yellow { background-color: var(--warning); color: #000; }
+        .bg-red { background-color: var(--danger); }
+
         .btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; transition: 0.3s; margin-top: 8px; text-align: center; text-decoration: none; box-sizing: border-box; font-weight: 600; }
-        .btn-main { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; }
+        .btn-main { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; box-shadow: 0 4px 6px rgba(211, 84, 0, 0.2); }
         .btn-outline { border: 1px solid #ddd; color: var(--primary-dark); background: white; text-align: left; display: flex; justify-content: space-between; align-items: center; }
+        
         .days-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(75px, 1fr)); gap: 8px; margin-bottom: 20px; }
         .day-btn { padding: 12px 5px; font-size: 12px; background: white; border: 1px solid #eee; border-radius: 10px; cursor: pointer; font-weight: bold; color: var(--primary-dark); }
         .day-btn.active { background: var(--primary); color: white; border-color: var(--primary-dark); }
+
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; overflow-y: auto; z-index: 1000; padding: 10px; }
         .modal.active { display: flex; align-items: flex-start; justify-content: center; }
         .modal-content { background: white; border-radius: 20px; padding: 25px; width: 100%; max-width: 500px; margin-top: 20px; position: relative; border-top: 6px solid var(--primary); }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #999; }
-        .modal-img { width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid #eee; }
+
+        .modal-img { width: 100%; border-radius: 12px; margin-top: 10px; border: 1px solid #eee; background: #fafafa; }
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 15px 0; background: #000; border-radius: 12px; overflow: hidden; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
         .info-section { margin-top: 20px; padding: 15px; border-radius: 10px; background: #fefefe; border: 1px solid #eee; }
         .info-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
         .info-table td { padding: 8px; border-bottom: 1px solid #eee; }
+        
         .progress-box { background: #fff8f0; padding: 15px; border-radius: 12px; margin-top: 15px; border: 1px solid #ffe0bd; }
-        .progress-box label { font-size: 11px; font-weight: bold; color: var(--primary-dark); display: block; margin-bottom: 2px; }
-        .progress-box input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; margin-bottom: 10px; box-sizing: border-box; }
+        .progress-box input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; font-weight: bold; margin-bottom: 10px; box-sizing: border-box; }
+
         .planb-section { margin-top: 15px; padding: 12px; border-radius: 10px; background: #eef2ff; border: 1px solid #c7d2fe; color: #3730a3; }
         .badge-snc { font-size: 10px; background: #ffeaa7; padding: 2px 6px; border-radius: 4px; color: #d35400; margin-left: 8px; font-weight: bold; }
-        #searchBar { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #eee; margin-bottom: 15px; box-sizing: border-box; }
-        .muscle-header { background: #fff0e0; padding: 8px 12px; border-radius: 8px; color: var(--primary-dark); font-weight: 800; margin-top: 20px; font-size: 13px; text-transform: uppercase; border-left: 5px solid var(--primary); }
+
+        #searchBar { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #eee; margin-bottom: 15px; box-sizing: border-box; font-size: 16px; outline: none; }
+        .muscle-header { background: #fff0e0; padding: 8px 12px; border-radius: 8px; color: var(--primary-dark); font-weight: 800; margin-top: 20px; font-size: 13px; text-transform: uppercase; border-left: 5px solid var(--primary); letter-spacing: 1px; }
     </style>
 </head>
 <body>
-
 <div class="container">
     <h1><i class="material-icons">fitness_center</i> Mi Gym Pro</h1>
     <section class="card">
@@ -56,12 +73,11 @@
             <button class="day-btn" onclick="showDay('Sabado', this)">SAB</button>
             <button class="day-btn" onclick="showDay('Domingo', this)">DOM</button>
         </div>
-        <div id="routineList"><p style="text-align:center; color:#999; padding: 20px;">Selecciona un día.</p></div>
+        <div id="routineList"><p style="text-align:center; color:#999; padding: 20px;">Toca un día para entrenar.</p></div>
     </section>
-
     <section class="card">
         <h2><i class="material-icons">search</i> Buscador</h2>
-        <input type="text" id="searchBar" placeholder="Buscar máquina..." onkeyup="filterMachines()">
+        <input type="text" id="searchBar" placeholder="Ej: Prensa, Pecho, Bíceps..." onkeyup="filterMachines()">
         <div id="allMachinesList"></div>
     </section>
 </div>
@@ -70,125 +86,160 @@
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
         <div id="modalSciatica"></div>
-        <h2 id="modalTitle" style="text-align: left; margin: 5px 0;"></h2>
+        <h2 id="modalTitle"></h2>
         <p id="modalMuscles" style="color:var(--primary); font-weight:bold; margin-top:0;"></p>
-        
         <div class="planb-section" id="sectionPlanB" style="display:none;">
-            <strong><i class="material-icons" style="font-size:18px;">alt_route</i> PLAN B:</strong>
-            <p id="modalPlanB" style="margin: 5px 0 0 0; font-weight: bold;"></p>
+            <strong>PLAN B:</strong> <span id="modalPlanB"></span>
         </div>
-
         <div class="video-container" id="modalVideo"></div>
-        
         <div class="progress-box">
-            <label>SETUP (ASIENTO / POSICIÓN):</label>
-            <input type="text" id="setupInput" placeholder="Ej: Altura 3">
-            <label>PESO ACTUAL (kg):</label>
+            <strong>Setup:</strong>
+            <input type="text" id="setupInput" placeholder="Ej: Altura 5">
+            <strong>Peso:</strong>
             <input type="number" id="weightInput" placeholder="0">
-            <button class="btn btn-main" onclick="saveData()" style="padding: 10px;">GUARDAR</button>
+            <button class="btn btn-main" onclick="saveData()">Guardar Progreso</button>
         </div>
-
         <div class="info-section" id="sectionSteps" style="display:none;">
-            <strong>PASO A PASO</strong>
+            <strong>Instrucciones:</strong>
             <table class="info-table" id="stepsTableContent"></table>
         </div>
-
-        <div class="info-section" id="sectionErrors" style="display:none; border-color: var(--danger);">
-            <strong style="color: var(--danger);">ERRORES</strong>
-            <table class="info-table" id="errorTableContent"></table>
-        </div>
-
-        <div style="margin-top:20px;">
-            <p id="modalNote" style="font-style: italic; color: #555;"></p>
-        </div>
-
-        <p><strong>Músculos:</strong></p>
-        <img id="imgTable" class="modal-img" src="">
-        <p><strong>Máquina:</strong></p>
-        <img id="imgPhoto" class="modal-img" src="">
-        
-        <button class="btn btn-main" onclick="closeModal()" style="margin-top:20px;">VOLVER</button>
+        <h3 style="border-bottom: 2px solid #eee;">Identificación</h3>
+        <p>Anatomía:</p>
+        <img id="imgTable" class="modal-img">
+        <p>Máquina:</p>
+        <img id="imgPhoto" class="modal-img">
+        <button class="btn btn-main" onclick="closeModal()" style="margin-top:20px;">Volver</button>
     </div>
 </div>
-
 <script>
+/**
+ * BASE DE DATOS DE MÁQUINAS (27 TOTAL)
+ * snc: 4 (Alta fatiga/Inicio) -> 1 (Baja fatiga/Final)
+ */
 const machines = [
-    // --- PIERNA (Día: Lunes, Viernes, Sábado) ---
-    { 
-        id: "hip_thrust", nombre: "Hip Thrust", grupo: "Pierna", sciatica: "green", snc: 4, planB: "Prensa (Pies altos)",
-        tags: ["Lunes", "Viernes", "Sabado"], 
-        video: "https://www.youtube.com/embed/eaU-gdh9BCY",
-        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyTfd6tTIl3ZObvzVSNehmhOCiG_59cEkgT6VV3uoxoNe6EYiSqOdoRLNngLDf7S5vJGmx-HooYagebCSGwAiAcY-2vB9ZDYFKdFrP48aZ5v1FjWbIqzElTcqk_aDN3Rc8KW_P9dRAnhgNpc1yUiy7uvJkkSmlzynpPAThjgHaVzNddcDM2Ia3aR4C5RM/s16000/hiphip.png", 
-        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZyZKjGu1Cgy2OvqAch_5Kd89UiUckFEs6cxTkOYrU1bV2JGN4ddhwvdx50rLTOiypKws6wXdZx3gcNz4w3Hb334ob476BHO-YCJwNg2TwDfKVPS9RYTxyr8NjGNK-qyoASy1VPqW5gVdJpzNgXL2eLmXeioFbD937sVOM1TkZnUVbkHsthyV_O9O1ies/s16000/hiptrust2.png",
-        nota: "El rey para el glúteo mayor.",
-        pasos: [["1. Apoyo", "Escápulas fijas en el banco."], ["2. Pies", "Talones bajo las rodillas al subir."], ["3. Empuje", "Hacia arriba, apretando glúteos."]],
-        errores: [["Arquear lumbar", "Mantén la barbilla al pecho."], ["Puntas pies", "Empuja con el talón."]],
-        consejos: ["Bloquea 1 seg arriba.", "Controla la bajada."]
+{ 
+        id: "press_convergente", nombre: "1. Press de Pecho Convergente", grupo: "Pecho", sciatica: "green", snc: 3, planB: "Pec Fly",
+        tags: ["Miercoles", "Sabado"], 
+        pasos: [["1. Ajuste", "Altura del asiento para que los agarres queden al nivel del pectoral medio."], ["2. Empuje", "Extiende los brazos sin bloquear los codos al final."], ["3. Retorno", "Baja lento sintiendo el estiramiento."]],
+        errores: [["Despegar espalda", "Mantén las escápulas retraídas contra el banco."], ["Codos muy altos", "Alinea los codos ligeramente por debajo de los hombros."]],
+        nota: "Ideal para masa pectoral con máxima seguridad axial."
     },
     { 
-        id: "prensa_45", nombre: "Prensa 45°", grupo: "Pierna", sciatica: "yellow", snc: 4, planB: "Prensa Normal / Sentadilla",
+        id: "pec_fly", nombre: "2. Apertura de Pectoral Pec Fly", grupo: "Pecho", sciatica: "green", snc: 2, planB: "Press de Pecho",
+        tags: ["Miercoles", "Sabado"], 
+        pasos: [["1. Posición", "Brazos casi extendidos, ligera flexión de codo."], ["2. Cierre", "Junta los agarres apretando el centro del pecho."], ["3. Apertura", "Controla la fase excéntrica hasta notar estiramiento."]],
+        errores: [["Exceso de peso", "Es un ejercicio de aislamiento, no de fuerza bruta."], ["Hombros adelante", "Saca pecho durante todo el recorrido."]]
+    },
+    { 
+        id: "vertical_chest", nombre: "3. Vertical Chest Press", grupo: "Pecho", sciatica: "green", snc: 3, planB: "Press Convergente",
+        tags: ["Miercoles"], 
+        pasos: [["1. Agarre", "Sujeta las asas firmemente con las muñecas rectas."], ["2. Ejecución", "Empuja frontalmente manteniendo el control abdominal."]],
+        errores: [["Muñecas dobladas", "Mantén la línea del antebrazo."], ["Asiento bajo", "Evita que los hombros suban hacia las orejas."]]
+    },
+    { 
+        id: "remo_sentado", nombre: "4. Remo Sentado (Unificado)", grupo: "Espalda", sciatica: "yellow", snc: 3, planB: "Polea baja con triángulo",
+        tags: ["Martes", "Sabado"], 
+        pasos: [["1. Apoyo", "Pies firmes en los soportes, rodillas semiflexionadas."], ["2. Tracción", "Lleva el agarre hacia el ombligo, no hacia el pecho."], ["3. Extensión", "No dejes que el peso tire de tu tronco hacia adelante."]],
+        errores: [["Balanceo", "No uses la inercia del cuerpo para tirar."], ["Encorvarse", "Mantén la columna neutra para proteger la ciática."]]
+    },
+    { 
+        id: "jalon_pecho", nombre: "5. Jalón al Pecho (Lat Pulldown)", grupo: "Espalda", sciatica: "green", snc: 3, planB: "Dominadas asistidas",
+        tags: ["Martes", "Sabado"], 
+        pasos: [["1. Agarre", "Más ancho que los hombros."], ["2. Tirón", "Lleva la barra hacia la parte superior del pecho."], ["3. Control", "Sube el peso de forma pausada."]],
+        errores: [["Tirar con bíceps", "Imagina que tiras con los codos."], ["Inclinarte demasiado", "Mantén el torso ligeramente inclinado, no tumbado."]]
+    },
+    { id: "dominadas_asist", nombre: "6. Dominadas Asistidas", grupo: "Espalda", sciatica: "green", snc: 3, planB: "Jalón al Pecho", tags: ["Martes"] },
+    { id: "ext_lumbar_placas", nombre: "7. Extensión Lumbar de Placas", grupo: "Core", sciatica: "yellow", snc: 2, planB: "Banco de extensiones", tags: ["Martes"], nota: "Ajusta el rodillo para que el movimiento salga de la cadera, no de la espalda baja." },
+    { id: "press_hombro_conv", nombre: "8. Press de Hombro Convergente", grupo: "Hombro", sciatica: "green", snc: 3, planB: "Press de Pecho (uso alternativo)", tags: ["Miercoles", "Sabado"] },
+    { id: "press_hombro_est", nombre: "9. Press de Hombro (Estación)", grupo: "Hombro", sciatica: "green", snc: 3, planB: "Press Hombro Convergente", tags: ["Miercoles"] },
+    { id: "reverse_fly", nombre: "10. Deltoides Posterior Reverse Fly", grupo: "Hombro", sciatica: "green", snc: 2, planB: "Remo sentado codos altos", tags: ["Martes", "Sabado"] },
+    { id: "curl_biceps", nombre: "11. Curl de Bíceps (Unificado)", grupo: "Brazos", sciatica: "green", snc: 1, planB: "Polea baja con barra", tags: ["Martes", "Sabado"] },
+    { id: "press_triceps", nombre: "12. Press de Tríceps Sentado", grupo: "Brazos", sciatica: "green", snc: 1, planB: "Fondos asistidos / Polea", tags: ["Miercoles", "Sabado"] },
+    { 
+        id: "prensa_45", nombre: "13. Prensa Inclinada 45°", grupo: "Pierna", sciatica: "yellow", snc: 4, planB: "Prensa horizontal",
         tags: ["Lunes", "Viernes"], 
-        video: "https://www.youtube.com/embed/wpHk7S4eF5I",
-        imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-QKH1W9BAoXhY2vcmoTHCQyDBCvUdlTzAwasDaqptWnF6swPXTg3xijeTuxBn_KRjiR0Wq0GE7Ew8XCDuLYHxtCD0jZ4TQMaodPeDQDfidHGBFTEESNeHlEtepIihq0ecZwcVreOtWur3ANPvYmWRu8q2joftjLxVDMagm_fmmzHn8tSZ3IaTXZiIFS0/s16000/parto45.png",
-        imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzK6MEmudrgI7qjGBNLi0XXMaToiPB9FTv8Sp5t14_vLXzZYid1XnTtWpylMi9CvUlouij4DxXAW1Ub_91flo3-zf3OK0rpvkcmy7rqFW1vMwaZqWjKyq8u35-_0Gib1OBY4tIunWvvUFHjHKFondHA0o4XT1nZ3VXNUZjQgYfwEhfp9P3QmO4MM3GH-I/s16000/prensa-45-mgpl70-3-m20-1-960-720.jpeg",
-        snc: 4
+        pasos: [["1. Pies", "Colocación media para cuádriceps."], ["2. Bajada", "Lenta hasta que el lumbar amague con despegarse."], ["3. Empuje", "Fuerza desde los talones."]],
+        errores: [["Bloqueo articular", "Nunca estires las rodillas al 100%."], ["Despegar glúteo", "Peligro máximo para tu ciática."]]
     },
-    { id: "prensa_norm", nombre: "Prensa Horizontal", grupo: "Pierna", sciatica: "yellow", snc: 3, planB: "Prensa 45°", tags: ["Lunes", "Viernes", "Sabado"] },
-    { id: "ext_piernas", nombre: "Extensión de Piernas", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Sissy Squat", tags: ["Lunes", "Viernes"] },
-    { id: "flexion_sentado", nombre: "Flexión de Pierna Sentado", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Flexión Acostado", tags: ["Lunes", "Viernes"] },
-    { id: "flexion_acostado", nombre: "Flexión Pierna Acostado", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Flexión Sentado", tags: ["Lunes", "Viernes"] },
-    { id: "abductores", nombre: "Abductores (Máquina)", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Polea Lateral", tags: ["Lunes", "Viernes"] },
-    { id: "aductores", nombre: "Aductores (Máquina)", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Polea Medial", tags: ["Lunes", "Viernes"] },
-    { id: "gemelo_sentado", nombre: "Gemelos Sentado", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Puntas en Prensa", tags: ["Lunes", "Viernes"] },
-    { id: "gemelo_prensa", nombre: "Gemelos en Prensa", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Gemelo Sentado", tags: ["Sabado"] },
-
-    // --- PECHO (Día: Miércoles, Sábado) ---
-    { id: "p_declinado", nombre: "Press Declinado", grupo: "Pecho", sciatica: "green", snc: 4, planB: "Press Convergente", tags: ["Miercoles", "Sabado"] },
-    { id: "p_convergente", nombre: "Press de Pecho Convergente", grupo: "Pecho", sciatica: "green", snc: 3, planB: "Press Declinado", tags: ["Miercoles", "Sabado"] },
-    { id: "aperturas_maq", nombre: "Contractora (Peck Deck)", grupo: "Pecho", sciatica: "green", snc: 2, planB: "Cruces Polea", tags: ["Miercoles", "Sabado"] },
-    { id: "cruces_polea", nombre: "Cruces en Polea Alta", grupo: "Pecho", sciatica: "green", snc: 2, planB: "Contractora", tags: ["Miercoles"] },
-
-    // --- ESPALDA (Día: Martes, Sábado) ---
-    { id: "jalon_pecho", nombre: "Jalón al Pecho", grupo: "Espalda", sciatica: "green", snc: 3, planB: "Dominadas Asistidas", tags: ["Martes", "Sabado"] },
-    { id: "remo_gironda", nombre: "Remo Gironda (Bajo)", grupo: "Espalda", sciatica: "yellow", snc: 3, planB: "Remo Convergente", tags: ["Martes", "Sabado"] },
-    { id: "remo_convergente", nombre: "Remo Convergente", grupo: "Espalda", sciatica: "green", snc: 3, planB: "Remo Gironda", tags: ["Martes"] },
-    { id: "pull_over", nombre: "Pull Over Polea", grupo: "Espalda", sciatica: "green", snc: 2, planB: "Jalón Pecho", tags: ["Martes"] },
-
-    // --- BRAZOS Y HOMBROS (Día: Martes, Miércoles, Sábado) ---
-    { id: "press_hombro", nombre: "Press Hombro Máquina", grupo: "Hombro", sciatica: "green", snc: 3, planB: "Press Militar Mancuernas", tags: ["Miercoles", "Sabado"] },
-    { id: "lat_hombro", nombre: "Elevaciones Laterales", grupo: "Hombro", sciatica: "green", snc: 1, planB: "Laterales Polea", tags: ["Miercoles", "Sabado"] },
-    { id: "curl_biceps_m", nombre: "Curl Bíceps Máquina", grupo: "Brazos", sciatica: "green", snc: 1, planB: "Curl Polea", tags: ["Martes", "Sabado"] },
-    { id: "triceps_polea", nombre: "Tríceps Polea (Cuerda)", grupo: "Brazos", sciatica: "green", snc: 1, planB: "Press Francés", tags: ["Miercoles", "Sabado"] },
-    { id: "curl_martillo", nombre: "Curl Martillo Polea", grupo: "Brazos", sciatica: "green", snc: 1, planB: "Bíceps Mancuerna", tags: ["Martes"] },
-
-    // --- ABDOMEN Y LUMBRES ---
-    { id: "crunch_abd", nombre: "Crunch Abdominal Máquina", grupo: "Abdomen", sciatica: "green", snc: 1, planB: "Plancha", tags: ["Lunes", "Viernes", "Sabado"] },
-    { id: "lumbares", nombre: "Extensiones Lumbares", grupo: "Espalda", sciatica: "yellow", snc: 2, planB: "Plancha Progresiva", tags: ["Martes"] },
-    { id: "elev_piernas", nombre: "Elevación de Piernas", grupo: "Abdomen", sciatica: "green", snc: 1, planB: "Crunch Suelo", tags: ["Miercoles"] },
-    { id: "giros_torso", nombre: "Rotación de Torso", grupo: "Abdomen", sciatica: "red", snc: 1, planB: "Plancha Lateral", tags: ["Martes"] }
+    { id: "prensa_horizontal", nombre: "14. Prensa Horizontal de Placas", grupo: "Pierna", sciatica: "yellow", snc: 3, planB: "Prensa inclinada", tags: ["Lunes", "Viernes", "Sabado"] },{ 
+        id: "ext_cuadriceps", nombre: "15. Extensión de Cuádriceps", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Prensa (Pies bajos)",
+        tags: ["Lunes", "Viernes"], 
+        pasos: [["1. Eje", "Alinea la rodilla con el punto de giro de la máquina."], ["2. Ejecución", "Extiende totalmente y aprieta el cuádriceps 1 segundo."], ["3. Descenso", "Baja el peso de forma controlada, no lo dejes caer."]],
+        errores: [["Rodillo alto", "Ajusta el rodillo justo encima del empeine."], ["Separar glúteo", "Mantente pegado al asiento usando los agarres laterales."]]
+    },
+    { 
+        id: "flexion_acostado", nombre: "16. Flexión de Pierna Acostado", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Flexión sentado",
+        tags: ["Lunes", "Viernes"], 
+        pasos: [["1. Posición", "Túmbate boca abajo alineando las rodillas con el eje."], ["2. Tracción", "Lleva los talones hacia el glúteo de forma explosiva."], ["3. Retorno", "Extiende las piernas lentamente resistiendo el peso."]],
+        errores: [["Levantar cadera", "Mantén la pelvis pegada al banco para aislar el femoral."], ["Movimiento corto", "Realiza el rango completo de movimiento."]],
+        nota: "Fundamental para la estabilidad de la rodilla y equilibrio muscular."
+    },
+    { id: "flexion_sentado", nombre: "17. Flexión de Pierna Sentado", grupo: "Pierna", sciatica: "green", snc: 2, planB: "Flexión acostado", tags: ["Lunes", "Viernes"] },
+    { 
+        id: "hip_thrust_matrix", nombre: "18. Hip Thrust de Placas (Matrix)", grupo: "Glúteo", sciatica: "green", snc: 4, planB: "Prensa (Pies altos)",
+        tags: ["Lunes", "Viernes", "Sabado"], 
+        pasos: [["1. Cinturón", "Ajusta el cinturón o almohadilla sobre el hueso de la cadera."], ["2. Pies", "Colócalos de modo que la rodilla forme 90º al subir."], ["3. Empuje", "Eleva la cadera apretando fuerte el glúteo en la cima."]],
+        errores: [["Puntas pies", "Empuja siempre con el talón."], ["Mirar arriba", "Mantén la barbilla pegada al pecho para proteger la espalda."]],
+        nota: "La máquina Matrix ofrece una tensión constante superior a la barra libre."
+    },
+    { id: "abductor_est", nombre: "19. Abductor (Estación)", grupo: "Glúteo", sciatica: "green", snc: 1, planB: "Otra unidad abductor", tags: ["Lunes", "Viernes", "Sabado"] },
+    { id: "adductor_est", nombre: "20. Adductor (Estación)", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Otra unidad adductor", tags: ["Lunes", "Viernes"] },
+    { 
+        id: "gemelo_sentado", nombre: "21. Gemelo Sentado", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Puntas en prensa",
+        tags: ["Lunes", "Viernes"], 
+        pasos: [["1. Apoyo", "Coloca las almohadillas sobre los muslos, no sobre las rodillas."], ["2. Estiramiento", "Baja los talones al máximo sintiendo el sóleo."], ["3. Contracción", "Sube hasta ponerte de puntillas totalmente."]],
+        errores: [["Rebote", "No uses el muelle; para 1 seg abajo y 1 seg arriba."], ["Poco peso", "El gemelo aguanta mucha carga, no tengas miedo a subir peso."]]
+    },
+    { 
+        id: "crunch_abdominal", nombre: "22. Crunch Abdominal (Unificado)", grupo: "Core", sciatica: "green", snc: 1, planB: "Plancha frontal",
+        tags: ["Lunes", "Viernes", "Sabado"], 
+        pasos: [["1. Agarre", "Sujeta las asas detrás de la cabeza sin tirar del cuello."], ["2. Contracción", "Expulsa el aire mientras encoges el abdomen."], ["3. Extensión", "Vuelve atrás estirando el abdomen sin que las placas choquen."]],
+        errores: [["Tirar con brazos", "La fuerza debe salir del abdomen, no de los brazos."], ["Movimiento rápido", "Hazlo lento para evitar involucrar el psoas."]]
+    },
+    { id: "back_extension", nombre: "23. Extensión de Espalda (Core)", grupo: "Core", sciatica: "yellow", snc: 2, planB: "Peso muerto rumano", tags: ["Martes"] },
+    { 
+        id: "smith_machine", nombre: "24. Smith Machine (Multiuso)", grupo: "Multiuso", sciatica: "yellow", snc: 4, planB: "Mancuernas",
+        tags: ["Lunes", "Sabado"], 
+        pasos: [["1. Posición", "Alinea la barra con el ejercicio elegido (Sentadilla/Press)."], ["2. Seguridad", "Asegúrate de que los topes están a la altura correcta."]],
+        nota: "Usa esta máquina para ejercicios que requieran máxima estabilidad axial."
+    },
+    { 
+        id: "decline_bench", nombre: "25. Decline Bench Press (Barra)", grupo: "Pecho", sciatica: "green", snc: 4, planB: "Press plano",
+        tags: ["Miercoles", "Sabado"], 
+        pasos: [["1. Fijación", "Engancha bien las piernas en los rodillos."], ["2. Barra", "Baja la barra hacia la parte baja del pectoral."], ["3. Empuje", "Sube explosivo pero controlado."]],
+        errores: [["Codos abiertos", "Mantén los codos a 45º del cuerpo."], ["Rebotar barra", "No golpees el pecho con la barra."]]
+    },
+    { id: "poleas_acc", nombre: "26. Poleas y Accesorios", grupo: "Multiuso", sciatica: "green", snc: 2, planB: "Máquina específica", tags: ["Martes", "Miercoles", "Viernes"] },
+    { id: "gemelo_pie", nombre: "27. Gemelo de Pie / Otros", grupo: "Pierna", sciatica: "green", snc: 1, planB: "Gemelo sentado", tags: ["Sabado"] }
 ];
 
-const resumenDias = { "Lunes": "Piernas", "Martes": "Espalda", "Miercoles": "Pecho", "Jueves": "Descanso", "Viernes": "Piernas", "Sabado": "Full Body", "Domingo": "Libre" };
+/** * LOGICA DE LA APLICACIÓN
+ */
+const resumenDias = { "Lunes": "Piernas & Abdomen", "Martes": "Espalda & Bíceps", "Miercoles": "Pecho, Hombro & Tríceps", "Jueves": "Descanso", "Viernes": "Piernas & Abdomen", "Sabado": "Full Body (Fuerza)", "Domingo": "Libre" };
 let currentId = "";
 
 function showDay(day, btn) {
     document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const container = document.getElementById('routineList');
+    
     if(day === 'Jueves' || day === 'Domingo') {
-        container.innerHTML = `<div style="text-align:center; padding:40px;"><strong>Descanso</strong></div>`;
+        container.innerHTML = `<div style="text-align:center; padding:40px; color:var(--primary-dark);"><i class="material-icons" style="font-size:50px;">spa</i><br><strong>DESCANSO / RECUPERACIÓN</strong></div>`;
         return;
     }
-    
-    // ORDENACIÓN POR FATIGA SNC (4 arriba, 1 abajo)
-    const filtrados = machines.filter(m => m.tags?.includes(day)).sort((a, b) => (b.snc || 1) - (a.snc || 1));
-    let html = `<div style="margin-bottom:15px;"><small>Foco:</small> <strong>${resumenDias[day]}</strong></div>`;
+
+    // ORDENACIÓN POR FATIGA SNC (4 más pesado, 1 más ligero)
+    const filtrados = machines
+        .filter(m => m.tags?.includes(day))
+        .sort((a, b) => (b.snc || 1) - (a.snc || 1));
+
+    let html = `<div style="margin-bottom:15px; border-left:4px solid var(--primary); padding-left:15px;"><small>Enfoque hoy:</small><br><strong>${resumenDias[day]}</strong></div>`;
     
     const grupos = [...new Set(filtrados.map(m => m.grupo))];
     grupos.forEach(g => {
         html += `<div class="muscle-header">${g}</div>`;
         filtrados.filter(m => m.grupo === g).forEach(m => {
-            html += `<button class="btn btn-main" onclick="openModal('${m.id}')" style="text-align:left; display:flex; justify-content:space-between;">
+            html += `<button class="btn btn-main" onclick="openModal('${m.id}')" style="text-align:left; display:flex; justify-content:space-between; align-items:center;">
                 <span>${m.nombre}</span>
                 <span class="badge-snc">F${m.snc || 1}</span>
             </button>`;
@@ -203,26 +254,25 @@ function openModal(id) {
     currentId = id;
     document.getElementById('modalTitle').innerText = m.nombre;
     document.getElementById('modalMuscles').innerText = m.grupo;
-    document.getElementById('modalNote').innerText = m.nota || "";
     document.getElementById('imgTable').src = m.imgTable || "";
     document.getElementById('imgPhoto').src = m.imgPhoto || "";
-    
-    // CARGAR STORAGE
     document.getElementById('setupInput').value = localStorage.getItem('setup_'+id) || "";
     document.getElementById('weightInput').value = localStorage.getItem('weight_'+id) || "";
 
-    const planBSect = document.getElementById('sectionPlanB');
-    if(m.planB) { planBSect.style.display = 'block'; document.getElementById('modalPlanB').innerText = m.planB; } 
-    else { planBSect.style.display = 'none'; }
+    const pB = document.getElementById('sectionPlanB');
+    if(m.planB) { pB.style.display = 'block'; document.getElementById('modalPlanB').innerText = m.planB; } else { pB.style.display = 'none'; }
 
-    const vContainer = document.getElementById('modalVideo');
-    vContainer.innerHTML = m.video ? `<iframe src="${m.video}" frameborder="0" allowfullscreen></iframe>` : "";
+    const vC = document.getElementById('modalVideo');
+    vC.innerHTML = m.video ? `<iframe src="${m.video}" frameborder="0" allowfullscreen></iframe>` : "";
 
-    renderTable('sectionSteps', 'stepsTableContent', m.pasos);
-    renderTable('sectionErrors', 'errorTableContent', m.errores);
+    const sT = document.getElementById('sectionSteps');
+    if(m.pasos) {
+        sT.style.display = 'block';
+        document.getElementById('stepsTableContent').innerHTML = m.pasos.map(p => `<tr><td><strong>${p[0]}</strong></td><td>${p[1]}</td></tr>`).join('');
+    } else { sT.style.display = 'none'; }
 
     const sci = document.getElementById('modalSciatica');
-    const sData = { green: ['bg-green', 'OK'], yellow: ['bg-yellow', 'CUIDADO'], red: ['bg-red', 'RIESGO'] }[m.sciatica] || ['bg-green', 'OK'];
+    const sData = { green: ['bg-green', 'OK CIÁTICA'], yellow: ['bg-yellow', 'CUIDADO'], red: ['bg-red', 'RIESGO'] }[m.sciatica] || ['bg-green', 'OK'];
     sci.innerHTML = `<span class="badge-sciatica ${sData[0]}">${sData[1]}</span>`;
 
     document.getElementById('exerciseModal').classList.add('active');
@@ -231,23 +281,18 @@ function openModal(id) {
 function saveData() {
     localStorage.setItem('setup_' + currentId, document.getElementById('setupInput').value);
     localStorage.setItem('weight_' + currentId, document.getElementById('weightInput').value);
-    alert("Guardado");
+    alert("¡Datos guardados para la próxima sesión!");
 }
 
-function renderTable(sectId, contId, data) {
-    const sect = document.getElementById(sectId);
-    if(data?.length > 0) {
-        sect.style.display = 'block';
-        document.getElementById(contId).innerHTML = data.map(d => `<tr><td><strong>${d[0]}</strong></td><td>${d[1]}</td></tr>`).join('');
-    } else { sect.style.display = 'none'; }
+function closeModal() { 
+    document.getElementById('exerciseModal').classList.remove('active'); 
+    document.getElementById('modalVideo').innerHTML = ""; 
 }
-
-function closeModal() { document.getElementById('exerciseModal').classList.remove('active'); document.getElementById('modalVideo').innerHTML = ""; }
 
 function filterMachines() {
     const q = document.getElementById('searchBar').value.toLowerCase();
     const f = machines.filter(m => m.nombre.toLowerCase().includes(q) || m.grupo.toLowerCase().includes(q));
-    document.getElementById('allMachinesList').innerHTML = f.map(m => `<div class="btn btn-outline" onclick="openModal('${m.id}')"><span><strong>${m.nombre}</strong></span><i class="material-icons">info</i></div>`).join('');
+    document.getElementById('allMachinesList').innerHTML = f.map(m => `<div class="btn btn-outline" onclick="openModal('${m.id}')"><span><strong>${m.nombre}</strong></span><i class="material-icons" style="color:var(--primary);">info</i></div>`).join('');
 }
 filterMachines();
 </script>
