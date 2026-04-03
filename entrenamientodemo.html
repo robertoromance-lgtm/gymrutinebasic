@@ -404,7 +404,84 @@ const machines = [
 },
     { id: "crunch_unif", nombre: "Crunch Abdominal", grupo: "Core", sciatica: "green", snc: 1, tags: ["Lunes", "Viernes", "Sabado"] },
     { id: "back_ext", nombre: "Extensión Espalda", grupo: "Core", sciatica: "yellow", snc: 2, tags: ["Martes"] },
-    { id: "smith_maq", nombre: "Smith Machine", grupo: "Multiuso", sciatica: "yellow", snc: 4, tags: ["Lunes", "Sabado"] },
+    { 
+    id: "smith_machine_gluteos", 
+    nombre: "Smith Machine (Glúteos)", 
+    grupo: "Glúteo", 
+    sciatica: "red", 
+    snc: 4, 
+    planB: "PRENSA DE PIERNAS 45º",
+    tags: ["Lunes", "Viernes", "Sabado"],
+    video: "https://www.youtube.com/embed/4xjU4dFhKEw",
+    imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiScMFuDVyBXzU0hyphenhypheng-mWtRnIYRe6AIUI4Rjco3QEt7QcqJkvqx64NXjImG0gEAUOao2_-crKr8gOmLhX7mq79jmsmtMK5xtafYXhuJ7aXdRocxJpVK2KCFiPOtI2rmbXiWhPcKEefBkIpPbPFkR3rE-b-uFCHcpqHVFpnzcf8zoQa4POI0E8jje4_gM50/s16000/smithmachine%20gluteostabla.png",
+    imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjonPfql49ep6YdpkrHlwloo7LdealppN_EbZ_yFaSsDDS9nV5fLijJ7mdpedCgJ3NIQ_M9TD4GwlGyUv7O4L29WLcfue_ENgan99uVTbsRPbS-nV-JkiN8HrSZ6mgxrL5HD-mI9z4BN4H1ab_L6GYNZIQGpvCrXZPhIHvoKwyg4zgrLc1OtaioDx254Cw/s16000/smithmachinerojo.png",
+    pasos: [
+        ["1. Posición inicial", "Coloca la barra sobre trapecios/hombros, pies adelantados y desbloquea la barra."],
+        ["2. Descenso", "Inhala y baja las caderas hacia atrás como si te sentaras, manteniendo el torso estable."],
+        ["3. Profundidad", "Busca profundidad donde sientas máxima activación de glúteo sin dolor articular."],
+        ["4. Ascenso", "Exhala y sube empujando con los talones hasta volver a la posición inicial sin bloquear rodillas."]
+    ],
+    errores: [
+        ["Barra sobre el cuello", "Coloca la barra sobre los trapecios, nunca sobre la cervical."],
+        ["Pies demasiado atrás", "Adelanta los pies para aumentar la activación de glúteo."],
+        ["Subir con impulso", "Controla la fase excéntrica y evita rebotes en el fondo."],
+        ["Rodillas hacia dentro", "Mantén las rodillas alineadas con los pies durante todo el recorrido."],
+        ["No usar topes de seguridad", "Ajusta topes para evitar riesgos en fallos o fatiga extrema."]
+    ],
+    consejos: [
+        "Mantén el core activo y la mirada al frente para proteger la zona lumbar.",
+        "Empuja con los talones para priorizar glúteo mayor.",
+        "Controla la fase excéntrica; baja más despacio que subes.",
+        "Usa pausas de 1–2 segundos en el fondo para mayor reclutamiento glúteo.",
+        "Si eres principiante, practica la técnica sin carga o con barra vacía antes de añadir peso.",
+        "Siempre comprueba que la almohadilla esté bien centrada y no deslice durante el movimiento."
+    ],
+    ajustes: [
+        ["Altura de la barra", "Coloca la barra a la altura de los hombros para poder desbloquearla con seguridad."],
+        ["Almohadilla protectora", "Coloca la almohadilla centrada sobre los trapecios; si no hay almohadilla, usa una toalla doblada."],
+        ["Posición de los pies", "Pies a ancho de hombros y adelantados respecto a la barra para enfatizar glúteo."],
+        ["Topes de seguridad", "Ajusta los topes a una altura que evite quedar atrapado en caso de fallo."]
+    ]
+},
+    { 
+    id: "smith_machine_cuadriceps", 
+    nombre: "Smith Machine (Cuadriceps)", 
+    grupo: "Pierna", 
+    sciatica: "red", 
+    snc: 4, 
+    planB: "PRENSA DE PIERNAS 45º",
+    tags: ["Lunes", "Viernes", "Sabado"],
+    video: "https://www.youtube.com/embed/4xjU4dFhKEw",
+    imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWRF88gltbDeeisk3TQzml9P0WayKw95Q97XI-zeb6XloSPM3iTiPC-auXNK-fhGkHT3a6huEaG896IhFD3EJeoBKngE65_DecB-6jX94_TVGdkhVum8nWGpgCLBt0DCyP5H0LbXZ-OUf5lj89MttfhAJVDnRaazAc0ERWkrVls67_28vgaas-bXJuGt0/s16000/smith%20machine%20cuadriceps%20tabla.png",
+    imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjonPfql49ep6YdpkrHlwloo7LdealppN_EbZ_yFaSsDDS9nV5fLijJ7mdpedCgJ3NIQ_M9TD4GwlGyUv7O4L29WLcfue_ENgan99uVTbsRPbS-nV-JkiN8HrSZ6mgxrL5HD-mI9z4BN4H1ab_L6GYNZIQGpvCrXZPhIHvoKwyg4zgrLc1OtaioDx254Cw/s16000/smithmachinerojo.png",
+    pasos: [
+        ["1. Posición inicial", "Coloca la barra sobre trapecios/hombros, pies adelantados y desbloquea la barra."],
+        ["2. Descenso", "Inhala y baja las caderas hacia atrás como si te sentaras, manteniendo el torso estable."],
+        ["3. Profundidad", "Busca profundidad donde sientas máxima activación de glúteo sin dolor articular."],
+        ["4. Ascenso", "Exhala y sube empujando con los talones hasta volver a la posición inicial sin bloquear rodillas."]
+    ],
+    errores: [
+        ["Barra sobre el cuello", "Coloca la barra sobre los trapecios, nunca sobre la cervical."],
+        ["Pies demasiado atrás", "Adelanta los pies para aumentar la activación de glúteo."],
+        ["Subir con impulso", "Controla la fase excéntrica y evita rebotes en el fondo."],
+        ["Rodillas hacia dentro", "Mantén las rodillas alineadas con los pies durante todo el recorrido."],
+        ["No usar topes de seguridad", "Ajusta topes para evitar riesgos en fallos o fatiga extrema."]
+    ],
+    consejos: [
+        "Mantén el core activo y la mirada al frente para proteger la zona lumbar.",
+        "Empuja con los talones para priorizar glúteo mayor.",
+        "Controla la fase excéntrica; baja más despacio que subes.",
+        "Usa pausas de 1–2 segundos en el fondo para mayor reclutamiento glúteo.",
+        "Si eres principiante, practica la técnica sin carga o con barra vacía antes de añadir peso.",
+        "Siempre comprueba que la almohadilla esté bien centrada y no deslice durante el movimiento."
+    ],
+    ajustes: [
+        ["Altura de la barra", "Coloca la barra a la altura de los hombros para poder desbloquearla con seguridad."],
+        ["Almohadilla protectora", "Coloca la almohadilla centrada sobre los trapecios; si no hay almohadilla, usa una toalla doblada."],
+        ["Posición de los pies", "Pies a ancho de hombros y adelantados respecto a la barra para enfatizar glúteo."],
+        ["Topes de seguridad", "Ajusta los topes a una altura que evite quedar atrapado en caso de fallo."]
+    ]
+},
     { id: "decl_bench", nombre: "Decline Bench Press", grupo: "Pecho", sciatica: "green", snc: 4, tags: ["Miercoles", "Sabado"] },
     { id: "poleas_acc", nombre: "Poleas y Accesorios", grupo: "Multiuso", sciatica: "green", snc: 2, tags: ["Martes", "Miercoles", "Viernes"] },
     { id: "gem_pie", nombre: "Gemelo de Pie", grupo: "Pierna", sciatica: "green", snc: 1, tags: ["Sabado"] },
