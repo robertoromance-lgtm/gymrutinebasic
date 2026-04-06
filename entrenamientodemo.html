@@ -767,22 +767,15 @@ function openModal(id) {
     document.getElementById('modalMuscles').innerText = m.grupo;
     document.getElementById('imgTable').src = m.imgTable || "https://via.placeholder.com/400x200?text=Cargando+Anatomia...";
     document.getElementById('imgPhoto').src = m.imgPhoto || "https://via.placeholder.com/400x200?text=Foto+No+Disponible";
-    // --- NUEVA LÓGICA DE PROTECCIONES ---
-    const protSect = document.getElementById('protectionIconsContainer');
-    
-    // Verificamos si la máquina actual tiene una nueva propiedad 'recoProteccion'
-    if(m.recoProteccion && Object.keys(m.recoProteccion).length > 0) {
-        protSect.style.display = 'flex'; // Mostramos el contenedor
-        
-        // Generamos el HTML para cada protección
-        protSect.innerHTML = Object.entries(m.recoProteccion).map(([tipo, estado]) => {
-            const info = mapProteccion[tipo]; // Obtenemos info del mapa (nombre, imagen)
-            if (!info) return ''; // Por seguridad si el nombre no existe
 
-            // Decidimos la clase de estado (true -> verde, false -> rojo)
+    // --- LÓGICA DE PROTECCIONES ---
+    const protSect = document.getElementById('protectionIconsContainer');
+    if(m.recoProteccion && Object.keys(m.recoProteccion).length > 0) {
+        protSect.style.display = 'flex';
+        protSect.innerHTML = Object.entries(m.recoProteccion).map(([tipo, estado]) => {
+            const info = mapProteccion[tipo];
+            if (!info) return '';
             const statusClass = estado ? 'reco-status' : 'contra-status';
-            
-            // Retornamos el HTML del icono con anatomía, borde de color y etiqueta
             return `
                 <div class="protection-item">
                     <img src="${info.img}" alt="${info.label}" class="protection-image ${statusClass}">
@@ -791,7 +784,6 @@ function openModal(id) {
             `;
         }).join('');
     } else {
-        // Si no hay recomendaciones, ocultamos el contenedor
         protSect.style.display = 'none';
     }
 
@@ -807,6 +799,17 @@ function openModal(id) {
     const vContainer = document.getElementById('modalVideo');
     vContainer.innerHTML = m.video ? `<iframe src="${m.video}" frameborder="0" allowfullscreen></iframe>` : `<div style="padding:20px; text-align:center; color:#888; background:#eee; border-radius:12px;">Sin vídeo</div>`;
 
+    // --- LÓGICA DE CONSEJOS (Lo que faltaba) ---
+    const tipsSect = document.getElementById('sectionTips');
+    const tipsList = document.getElementById('tipsList');
+    if(m.consejos && m.consejos.length > 0) {
+        tipsSect.style.display = 'block';
+        tipsList.innerHTML = m.consejos.map(c => `<li>${c}</li>`).join('');
+    } else {
+        tipsSect.style.display = 'none';
+    }
+
+    // Renderizado de tablas
     renderTable('sectionSteps', 'stepsTableContent', m.pasos);
     renderTable('sectionErrors', 'errorTableContent', m.errores);
 
