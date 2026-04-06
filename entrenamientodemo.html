@@ -262,7 +262,84 @@ const machines = [
     { id: "pec_fly", nombre: "Apertura Pectoral Pec Fly", grupo: "Pecho", sciatica: "green", snc: 2, tags: ["Miercoles", "Sabado"] },
     { id: "vert_press", nombre: "Vertical Chest Press", grupo: "Pecho", sciatica: "green", snc: 3, tags: ["Miercoles"] },
     { id: "remo_sent", nombre: "Remo Sentado (Unificado)", grupo: "Espalda", sciatica: "yellow", snc: 3, tags: ["Martes", "Sabado"] },
-    { id: "jalon_pech", nombre: "Jalón al Pecho", grupo: "Espalda", sciatica: "green", snc: 3, tags: ["Martes", "Sabado"] },
+    { 
+    id: "jalon_pecho_abierto", 
+    nombre: "Jalón al Pecho (Agarre Abierto)", 
+    grupo: "Espalda", 
+    sciatica: "green", 
+    snc: 3, 
+    planB: "Dominadas asistidas o Polea alta con agarre neutro ancho",
+    tags: ["Martes", "Sabado"],
+    video: "https://www.youtube.com/embed/TcYwpzaRS1I",
+    imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRJ54vLwGiqXYbz2i4j99sFH10sIKVcHByL4mTimEEklCrNzCYVTqdo3lQmnv2e3PH9qU3Wx7kDwDsPHYcueVJv1-Cgrc2F-7LYxVwdnhNww0Dwu5-07Rf2JI18wWPe3fPLHPGSTuomHbPb8Fx77fM71flKBYksRq1B6qXo7grVoYaahHdsd37Np1Hx2s/s16000/jalontabla.png",
+    imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEw9N0aOkux8o11-rJreUOHmbLZ-k_kSYgL4iPgTwB1zJLiYv-I99fIcM34ihLZKGujMDQjvQtBbOaHQepr-cjz3meIiIsVIJNVop_9xgnvJjovlSyKyxCz4kADRBEt8f0SCaoVQ-OW-WpbvT4vMD4uJ0ddn4dN7phu6WUiBzlLUyeHUppjYOrzxyzjs8/s16000/Gemini_Generated_Image_jn0ozfjn0ozfjn0o.png",
+    
+    // Configuración de protecciones solicitada
+    recoProteccion: { 
+        faja: false, 
+        codera: true 
+    },
+
+    pasos: [
+        ["1. Ajuste inicial", "Ajusta el rodillo de las piernas para que tus muslos queden firmes y no te levantes del asiento."],
+        ["2. Agarre", "Sujeta la barra con un agarre amplio (palmas hacia adelante) y siéntate bloqueando las piernas."],
+        ["3. Ejecución", "Saca pecho y lleva la barra hacia la parte superior del esternón, dirigiendo los codos hacia abajo."],
+        ["4. Regreso", "Extiende los brazos lentamente controlando el peso hasta estirar los dorsales."]
+    ],
+    errores: [
+        ["Tirar trasnuca", "Lleva la barra siempre al pecho; evita tracciones por detrás del cuello para proteger el hombro."],
+        ["Inclinación excesiva", "Mantén una ligera inclinación; no uses el torso como palanca balanceándote."],
+        ["Encoger hombros", "Baja las escápulas antes de tirar; evita que los trapecios suban hacia las orejas."],
+        ["Agarre demasiado ancho", "No excedas la comodidad articular; si hay molestias, cierra un poco el agarre."],
+        ["Usar impulso", "Controla la fase de subida y evita rebotes bruscos."]
+    ],
+    consejos: [
+        "Realiza una retracción escapular (junta las escápulas) justo antes de empezar a tirar.",
+        "Imagina que quieres meter los codos en los bolsillos traseros de tu pantalón.",
+        "Mantén el pecho alto durante todo el movimiento para una trayectoria óptima.",
+        "Prioriza el control en la subida (fase excéntrica) para maximizar el estímulo muscular.",
+        "Este agarre enfatiza el dorsal externo y la amplitud de la espalda (forma en V)."
+    ]
+},
+{ 
+    id: "jalon_pecho_triangular", 
+    nombre: "Jalón al Pecho (Agarre Triangular)", 
+    grupo: "Espalda", 
+    sciatica: "green", 
+    snc: 3, 
+    planB: "Dominadas asistidas neutras o Polea alta con agarre neutro",
+    tags: ["Martes", "Sabado"],
+    video: "https://www.youtube.com/embed/cVlUjFA5P-0",
+    imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjRJ54vLwGiqXYbz2i4j99sFH10sIKVcHByL4mTimEEklCrNzCYVTqdo3lQmnv2e3PH9qU3Wx7kDwDsPHYcueVJv1-Cgrc2F-7LYxVwdnhNww0Dwu5-07Rf2JI18wWPe3fPLHPGSTuomHbPb8Fx77fM71flKBYksRq1B6qXo7grVoYaahHdsd37Np1Hx2s/s16000/jalontabla.png",
+    imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEnpIq8qCWmU_-56IpJQFlytRcyTF7PNJ6apmE0vQL3HP3Nj7V_X1CUqWzR-CX1xBGk1WEUaPf5Iu4dHAOwQKqTk7rxxwGxg_koUJaJgrWH1O9qZtL5KcuuFPQm29IwWIgbEJmA9w1v3AlpNUsBhTqMxg_7KEscf9CF4baYaeA_PUpr3H9tMHw3NnM3mw/s16000/jalon%20polea%20triangulo%20basic.png",
+    
+    // Configuración de protección
+    recoProteccion: { 
+        faja: false, 
+        codera: true 
+    },
+
+    pasos: [
+        ["1. Preparación", "Coloca el agarre triangular (V-bar) en la polea y ajusta el rodillo para que tus piernas no se levanten."],
+        ["2. Posición", "Sujeta el agarre con ambas manos enfrentadas, siéntate y mantén el pecho alto con una ligera inclinación hacia atrás."],
+        ["3. Ejecución", "Lleva el triángulo hacia la parte superior del pecho, dirigiendo los codos hacia abajo y pegados al cuerpo."],
+        ["4. Retorno", "Extiende los brazos de forma lenta y controlada hasta sentir el estiramiento en los dorsales."]
+    ],
+    errores: [
+        ["Tirar con los brazos", "Concéntrate en iniciar el tirón con los codos y la retracción de las escápulas."],
+        ["Inclinarse en exceso", "Evita balancear el torso para ganar impulso; el cuerpo debe permanecer estable."],
+        ["Agarre demasiado cerrado", "Si notas mucha presión en las muñecas, ajusta ligeramente la posición o la carga."],
+        ["Subir con rebote", "Controla la fase excéntrica (subida) en todo momento para evitar tirones articulares."]
+    ],
+    consejos: [
+        "Piensa en 'cerrar las escápulas' al final del tirón para maximizar el estímulo en el grosor de la espalda.",
+        "Mantén el pecho alto y la mirada al frente para asegurar una trayectoria del cable óptima.",
+        "Lleva los codos bien pegados al torso para priorizar el dorsal medio y los romboides.",
+        "Controla la subida lenta (fase excéntrica) para mayor salud articular y desarrollo muscular.",
+        "Si notas que los bíceps se fatigan antes que la espalda, intenta usar menos carga o enfócate más en el tirón desde el codo.",
+        "Este agarre suele permitir mover cargas mayores con menos riesgo para el hombro que el agarre abierto."
+    ]
+},
     { id: "dom_asist", nombre: "Dominadas Asistidas", grupo: "Espalda", sciatica: "green", snc: 3, tags: ["Martes"] },
     { id: "ext_lumb", nombre: "Extensión Lumbar Placas", grupo: "Espalda", sciatica: "yellow", snc: 2, tags: ["Martes"] },
     { id: "homb_conv", nombre: "Press Hombro Convergente", grupo: "Hombro", sciatica: "green", snc: 3, tags: ["Miercoles", "Sabado"] },
