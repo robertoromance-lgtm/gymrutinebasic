@@ -450,8 +450,8 @@ const machines = [
     imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkvBHuqqc7ax0_fGuSv2ay0SEDgnJIMJtiUz3iGFgVCr1_zjTxamBBZnKyz9Ei7a_glH_VuwwYDKrXQHhTteeKLvO3x5q6CnThXw_y0Whqz8JrxAeaFEzcKAQhMaymKXcenz2n_iSMKLT-4ZmiIo8MAHCqj_Ik3wfX6eSEVmBbPUUvwVtlvkTb8Nc9dmo/s16000/gemmatrix%20sentado.png",
     // --- NUEVA PROPIEDAD DE PROTECCIONES ---
     recoProteccion: { 
-        faja: true, // Recomendada (Verde)
-        rodillera: true // Recomendada (Verde)
+        faja: false // NO Recomendada (Rojo)
+        rodillera: false // NO Recomendada (Rojo)
     },
     // Codera y Hombrera no están, así que son indiferentes y no salen.
     pasos: [
@@ -474,7 +474,43 @@ const machines = [
         "Incluye gemelo sentado al final de la sesión de piernas para evitar fatiga prematura."
     ]
 },
-    { id: "crunch_unif", nombre: "Crunch Abdominal", grupo: "Core", sciatica: "green", snc: 1, tags: ["Lunes", "Viernes", "Sabado"] },
+    { 
+    id: "crunch_abdominal", 
+    nombre: "Crunch Abdominal", 
+    grupo: "Abdomen", 
+    sciatica: "green", 
+    snc: 1, 
+    planB: "PLANCHA",
+    tags: ["Miercoles", "Sabado"],
+    video: "https://www.youtube.com/embed/Ic6DrH6cKvQ",
+    imgTable: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjt1YkEZ_ruUD8To-I6MkqH8UPHTNWw_ZJ5c6fDAVws6zVSNMHSUgXDE0fSIDi1W26_PZpaTWMXFMQo1AAp5RaOA4iykQ3dLVYGipYu2adKdikJ3hWxr9kPDpXexawZNGkTkruoQ5ilF2PQDjfPhpeVKAu7KPkrGP4kKg-HoPMYURv8Jvy-_Qh1A4Xwn7U/s16000/crunchtabla.png",
+    imgPhoto: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJnAHOc20_Fkqa6IhpdH1nHFWnRmGFad0bdelV7CnN3L1WgY86dK72bJ2uo4bxtgYkI2FBMZEm3Lg1Fkg0hJcZBfFImdSs5nJU6yhwVItrDGtM0f1V_hpth06KU9RhmJhtt_mxHX__EnC48MHQEMJTi0RCxEB_3ZLeRgh3X3ruxjpwJhguglXbOxhDThQ/s16000/crunchbasic.png",
+    
+    // Configuración de protección: Faja en Rojo (false), el resto no sale.
+    recoProteccion: { 
+        faja: false 
+    },
+
+    pasos: [
+        ["1. Posición inicial", "Siéntate con la espalda bien apoyada, los pies seguros y sujeta los agarres superiores."],
+        ["2. Ejecución", "Exhala y contrae el abdomen para flexionar el tronco hacia adelante de forma controlada."],
+        ["3. Contracción", "Aprieta el abdomen en el punto máximo durante 1 segundo."],
+        ["4. Retorno", "Inhala y regresa lentamente a la posición inicial manteniendo la tensión abdominal."]
+    ],
+    errores: [
+        ["Tirar del cuello", "Mantén las manos ligeras y lidera el movimiento con el abdomen."],
+        ["Balancear el tronco", "Apoya la espalda y evita impulsos con el torso."],
+        ["Subir con impulso", "Controla la fase concéntrica y excéntrica sin rebotes."],
+        ["Usar solo brazos", "Inicia y termina el movimiento con la contracción abdominal, no con los brazos."]
+    ],
+    consejos: [
+        "Contrae el ombligo hacia la columna para maximizar activación del recto abdominal.",
+        "Prioriza una fase excéntrica lenta para mayor estímulo y control.",
+        "Evita forzar el rango si hay dolor lumbar; reduce carga y ROM.",
+        "Combínalo con ejercicios anti-extensión (plank) para equilibrio de core.",
+        "Para progresar, añade pausas de 1–2 segundos en la contracción máxima."
+    ]
+},
     { id: "back_ext", nombre: "Extensión Espalda", grupo: "Core", sciatica: "yellow", snc: 2, tags: ["Martes"] },
     { 
     id: "smith_machine_gluteos", 
